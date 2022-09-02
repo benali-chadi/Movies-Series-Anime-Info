@@ -9,7 +9,7 @@ const NavBar = () => {
 	const inactiveStyle = "text-my-black hover:text-blue-300 font-bold";
 
 	return (
-		<div className="flex justify-between p-4 bg-white">
+		<div className="absolute inset-0 z-20 flex justify-between w-screen p-4 bg-white h-max">
 			<div className="flex self-stretch justify-center w-full gap-8">
 				<Link href="/" passHref>
 					<a

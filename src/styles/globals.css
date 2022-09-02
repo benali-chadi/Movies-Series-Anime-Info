@@ -12,7 +12,8 @@
 				180deg,
 				/* rgba(173, 2, 27, 1) 7%,
 				rgba(80, 2, 27, 1) 97% */
-				rgba(0,0,0,1) 7%, rgba(0,0,0,.7) 97%
+					rgba(0, 0, 0, 1) 7%,
+				rgba(0, 0, 0, 0.6) 97%
 			)
 			no-repeat;
 		/* background: black; */
@@ -25,6 +26,8 @@
 @layer components {
 	#__next {
 		height: 100%;
+		max-width: 1536px;
+		margin: 0 auto;
 	}
 	.noScroll {
 		overflow: auto;
@@ -33,5 +36,5 @@
 	}
 	.noScroll::-webkit-scrollbar {
 		display: none;
-	  }
+	}
 }
