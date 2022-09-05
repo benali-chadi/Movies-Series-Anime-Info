@@ -1,8 +1,7 @@
-// Item = Movie, Serie or Anime
-
 import React, { FC } from "react";
 
 interface Props {
+	id: number;
 	poster: string;
 	info: {
 		title: string;
@@ -12,7 +11,7 @@ interface Props {
 	rating: number;
 }
 
-const Item: FC<Props> = ({ poster, info, rating }) => {
+const Item: FC<Props> = ({ id, poster, info, rating }) => {
 	const backgroundStyle = {
 		background: `url(${poster}) no-repeat`,
 		backgroundSize: "12rem 17rem",
@@ -20,7 +19,7 @@ const Item: FC<Props> = ({ poster, info, rating }) => {
 
 	return (
 		<div
-			className={`min-w-[12rem] h-[17rem] rounded-xl relative flex flex-col justify-end shadow-xl hover:shadow-2xl`}
+			className={`min-w-[12rem] h-[17rem] rounded-xl relative flex flex-col justify-end shadow-xl hover:shadow-2xl hover:scale-105 cursor-pointer`}
 			style={backgroundStyle}
 		>
 			<div className="rounded-full bg-my-yellow w-[2.5rem] h-[2.5rem] flex flex-col items-center drop-shadow- justify-center absolute left-[40%] top-[-1rem] shadow-[inset_-1px_2px_5px_#000000]">
@@ -31,7 +30,7 @@ const Item: FC<Props> = ({ poster, info, rating }) => {
 				<h3 className="font-bold text-white">{info.title}</h3>
 				<div className="grid grid-cols-[1.5fr_1fr]">
 					<h4 className="font-bold text-white">{info.date}</h4>
-					<div className="grid grid-cols-2 gap-1">
+					<div className="flex flex-wrap">
 						{info.genre.map((g) => {
 							return (
 								<h4

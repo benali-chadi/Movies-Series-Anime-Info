@@ -12,7 +12,7 @@ const Trailer: FC<Props> = ({ id, setSelectedImage }) => {
 	const imagePath = `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
 
 	return (
-		<div className="relative flex-shrink-0 cursor-pointer hover:scale-110">
+		<div className="relative flex-shrink-0 cursor-pointer hover:scale-105">
 			<i
 				className="fa-solid fa-play absolute top-[calc(50%-1rem)] left-[calc(50%-1rem)] text-white text-[3rem]"
 				onClick={() => setShowVideo(true)}
@@ -27,7 +27,12 @@ const Trailer: FC<Props> = ({ id, setSelectedImage }) => {
 				<YouTube
 					videoId={id}
 					className="w-full h-full"
-					iframeClassName="w-full h-full"
+					iframeClassName="w-full h-full rounded-xl"
+					opts={{
+						playerVars: {
+							autoplay: 1,
+						},
+					}}
 				/>
 			</Modal>
 		</div>

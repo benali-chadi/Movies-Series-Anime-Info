@@ -1,0 +1,122 @@
+async function fetchGenres(url: string) {
+	const res = await fetch(url);
+	if (!res.ok) return { genres: null, ok: res.ok };
+
+	const json = await res.json();
+
+	const genres = json.data.map((genre) => genre.attributes.name);
+
+	return { genres, ok: res.ok };
+}
+
+// From Kitsu
+
+export async function getAnimeHomeData() {
+	const TrendigUrl = new URL(`${process.env.KITSU_URL}/trending/anime`);
+
+	TrendigUrl.searchParams.set("sort", "updatedAt");
+
+	const res = await fetch(TrendigUrl.href);
+	if (!res.ok) return { data: null, ok: res.ok };
+	const { data } = await res.json();
+
+	const videosIds = data.map((v) => {
+		return v.attributes.youtubeVideoId;
+	});
+
+	let items = [];
+
+	for (let item of data) {
+		const attr = item.attributes;
+		let { genres, ok } = await fetchGenres(
+			process.env.KITSU_URL + item.relationships.genres.links.related,
+		);
+		if (!ok) return { data: { items: null, videosIds }, ok: res.ok };
+
+		items.push({
+			poster: attr.posterImage.original ?? "",
+			info: {
+				title: attr.titles.en
+					? attr.titles.en
+					: attr.titles.en_jp
+					? attr.titles.en_jp
+					: "",
+				date: attr.startDate.substr(0, 4) ?? "",
+				genre: genres ?? [""],
+			},
+			rating: attr.averageRating,
+		});
+	}
+
+	return { data: { items, videosIds }, ok: res.ok };
+}
+
+// From GoGo Anime
+
+export async function getLatestEpisodes() {
+	const baseUrl = "https://gogoanime.herokuapp.com";
+	const RecentReleasedUrl = new URL(`${baseUrl}/recent-release`);
+
+	const res = await fetch(RecentReleasedUrl.href);
+	if (!res.ok) return { episodesUrl: null, ok: res.ok };
+	const data = await res.json();
+
+	const episodesUrl = data.map((ep) => ep.episodeUrl);
+
+	return { episodesUrl, ok: res.ok };
+}
+
+// From Jikan
+
+async function getItems(url) {
+	const res = await fetch(url.href);
+	if (!res.ok) return { items: null, ok: res.ok };
+
+	const { data } = await res.json();
+
+	const items = data.map((itm) => {
+		return {
+			id: itm.mal_id,
+			poster: itm.images.jpg.image_url ?? "",
+			info: {
+				title: itm.title_english
+					? itm.title_english
+					: itm.title
+					? itm.title
+					: "",
+				date: itm.year ?? "",
+				genre: itm.genres.map((g) => g.name),
+			},
+			rating: itm.score,
+		};
+	});
+
+	return { items, ok: res.ok };
+}
+
+export async function getLatestTrailers() {
+	const url = new URL(`${process.env.JIKAN_URL}seasons/now`);
+
+	const res = await fetch(url.href);
+	if (!res.ok) return { trailersIds: null, ok: res.ok };
+	const { data } = await res.json();
+
+	const trailersIds = data.map((itm) => itm.trailer.youtube_id);
+
+	return { trailersIds, ok: res.ok };
+}
+
+export async function getTopAnime() {
+	const url = new URL(`${process.env.JIKAN_URL}top/anime`);
+	url.searchParams.set("filter", "bypopularity");
+
+	return getItems(url);
+}
+
+export async function getLatestAnime() {
+	const url = new URL(`${process.env.JIKAN_URL}top/anime`);
+
+	url.searchParams.set("filter", "upcoming");
+
+	return getItems(url);
+}
