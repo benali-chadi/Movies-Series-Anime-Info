@@ -20,42 +20,40 @@ const Modal: FC<Props> = ({ show, close, children }) => {
 		close();
 	};
 
-	const modalContent = show ? (
-		<AnimatePresence>
-			<div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen">
-				<div
-					className="absolute inset-0 bg-black/75"
-					onClick={handleCloseClick}
-				></div>
+	const modalContent = (
+		<div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen">
+			<div
+				className="absolute inset-0 bg-black/75"
+				onClick={handleCloseClick}
+			></div>
 
-				<motion.div
-					key={show}
-					initial={{ opacity: 0 }}
-					animate={{
-						opacity: 1,
-						transition: { type: "tween", duration: 1 },
-					}}
-					exit={{
-						opacity: 0,
-						// transition: { type: "tween", duration: 1 },
-					}}
-					className="relative z-10 flex flex-col bg-black w-[70%] h-[60%] rounded-xl"
+			<motion.div
+				key={show}
+				initial={{ opacity: 0 }}
+				animate={{
+					opacity: 1,
+					transition: { type: "tween", duration: 1 },
+				}}
+				exit={{
+					opacity: 0,
+					// transition: { type: "tween", duration: 1 },
+				}}
+				className="relative z-10 flex flex-col bg-black w-[70%] h-[60%] rounded-xl"
+			>
+				<h1
+					className="self-end mr-2 text-3xl font-bold text-white cursor-pointer hover:scale-110"
+					onClick={handleCloseClick}
 				>
-					<h1
-						className="self-end mr-2 text-3xl font-bold text-white cursor-pointer hover:scale-110"
-						onClick={handleCloseClick}
-					>
-						x
-					</h1>
-					{children}
-				</motion.div>
-			</div>
-		</AnimatePresence>
-	) : null;
+					x
+				</h1>
+				{children}
+			</motion.div>
+		</div>
+	);
 
 	if (isBrowser) {
 		return createPortal(
-			modalContent,
+			<AnimatePresence>{show && modalContent}</AnimatePresence>,
 			document.getElementById("modal-root"),
 		);
 	} else {
