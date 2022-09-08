@@ -11,7 +11,7 @@ const NavBar = () => {
 	return (
 		<div className="absolute inset-0 z-20 flex justify-between w-screen p-4 bg-white h-max">
 			<div className="flex self-stretch justify-center w-full gap-8">
-				<Link href="/" passHref>
+				<Link href="/movies" passHref>
 					<a
 						href=""
 						className={`${
@@ -23,7 +23,7 @@ const NavBar = () => {
 						Movies
 					</a>
 				</Link>
-				<Link href="/Series" passHref>
+				<Link href="/series" passHref>
 					<a
 						href=""
 						className={`${
@@ -35,7 +35,7 @@ const NavBar = () => {
 						Series
 					</a>
 				</Link>
-				<Link href="/Anime" passHref>
+				<Link href="/anime" passHref>
 					<a
 						href=""
 						className={`${

@@ -10,7 +10,6 @@ interface Props {
 			info: {
 				title: string;
 				date: string;
-				genre: string[];
 			};
 			rating: number;
 		},

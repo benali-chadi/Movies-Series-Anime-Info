@@ -68,7 +68,7 @@ export async function getLatestEpisodes() {
 
 // From Jikan
 
-async function getItems(url) {
+const getItems = async (url) => {
 	const res = await fetch(url.href);
 	if (!res.ok) return { items: null, ok: res.ok };
 
@@ -85,14 +85,13 @@ async function getItems(url) {
 					? itm.title
 					: "",
 				date: itm.year ?? "",
-				genre: itm.genres.map((g) => g.name),
 			},
 			rating: itm.score,
 		};
 	});
 
 	return { items, ok: res.ok };
-}
+};
 
 export async function getLatestTrailers() {
 	const url = new URL(`${process.env.JIKAN_URL}seasons/now`);
