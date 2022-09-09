@@ -46,40 +46,48 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
 			)}
 			{/* Basic Info */}
 			<div className="z-10 flex justify-between">
-				<div className="flex gap-4 pr-5 bg-gradient-to-r from-black/70 via-black/30 to-transparent">
+				<div className="flex max-w-xl gap-4 pr-5 bg-black/50">
 					<img
 						src={poster}
 						alt="Movie Poster"
-						className="w-[7rem] h-[10rem]"
+						className="w-[10rem] h-[15rem]"
 					/>
-					<div className="self-center ">
-						<h2 className="text-2xl font-bold text-white">
+					<div className="self-center w-full">
+						<h2 className="w-full text-2xl font-bold text-white break-words">
 							{info.title}
 						</h2>
-						<p className="text-white">
-							{info.date.substring(0, 4) + " "}
-							{genres}
-						</p>
-						<p className="text-white">
-							{convertTime(info.runtime)}
-						</p>
+						<div>
+							<p className="text-white">
+								{new Date(info.date)
+									.toDateString()
+									.substring(4) + " "}
+							</p>
+							<p className="text-gray-300">{genres}</p>
+						</div>
+						{!!info.runtime && (
+							<p className="text-white">
+								{convertTime(info.runtime)}
+							</p>
+						)}
 					</div>
 				</div>
 				{/* Rating */}
-				<a
-					href={`https://www.imdb.com/title/${info.imdb_id}`}
-					target="_blank"
-					className="flex items-center self-center gap-2 p-2 rounded-xl bg-gradient-to-l from-white to-transparent"
-				>
-					<img
-						src="/images/imdb.png"
-						alt="imdb logo"
-						className="h-[2rem] w-[4rem]"
-					/>
-					<h2 className="text-3xl font-bold">
-						{parseFloat(info.rating).toFixed(1)}
-					</h2>
-				</a>
+				{!!info.rating && (
+					<a
+						href={`https://www.imdb.com/title/${info.imdb_id}`}
+						target="_blank"
+						className="flex items-center self-center gap-2 p-2 rounded-xl bg-gradient-to-l from-white to-transparent"
+					>
+						<img
+							src="/images/imdb.png"
+							alt="imdb logo"
+							className="h-[2rem] w-[4rem]"
+						/>
+						<h2 className="text-3xl font-bold">
+							{parseFloat(info.rating).toFixed(1)}
+						</h2>
+					</a>
+				)}
 			</div>
 			{/* Overview */}
 			<div className="w-[70%] z-10 self-center">

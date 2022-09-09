@@ -1,6 +1,9 @@
 import React from "react";
+import { useRouter } from "../../node_modules/next/router";
 import UpperPart from "../../src/components/itemPage/UpperPart";
 import ItemsList from "../../src/components/ItemsList";
+import PersonCard from "../../src/components/PersonCard";
+import PersonList from "../../src/components/PersonList";
 import { getNowPlaying } from "../../src/lib/Movies/homePageData";
 import {
 	getMedia,
@@ -9,8 +12,10 @@ import {
 	getSimilarMovies,
 } from "../../src/lib/Movies/specifiPageData";
 
-const MoviePage = ({ details, cast, media, similarMovies }) => {
-	const { images, videos } = media;
+const MoviePage = ({ details, cast, images, videos, similarMovies }) => {
+	const router = useRouter();
+	if (router.isFallback) return <div>Loading...</div>;
+
 	const upperpartData = {
 		id: details.id,
 		coverPoster: images.backdrops[0],
@@ -28,12 +33,8 @@ const MoviePage = ({ details, cast, media, similarMovies }) => {
 
 	return (
 		<div>
-			<UpperPart
-				id={upperpartData.id}
-				coverPoster={upperpartData.coverPoster}
-				poster={upperpartData.poster}
-				info={upperpartData.info}
-			/>
+			<UpperPart {...upperpartData} />
+			<PersonList title="Cast" data={cast} />
 			<ItemsList title="Similar Movies" data={similarMovies} />
 		</div>
 	);
@@ -54,12 +55,21 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+	console.log("id =", params.id);
 	const { data: details } = await getMovieDetails(params.id);
 	const { data: cast } = await getMovieCast(params.id);
 	const { data: media } = await getMedia(params.id);
 	const { data: similarMovies } = await getSimilarMovies(params.id);
 
-	return { props: { details, cast, media, similarMovies } };
+	return {
+		props: {
+			details,
+			cast,
+			images: media.images,
+			videos: media.videos,
+			similarMovies,
+		},
+	};
 }
 
 export default MoviePage;

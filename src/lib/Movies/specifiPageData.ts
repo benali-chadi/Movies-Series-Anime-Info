@@ -7,11 +7,18 @@ export async function getMovieDetails(movie_id: string) {
 	const url = new URL(`${baseMoviesUrl}${movie_id}`);
 	url.searchParams.set("api_key", process.env.TMDB_KEY);
 
-	const res = await fetch(url.href);
+	let res = await fetch(url.href);
 	if (!res.ok) return { data: null, ok: res.ok };
 
-	const data = await res.json();
+	let data = await res.json();
 
+	if (data.original_language === "ar") {
+		url.searchParams.set("language", "ar");
+		res = await fetch(url.href);
+		if (!res.ok) return { data: null, ok: res.ok };
+
+		data = await res.json();
+	}
 	return {
 		data: {
 			id: data.id,
@@ -44,10 +51,12 @@ export async function getMovieCast(movie_id: string) {
 	const { cast } = await res.json();
 
 	return {
-		data: cast.map((c) => {
+		data: cast.splice(0, 15).map((c) => {
 			return {
 				id: c.id,
-				poster: baseImageUrl + "w300/" + c.profile_path,
+				poster: c.profile_path
+					? baseImageUrl + "w300/" + c.profile_path
+					: "",
 				name: c.name,
 				character: c.character,
 			};

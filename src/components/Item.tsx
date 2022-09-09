@@ -29,7 +29,7 @@ const Item: FC<Props> = ({ id, poster, info, rating }) => {
 			onClick={handleClick}
 		>
 			<div className="rounded-full bg-my-yellow w-[2.5rem] h-[2.5rem] flex flex-col items-center drop-shadow- justify-center absolute left-[40%] top-[-1rem] shadow-[inset_-1px_2px_5px_#000000]">
-				<p className="font-bold">{rating.toFixed(1)}</p>
+				<p className="font-bold">{!!rating && rating.toFixed(1)}</p>
 			</div>
 			{/* Info */}
 			<div className="p-2 pt-0 bg-gradient-to-t from-black rounded-b-xl">

@@ -1,9 +1,10 @@
 const baseSeriesUrl = `${process.env.TMDB_URL}tv/`;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
+const apiKey = process.env.TMDB_KEY;
 
 export async function getLatestTrailers() {
 	const url = new URL(`${baseSeriesUrl}on_the_air`);
-	url.searchParams.set("api_key", process.env.TMDB_KEY);
+	url.searchParams.set("api_key", apiKey);
 	// url.searchParams.set("page", "1");
 
 	const res = await fetch(url.href);
@@ -15,7 +16,7 @@ export async function getLatestTrailers() {
 
 	for (let id of ids) {
 		const vidUrl = new URL(baseSeriesUrl + id + "/videos");
-		vidUrl.searchParams.set("api_key", process.env.TMDB_KEY);
+		vidUrl.searchParams.set("api_key", apiKey);
 		const { results } = await fetch(vidUrl.href).then((r) => r.json());
 
 		for (let vid of results) {
@@ -53,7 +54,7 @@ const getItems = async (url) => {
 
 export async function getTopSeries() {
 	const url = new URL(`${baseSeriesUrl}top_rated`);
-	url.searchParams.set("api_key", process.env.TMDB_KEY);
+	url.searchParams.set("api_key", apiKey);
 
 	const { items: topSeries, ok } = await getItems(url);
 
@@ -62,7 +63,7 @@ export async function getTopSeries() {
 
 export async function getPopularSeries() {
 	const url = new URL(`${baseSeriesUrl}popular`);
-	url.searchParams.set("api_key", process.env.TMDB_KEY);
+	url.searchParams.set("api_key", apiKey);
 
 	const { items: recentSeries, ok } = await getItems(url);
 
