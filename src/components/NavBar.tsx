@@ -27,7 +27,7 @@ const NavBar = () => {
 					<a
 						href=""
 						className={`${
-							router.pathname === "/Series"
+							router.pathname === "/series"
 								? activeStyle
 								: inactiveStyle
 						}`}
@@ -39,7 +39,7 @@ const NavBar = () => {
 					<a
 						href=""
 						className={`${
-							router.pathname === "/Anime"
+							router.pathname === "/anime"
 								? activeStyle
 								: inactiveStyle
 						}`}

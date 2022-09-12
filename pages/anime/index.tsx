@@ -1,6 +1,6 @@
 import React from "react";
 import ItemsList from "../../src/components/ItemsList";
-import Trailers from "../../src/components/trailers/Trailers";
+import Trailers from "../../src/components/Trailers";
 import {
 	getAnimeHomeData,
 	getLatestAnime,

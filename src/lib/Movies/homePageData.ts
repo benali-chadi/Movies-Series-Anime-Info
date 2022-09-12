@@ -1,17 +1,12 @@
 const baseMoviesUrl = `${process.env.TMDB_URL}movie/`;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.TMDB_KEY;
-// 2016-11-16
+
 export async function getLatestTrailers() {
-	// const url = new URL(`${baseMoviesUrl}upcoming`);
-	// url.searchParams.set("api_key", apiKey);
-	// url.searchParams.set("page", "1");
 	const currentYear = new Date().getFullYear();
 	const url = new URL(`${process.env.TMDB_URL}discover/movie`);
 	url.searchParams.set("api_key", apiKey);
-	// url.searchParams.set("sort_by", "release_date.desc");
 	url.searchParams.set("release_date.gte", `${currentYear}-01-01`);
-	// url.searchParams.set("page", "2");
 
 	const res = await fetch(url.href);
 	if (!res.ok) return { trailersIds: null, ok: res.ok };
@@ -46,7 +41,9 @@ export const getItems = async (url) => {
 	const items = results.map((movie) => {
 		return {
 			id: movie.id,
-			poster: baseImageUrl + "w300/" + movie.poster_path,
+			poster: movie.poster_path
+				? baseImageUrl + "w300/" + movie.poster_path
+				: "",
 			info: {
 				title: movie.title,
 				date: movie.release_date.substr(0, 4),

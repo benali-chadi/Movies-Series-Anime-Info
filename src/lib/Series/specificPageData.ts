@@ -1,35 +1,59 @@
 import { getItems } from "./homePageData";
 
-const baseMoviesUrl = `${process.env.TMDB_URL}movie/`;
+const baseSeriesUrl = `${process.env.TMDB_URL}tv/`;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.TMDB_KEY;
 
-export async function getMovieDetails(movie_id: string) {
-	const url = new URL(`${baseMoviesUrl}${movie_id}`);
+export async function getSerieDetails(serie_id: string) {
+	const url = new URL(`${baseSeriesUrl}${serie_id}`);
 	url.searchParams.set("api_key", apiKey);
 
 	let res = await fetch(url.href);
 	if (!res.ok) return { data: null, ok: res.ok };
 
 	let data = await res.json();
+	const latest_ep = data.last_episode_to_air;
+	const seasons = data.seasons
+		? data.seasons
+				.filter((s) => s.season_number > 0)
+				.map((s) => ({
+					poster: s.poster_path
+						? baseImageUrl + "w300/" + s.poster_path
+						: "",
+					airDate: s.air_date,
+					epCount: s.episode_count,
+					name: s.name,
+					number: s.season_number,
+					overview: s.overview,
+				}))
+		: null;
 
-	if (data.original_language === "ar") {
-		url.searchParams.set("language", "ar");
-		res = await fetch(url.href);
-		if (!res.ok) return { data: null, ok: res.ok };
-
-		data = await res.json();
-	}
 	return {
 		data: {
 			id: data.id,
-			imdb_id: data.imdb_id,
-			title: data.title,
-			date: data.release_date,
+			name: data.name,
+			firstAirDate: data.first_air_date,
 			genres: data.genres.map((g) => g.name),
-			runtime: data.runtime,
+			episodeRunTime: data.episode_run_time,
 			overview: data.overview,
 			rating: data.vote_average,
+			creators: data.created_by.map((c) => ({
+				id: c.id,
+				name: c.name,
+				job: "creator",
+			})),
+			latestEpisode: {
+				poster: latest_ep.still_path
+					? baseImageUrl + "w300/" + latest_ep.still_path
+					: "",
+				airDate: latest_ep.air_date,
+				epNumber: latest_ep.episode_number,
+				name: latest_ep.name,
+				overview: latest_ep.overview,
+				seasonNumber: latest_ep.season_number,
+				rating: latest_ep.vote_average,
+			},
+			seasons,
 			generalInfo: {
 				status: data.status,
 				productionCompanies: data.production_companies.map(
@@ -42,16 +66,21 @@ export async function getMovieDetails(movie_id: string) {
 					}),
 				),
 				originalLanguage: data.original_language,
-				budget: data.budget,
-				revenue: data.revenue,
+				networks: data.networks.map((n) => ({
+					id: n.id,
+					poster: n.logo_path
+						? baseImageUrl + "w300/" + n.logo_path
+						: "",
+					name: n.name,
+				})),
 			},
 		},
 		ok: res.ok,
 	};
 }
 
-export async function getMovieCast(movie_id: string) {
-	const url = new URL(`${baseMoviesUrl}${movie_id}/credits`);
+export async function getSerieCast(serie_id: string) {
+	const url = new URL(`${baseSeriesUrl}${serie_id}/credits`);
 	url.searchParams.set("api_key", apiKey);
 
 	const res = await fetch(url.href);
@@ -89,10 +118,10 @@ export async function getMovieCast(movie_id: string) {
 	};
 }
 
-export async function getMedia(movie_id: string) {
-	const imagesUrl = new URL(`${baseMoviesUrl}${movie_id}/images`);
+export async function getMedia(serie_id: string) {
+	const imagesUrl = new URL(`${baseSeriesUrl}${serie_id}/images`);
 	imagesUrl.searchParams.set("api_key", apiKey);
-	const videosURl = new URL(`${baseMoviesUrl}${movie_id}/videos`);
+	const videosURl = new URL(`${baseSeriesUrl}${serie_id}/videos`);
 	videosURl.searchParams.set("api_key", apiKey);
 
 	const res1 = await fetch(imagesUrl.href);
@@ -116,8 +145,8 @@ export async function getMedia(movie_id: string) {
 	};
 }
 
-export async function getSimilarMovies(movie_id: string) {
-	const url = new URL(`${baseMoviesUrl}${movie_id}/similar`);
+export async function getSimilarSeries(serie_id: string) {
+	const url = new URL(`${baseSeriesUrl}${serie_id}/similar`);
 	url.searchParams.set("api_key", apiKey);
 
 	const { items: data, ok } = await getItems(url);

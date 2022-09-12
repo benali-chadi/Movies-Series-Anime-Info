@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import Trailer from "./Trailer";
+import Video from "./Video";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
@@ -16,10 +16,6 @@ const Trailers: FC<Props> = ({ videosIds }) => {
 		},
 		animate: {
 			opacity: 0.5,
-			// transition: {
-			// 	type: "tween",
-			// 	duration: 0.6,
-			// },
 		},
 		exit: {
 			opacity: 0.3,
@@ -46,7 +42,7 @@ const Trailers: FC<Props> = ({ videosIds }) => {
 			<div className="relative z-10 flex w-full gap-4 p-2 noScroll border-x-[.2rem] border-transparent rounded-3xl">
 				{videosIds.map((id) => {
 					return (
-						<Trailer
+						<Video
 							id={id}
 							setSelectedImage={setSelectedImage}
 							key={id}

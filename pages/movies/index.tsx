@@ -1,6 +1,6 @@
 import React from "react";
 import ItemsList from "../../src/components/ItemsList";
-import Trailers from "../../src/components/trailers/Trailers";
+import Trailers from "../../src/components/Trailers";
 import {
 	getDiscoverAr,
 	getLatestTrailers,
@@ -16,12 +16,10 @@ const Movies = ({
 	arabicMovies,
 	trendingMovies,
 }) => {
-	// console.log(trailersIds);
 	return (
 		<div className="flex flex-col gap-[5rem] mt-3">
 			<Trailers videosIds={trailersIds} />
 			<ItemsList title="Trending Movies" data={trendingMovies} />
-			{/* <ItemsList title="Recent Movies" data={upcomingMovies} /> */}
 			<ItemsList title="آخر الأفلام العربية" data={arabicMovies} />
 			<ItemsList title="Top Movies" data={topMovies} />
 		</div>

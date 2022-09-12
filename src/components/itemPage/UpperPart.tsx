@@ -4,6 +4,13 @@ interface Props {
 	id: number;
 	coverPoster: string;
 	poster: string;
+	crew: [
+		{
+			id: number;
+			name: string;
+			job: string;
+		},
+	];
 	info: {
 		title: string;
 		date: string;
@@ -15,7 +22,7 @@ interface Props {
 	};
 }
 
-const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
+const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 	const [showMore, setShowMore] = useState(false);
 
 	const genres = info.genres.map((g) => g).join(", ");
@@ -24,7 +31,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
 		const hours = Math.floor(time / 60);
 		const minutes = time % 60;
 
-		return `${hours}h ${minutes}m`;
+		return `${hours ? hours + "h" : ""} ${minutes ? minutes + "m" : ""}`;
 	};
 
 	const handleShowMore = (e) => {
@@ -32,9 +39,11 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
 		setShowMore(!showMore);
 	};
 
+	const isCreators = crew[0] && crew[0].job === "creator";
+
 	return (
 		<div
-			className={`flex flex-col gap-3 justify-end p-4 h-[70%] min-h-[25rem] relative bg-gray-500 overflow-hidden`}
+			className={`flex justify-between items-center p-4 h-[70%] min-h-[25rem] relative bg-gray-500 overflow-hidden`}
 		>
 			{/* Background */}
 			{coverPoster && (
@@ -44,16 +53,17 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
 					className="absolute inset-0 w-full h-full blur"
 				/>
 			)}
-			{/* Basic Info */}
-			<div className="z-10 flex justify-between">
-				<div className="flex max-w-xl gap-4 pr-5 bg-black/50">
+			<div className="z-10 grid grid-cols-[1.5fr_2fr_1fr] gap-2">
+				<div className="flex max-w-xl gap-4 pr-5 justify-self-start bg-black/50">
+					{/* Poster */}
 					<img
-						src={poster}
+						src={poster ? poster : "/images/default_poster.png"}
 						alt="Movie Poster"
-						className="w-[10rem] h-[15rem]"
+						className="w-[10rem] h-[15rem] bg-white"
 					/>
+					{/* Basic Info */}
 					<div className="self-center w-full">
-						<h2 className="w-full text-2xl font-bold text-white break-words">
+						<h2 className="w-full text-3xl font-bold text-white break-words">
 							{info.title}
 						</h2>
 						<div>
@@ -71,12 +81,69 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
 						)}
 					</div>
 				</div>
+				<div className="flex flex-col justify-between">
+					{/* Overview */}
+					<div
+						className={`min-w-[20rem] w-full z-10 ${
+							showMore ? "bg-black/30" : "bg-black/10"
+						}`}
+					>
+						<h2 className="text-2xl font-bold text-white">
+							Overview
+						</h2>
+						<p
+							className={`text-white ${
+								showMore
+									? "max-h-[7rem] overflow-auto"
+									: "max-h-[2rem] overflow-hidden"
+							}  noScroll transition-all px-2 ease-in-out duration-500 `}
+							id="overview"
+						>
+							{info.overview}
+						</p>
+						<button
+							className="text-gray-500 hover:opacity-70"
+							onClick={handleShowMore}
+						>
+							{showMore ? "Show Less" : "Show More"}
+						</button>
+					</div>
+					{/* Crew */}
+					<div className="p-2 bg-gradient-to-t from-black/60 to-black/10">
+						{isCreators && (
+							<h1 className="text-2xl font-bold text-white">
+								Creators
+							</h1>
+						)}
+						<div className="flex flex-wrap justify-between gap-1">
+							{crew.map((c) => (
+								<div
+									className="flex-shrink-0 text-white"
+									key={c.id}
+								>
+									<h3
+										className={`text-lg ${
+											!isCreators && "font-bold"
+										}  text-white`}
+									>
+										{c.name}
+									</h3>
+									{!isCreators && (
+										<p className="text-sm text-white">
+											{c.job}
+										</p>
+									)}
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
 				{/* Rating */}
 				{!!info.rating && (
 					<a
 						href={`https://www.imdb.com/title/${info.imdb_id}`}
 						target="_blank"
-						className="flex items-center self-center gap-2 p-2 rounded-xl bg-gradient-to-l from-white to-transparent"
+						className="flex items-center self-end gap-2 p-2 justify-self-end rounded-xl bg-gradient-to-l from-white to-transparent"
 					>
 						<img
 							src="/images/imdb.png"
@@ -88,26 +155,6 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, info }) => {
 						</h2>
 					</a>
 				)}
-			</div>
-			{/* Overview */}
-			<div className="w-[70%] z-10 self-center">
-				<h2 className="text-4xl font-bold text-white">Overview</h2>
-				<p
-					className={`text-white ${
-						showMore
-							? "max-h-[7rem] overflow-auto bg-black/30"
-							: "max-h-[2rem] overflow-hidden bg-black/10"
-					}  noScroll transition-all ease-in-out duration-500 `}
-					id="overview"
-				>
-					{info.overview}
-				</p>
-				<button
-					className="text-gray-500 hover:opacity-70"
-					onClick={handleShowMore}
-				>
-					{showMore ? "Show Less" : "Show More"}
-				</button>
 			</div>
 		</div>
 	);

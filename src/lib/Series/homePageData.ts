@@ -3,9 +3,10 @@ const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.TMDB_KEY;
 
 export async function getLatestTrailers() {
-	const url = new URL(`${baseSeriesUrl}on_the_air`);
+	const currentYear = new Date().getFullYear();
+	const url = new URL(`${process.env.TMDB_URL}discover/tv`);
 	url.searchParams.set("api_key", apiKey);
-	// url.searchParams.set("page", "1");
+	url.searchParams.set("first_air_date_year", `${currentYear}`);
 
 	const res = await fetch(url.href);
 	if (!res.ok) return { trailersIds: null, ok: res.ok };
@@ -30,7 +31,7 @@ export async function getLatestTrailers() {
 	return { trailersIds, ok: res.ok };
 }
 
-const getItems = async (url) => {
+export const getItems = async (url) => {
 	const res = await fetch(url.href);
 	if (!res.ok) return { items: null, ok: res.ok };
 
@@ -40,7 +41,9 @@ const getItems = async (url) => {
 		.map((serie) => {
 			return {
 				id: serie.id,
-				poster: baseImageUrl + "w300/" + serie.poster_path,
+				poster: serie.poster_path
+					? baseImageUrl + "w300/" + serie.poster_path
+					: "",
 				info: {
 					title: serie.name,
 					date: serie.first_air_date.substr(0, 4),
@@ -68,4 +71,13 @@ export async function getPopularSeries() {
 	const { items: recentSeries, ok } = await getItems(url);
 
 	return { recentSeries, ok };
+}
+
+export async function getTrendingSeries() {
+	const url = new URL(`${process.env.TMDB_URL}trending/tv/week`);
+	url.searchParams.set("api_key", apiKey);
+
+	const { items: trendingSeries, ok } = await getItems(url);
+
+	return { trendingSeries, ok };
 }

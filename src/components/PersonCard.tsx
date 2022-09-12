@@ -11,7 +11,7 @@ const PersonCard: FC<Props> = ({ id, poster, name, character }) => {
 	return (
 		<div className="min-w-[7rem] h-max rounded-xl flex flex-col justify-end">
 			<img
-				src={poster}
+				src={poster !== "" ? poster : "/images/default_person.png"}
 				alt="Person Image"
 				className="w-[7rem] h-[10rem] rounded-t-xl"
 			/>

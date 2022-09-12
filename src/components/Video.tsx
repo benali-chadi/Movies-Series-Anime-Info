@@ -1,13 +1,13 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import YouTube from "../../../node_modules/react-youtube/dist/YouTube";
-import Modal from "../Modal";
+import YouTube from "../../node_modules/react-youtube/dist/YouTube";
+import Modal from "./Modal";
 
 interface Props {
 	id: string;
-	setSelectedImage: (path: string) => void;
+	setSelectedImage?: (path: string) => void;
 }
 
-const Trailer: FC<Props> = ({ id, setSelectedImage }) => {
+const Video: FC<Props> = ({ id, setSelectedImage = () => {} }) => {
 	const [showVideo, setShowVideo] = useState(false);
 	const imagePath = `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
 
@@ -21,6 +21,7 @@ const Trailer: FC<Props> = ({ id, setSelectedImage }) => {
 				src={imagePath}
 				className="rounded-3xl"
 				id="trailer-image"
+				onClick={() => setShowVideo(true)}
 				onMouseEnter={() => setSelectedImage(imagePath)}
 			/>
 			<Modal show={showVideo} close={() => setShowVideo(false)}>
@@ -39,4 +40,4 @@ const Trailer: FC<Props> = ({ id, setSelectedImage }) => {
 	);
 };
 
-export default Trailer;
+export default Video;

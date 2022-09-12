@@ -18,6 +18,10 @@
 		overflow: auto;
 		overflow-x: hidden;
 	}
+	* {
+		margin: 0;
+		padding: 0;
+	}
 }
 
 @layer components {
