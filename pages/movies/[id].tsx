@@ -10,7 +10,7 @@ import {
 	getMovieDetails,
 	getSimilarMovies,
 } from "../../src/lib/Movies/specifiPageData";
-import MoviesInfoPart from "../../src/components/MoviesInfoPart";
+import MoviesInfoPart from "../../src/components/itemPage/MoviesInfoPart";
 import MediaPart from "../../src/components/itemPage/MediaPart";
 
 const MoviePage = ({ details, cast, crew, images, videos, similarMovies }) => {
@@ -36,8 +36,8 @@ const MoviePage = ({ details, cast, crew, images, videos, similarMovies }) => {
 	return (
 		<div className="flex flex-col gap-4">
 			<UpperPart {...upperpartData} />
-			<div className="grid w-full grid-cols-4 grid-rows-2 gap-4">
-				<div className="col-span-3 ">
+			<div className="grid grid-cols-4 grid-rows-2 gap-4 w-full">
+				<div className="col-span-3">
 					<PersonList title="Cast" data={cast} />
 				</div>
 				<div className="row-span-2">

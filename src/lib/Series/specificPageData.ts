@@ -17,6 +17,7 @@ export async function getSerieDetails(serie_id: string) {
 		? data.seasons
 				.filter((s) => s.season_number > 0)
 				.map((s) => ({
+					id: s.id,
 					poster: s.poster_path
 						? baseImageUrl + "w300/" + s.poster_path
 						: "",

@@ -9,11 +9,11 @@ interface Props {
 
 const PersonCard: FC<Props> = ({ id, poster, name, character }) => {
 	return (
-		<div className="min-w-[7rem] h-max rounded-xl flex flex-col justify-end">
+		<div className="w-[8rem] h-max rounded-xl flex flex-col justify-end flex-shrink-0">
 			<img
 				src={poster !== "" ? poster : "/images/default_person.png"}
 				alt="Person Image"
-				className="w-[7rem] h-[10rem] rounded-t-xl"
+				className="w-[8rem] h-[10rem] rounded-t-xl"
 			/>
 			<div className="w-full break-words">
 				<h3 className="text-xl font-bold text-white">{name}</h3>

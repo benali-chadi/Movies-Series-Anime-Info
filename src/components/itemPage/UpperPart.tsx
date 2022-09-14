@@ -9,7 +9,7 @@ interface Props {
 			id: number;
 			name: string;
 			job: string;
-		},
+		}
 	];
 	info: {
 		title: string;
@@ -53,8 +53,8 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 					className="absolute inset-0 w-full h-full blur"
 				/>
 			)}
-			<div className="z-10 grid grid-cols-[1.5fr_2fr_1fr] gap-2">
-				<div className="flex max-w-xl gap-4 pr-5 justify-self-start bg-black/50">
+			<div className="z-10 grid grid-cols-[1.5fr_2fr_1fr] gap-2 w-full">
+				<div className="flex gap-4 justify-self-start pr-5 max-w-xl bg-black/50">
 					{/* Poster */}
 					<img
 						src={poster ? poster : "/images/default_poster.png"}
@@ -94,8 +94,8 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 						<p
 							className={`text-white ${
 								showMore
-									? "max-h-[7rem] overflow-auto"
-									: "max-h-[2rem] overflow-hidden"
+									? "overflow-auto max-h-[7rem]"
+									: "overflow-hidden max-h-[1rem]"
 							}  noScroll transition-all px-2 ease-in-out duration-500 `}
 							id="overview"
 						>
@@ -115,7 +115,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 								Creators
 							</h1>
 						)}
-						<div className="flex flex-wrap justify-between gap-1">
+						<div className="flex flex-wrap gap-1 justify-between">
 							{crew.map((c) => (
 								<div
 									className="flex-shrink-0 text-white"
@@ -141,9 +141,18 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 				{/* Rating */}
 				{!!info.rating && (
 					<a
-						href={`https://www.imdb.com/title/${info.imdb_id}`}
+						href={
+							info.imdb_id !== -1
+								? `https://www.imdb.com/title/${info.imdb_id}`
+								: ""
+						}
 						target="_blank"
-						className="flex items-center self-end gap-2 p-2 justify-self-end rounded-xl bg-gradient-to-l from-white to-transparent"
+						onClick={(e) => {
+							if (info.imdb_id === -1) e.preventDefault();
+						}}
+						className={`flex gap-2 justify-self-end items-center self-end p-2 bg-gradient-to-l from-white to-transparent rounded-xl ${
+							info.imdb_id === -1 && "cursor-default"
+						}`}
 					>
 						<img
 							src="/images/imdb.png"

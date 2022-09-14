@@ -7,7 +7,7 @@ interface Props {
 			id: number;
 			poster: string;
 			name: string;
-		},
+		}
 	];
 	originalLanguage: string;
 	budget: number;
@@ -26,28 +26,28 @@ const MoviesInfoPart: FC<Props> = ({
 			<h2 className="mb-4 text-4xl font-bold">Info</h2>
 
 			<div>
-				<h3 className="text-xl font-bold ">Status</h3>
-				<p className="pl-2 ">{status}</p>
+				<h3 className="text-xl font-bold">Status</h3>
+				<p className="pl-2">{status}</p>
 			</div>
 			<div>
-				<h3 className="text-xl font-bold ">Original Language</h3>
-				<p className="pl-2 ">{originalLanguage}</p>
+				<h3 className="text-xl font-bold">Original Language</h3>
+				<p className="pl-2">{originalLanguage}</p>
 			</div>
 			<div>
-				<h3 className="text-xl font-bold ">Budget</h3>
-				<p className="pl-2 ">
+				<h3 className="text-xl font-bold">Budget</h3>
+				<p className="pl-2">
 					{budget ? "$" + budget.toLocaleString() : "-"}
 				</p>
 			</div>
 			<div>
-				<h3 className="text-xl font-bold ">Revenue</h3>
-				<p className="pl-2 ">
+				<h3 className="text-xl font-bold">Revenue</h3>
+				<p className="pl-2">
 					{revenue ? "$" + revenue.toLocaleString() : "-"}
 				</p>
 			</div>
 			{/* Production Companies */}
-			<h3 className="text-xl font-bold ">Production Companies</h3>
-			<div className="flex flex-wrap w-full gap-4">
+			<h3 className="text-xl font-bold">Production Companies</h3>
+			<div className="flex flex-wrap gap-4 w-full">
 				{productionCompanies.map((company) => (
 					<div
 						key={company.id}

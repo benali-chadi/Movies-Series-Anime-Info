@@ -9,13 +9,13 @@ const NavBar = () => {
 	const inactiveStyle = "text-my-black hover:text-blue-300 font-bold";
 
 	return (
-		<div className="absolute inset-0 z-20 flex justify-between w-screen p-4 bg-white h-max">
-			<div className="flex self-stretch justify-center w-full gap-8">
+		<div className="flex absolute inset-0 z-20 justify-between p-4 w-screen bg-white h-max">
+			<div className="flex gap-8 justify-center self-stretch w-full">
 				<Link href="/movies" passHref>
 					<a
 						href=""
 						className={`${
-							router.pathname === "/"
+							router.pathname === "/movies"
 								? activeStyle
 								: inactiveStyle
 						}`}
@@ -48,7 +48,7 @@ const NavBar = () => {
 					</a>
 				</Link>
 			</div>
-			<div className="flex items-center gap-2">
+			<div className="flex gap-2 items-center">
 				<i
 					className="text-black cursor-pointer fa-solid fa-magnifying-glass"
 					// onClick={(e) => {

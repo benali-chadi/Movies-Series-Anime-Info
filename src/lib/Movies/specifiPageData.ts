@@ -54,6 +54,8 @@ export async function getMovieCast(movie_id: string) {
 	const url = new URL(`${baseMoviesUrl}${movie_id}/credits`);
 	url.searchParams.set("api_key", apiKey);
 
+	console.log('heere')
+
 	const res = await fetch(url.href);
 	if (!res.ok) return { data: null, ok: res.ok };
 
@@ -70,6 +72,8 @@ export async function getMovieCast(movie_id: string) {
 			name: c.name,
 			job: c.job,
 		}));
+	
+	console.log("CAST =", cast);
 
 	return {
 		data: {

@@ -13,7 +13,9 @@ interface Props {
 }
 
 const MediaPart: FC<Props> = ({ images, videos }) => {
-	const [toggle, setToggle] = useState(true);
+	const [toggle, setToggle] = useState<"videos" | "backdrops" | "posters">(
+		"videos"
+	);
 	return (
 		<div>
 			<h2 className="pb-2 pl-2 text-4xl font-bold text-my-white">
@@ -22,40 +24,58 @@ const MediaPart: FC<Props> = ({ images, videos }) => {
 			<div className="flex gap-3 pb-2">
 				<h3
 					className={` text-2xl text-white cursor-pointer ${
-						toggle
-							? " border-b-4 border-my-yellow font-bold"
+						toggle === "videos"
+							? "font-bold border-b-4  border-my-yellow"
 							: "hover:border-b-2 border-my-yellow/70"
 					}`}
-					onClick={() => setToggle(true)}
+					onClick={() => setToggle("videos")}
 				>
 					Videos
 				</h3>
 				<h3
 					className={` text-2xl text-white cursor-pointer ${
-						!toggle
-							? " border-b-4 border-my-yellow font-bold"
+						toggle === "backdrops"
+							? "font-bold border-b-4  border-my-yellow"
 							: "hover:border-b-2 border-my-yellow/70"
 					}`}
-					onClick={() => setToggle(false)}
+					onClick={() => setToggle("backdrops")}
 				>
-					Pictures
+					Backdrops
+				</h3>
+				<h3
+					className={` text-2xl text-white cursor-pointer ${
+						toggle === "posters"
+							? "font-bold border-b-4  border-my-yellow"
+							: "hover:border-b-2 border-my-yellow/70"
+					}`}
+					onClick={() => setToggle("posters")}
+				>
+					Posters
 				</h3>
 			</div>
-			{toggle && (
-				<div className="flex w-full gap-4 p-2 noScroll rounded-3xl">
+			{toggle === "videos" && (
+				<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
 					{videos.map((key) => (
 						<Video id={key} key={key} />
 					))}
 				</div>
 			)}
-			{!toggle && (
-				<div className="flex w-full gap-4 p-2 noScroll rounded-3xl">
-					{images.backdrops.map((src) => (
-						<MyImage src={src} />
-					))}
-					{images.posters.map((src) => (
-						<MyImage src={src} />
-					))}
+			{toggle === "backdrops" && (
+				<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
+					{images.backdrops
+						.filter((src) => src !== "")
+						.map((src) => (
+							<MyImage src={src} />
+						))}
+				</div>
+			)}
+			{toggle === "posters" && (
+				<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
+					{images.posters
+						.filter((src) => src !== "")
+						.map((src) => (
+							<MyImage src={src} />
+						))}
 				</div>
 			)}
 		</div>
