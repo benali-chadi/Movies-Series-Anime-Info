@@ -13,8 +13,8 @@ const Anime = ({ videosIds, items, episodesUrl, latestItems }) => {
 	return (
 		<div className="flex flex-col gap-[5rem] mt-3">
 			<Trailers videosIds={videosIds} />
-			<ItemsList title="Latest Anime" data={latestItems} />
-			<ItemsList title="Top Anime" data={items} />
+			<ItemsList title="Top Airing Anime" data={latestItems} />
+			<ItemsList title="Top of All Time Anime" data={items} />
 			{/* <div className="flex gap-4">
 				<h2 className="text-3xl text-white">LATEST EPISODES </h2>
 			</div> */}

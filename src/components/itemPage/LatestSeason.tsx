@@ -32,14 +32,14 @@ const LatestSeason: FC<Props> = ({
 				alt="Season poster"
 				className="w-[20%]"
 			/>
-			<div className="flex flex-col gap-4 justify-center">
+			<div className="flex flex-col gap-4 justify-center px-2">
 				<div>
 					<h2 className="text-3xl font-bold">{name}</h2>
 					<h3 className="text-xl">
 						{airDate.substring(0, 4)} | {epCount} episodes
 					</h3>
 				</div>
-				<p>
+				<p className="text-justify">
 					{overview !== ""
 						? overview
 						: `${name} premiered on ${new Date(airDate)

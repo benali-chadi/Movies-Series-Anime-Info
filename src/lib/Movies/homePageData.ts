@@ -8,7 +8,7 @@ export async function getLatestTrailers() {
 	url.searchParams.set("api_key", apiKey);
 	url.searchParams.set("release_date.gte", `${currentYear}-01-01`);
 
-	const res = await fetch(url.href);
+	const res = await fetch(url);
 	if (!res.ok) return { trailersIds: null, ok: res.ok };
 
 	const { results } = await res.json();
@@ -19,7 +19,7 @@ export async function getLatestTrailers() {
 	for (let id of ids) {
 		const vidUrl = new URL(baseMoviesUrl + id + "/videos");
 		vidUrl.searchParams.set("api_key", apiKey);
-		const { results } = await fetch(vidUrl.href).then((r) => r.json());
+		const { results } = await fetch(vidUrl).then((r) => r.json());
 
 		for (let vid of results) {
 			if (vid.type === "Trailer") {
@@ -33,7 +33,7 @@ export async function getLatestTrailers() {
 }
 
 export const getItems = async (url) => {
-	const res = await fetch(url.href);
+	const res = await fetch(url);
 	if (!res.ok) return { items: null, ok: res.ok };
 
 	const { results } = await res.json();

@@ -17,6 +17,8 @@ interface Props {
 			name: string;
 		}
 	];
+	numOfEpisodes: number;
+	numOfSeasons: number;
 }
 
 const SeriesInfoPart: FC<Props> = ({
@@ -24,20 +26,30 @@ const SeriesInfoPart: FC<Props> = ({
 	productionCompanies,
 	originalLanguage,
 	networks,
+	numOfEpisodes,
+	numOfSeasons,
 }) => {
 	return (
 		<div className="flex flex-col gap-2 text-white">
 			<h2 className="mb-4 text-4xl font-bold">Info</h2>
 
-			<div>
-				<h3 className="text-xl font-bold">Status</h3>
-				<p className="pl-2">{status}</p>
-			</div>
-			<div>
-				<h3 className="text-xl font-bold">Original Language</h3>
-				<p className="pl-2">{originalLanguage}</p>
-			</div>
-			{/* Production Companies */}
+			<h3 className="text-xl font-bold">
+				Status<p className="pl-2 font-normal">{status}</p>
+			</h3>
+			<h3 className="text-xl font-bold">
+				Original Language
+				<p className="pl-2 font-normal">{originalLanguage}</p>
+			</h3>
+			<h3 className="text-xl font-bold">
+				Number Of Seasons
+				<p className="pl-2 font-normal">{numOfSeasons}</p>
+			</h3>
+			<h3 className="text-xl font-bold">
+				Number Of Episodes
+				<p className="pl-2 font-normal">{numOfEpisodes}</p>
+			</h3>
+
+			{/* Networks */}
 			<h3 className="text-xl font-bold">Networks</h3>
 			<div className="flex flex-wrap gap-4 w-full">
 				{networks.map((network) => (

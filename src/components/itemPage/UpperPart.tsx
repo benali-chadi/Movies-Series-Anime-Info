@@ -59,7 +59,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 					<img
 						src={poster ? poster : "/images/default_poster.png"}
 						alt="Movie Poster"
-						className="w-[10rem] h-[15rem] bg-white"
+						className="w-[10rem] h-full bg-white"
 					/>
 					{/* Basic Info */}
 					<div className="self-center w-full">

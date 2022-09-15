@@ -16,7 +16,7 @@ export async function getAnimeHomeData() {
 
 	TrendigUrl.searchParams.set("sort", "updatedAt");
 
-	const res = await fetch(TrendigUrl.href);
+	const res = await fetch(TrendigUrl);
 	if (!res.ok) return { data: null, ok: res.ok };
 	const { data } = await res.json();
 
@@ -29,7 +29,7 @@ export async function getAnimeHomeData() {
 	for (let item of data) {
 		const attr = item.attributes;
 		let { genres, ok } = await fetchGenres(
-			process.env.KITSU_URL + item.relationships.genres.links.related,
+			process.env.KITSU_URL + item.relationships.genres.links.related
 		);
 		if (!ok) return { data: { items: null, videosIds }, ok: res.ok };
 
@@ -57,7 +57,7 @@ export async function getLatestEpisodes() {
 	const baseUrl = "https://gogoanime.herokuapp.com";
 	const RecentReleasedUrl = new URL(`${baseUrl}/recent-release`);
 
-	const res = await fetch(RecentReleasedUrl.href);
+	const res = await fetch(RecentReleasedUrl);
 	if (!res.ok) return { episodesUrl: null, ok: res.ok };
 	const data = await res.json();
 
@@ -68,13 +68,15 @@ export async function getLatestEpisodes() {
 
 // From Jikan
 
-const getItems = async (url) => {
-	const res = await fetch(url.href);
+export const getItems = async (url) => {
+	const res = await fetch(url);
+	console.log("itm status = ", res.status);
 	if (!res.ok) return { items: null, ok: res.ok };
 
 	const { data } = await res.json();
 
 	const items = data.map((itm) => {
+		itm = itm.entry ? itm.entry : itm;
 		return {
 			id: itm.mal_id,
 			poster: itm.images.jpg.image_url ?? "",
@@ -86,7 +88,7 @@ const getItems = async (url) => {
 					: "",
 				date: itm.year ?? "",
 			},
-			rating: itm.score,
+			rating: itm.score ?? "",
 		};
 	});
 
@@ -94,13 +96,16 @@ const getItems = async (url) => {
 };
 
 export async function getLatestTrailers() {
-	const url = new URL(`${process.env.JIKAN_URL}seasons/now`);
+	const url = new URL(`${process.env.JIKAN_URL}top/anime`);
+	url.searchParams.set("filter", "upcoming");
 
-	const res = await fetch(url.href);
+	const res = await fetch(url);
 	if (!res.ok) return { trailersIds: null, ok: res.ok };
 	const { data } = await res.json();
 
-	const trailersIds = data.map((itm) => itm.trailer.youtube_id);
+	const trailersIds = data
+		.filter((itm) => itm.trailer.youtube_id)
+		.map((itm) => itm.trailer.youtube_id);
 
 	return { trailersIds, ok: res.ok };
 }
@@ -115,7 +120,7 @@ export async function getTopAnime() {
 export async function getLatestAnime() {
 	const url = new URL(`${process.env.JIKAN_URL}top/anime`);
 
-	url.searchParams.set("filter", "upcoming");
+	url.searchParams.set("filter", "airing");
 
 	return getItems(url);
 }

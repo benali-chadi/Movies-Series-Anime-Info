@@ -8,14 +8,14 @@ export async function getMovieDetails(movie_id: string) {
 	const url = new URL(`${baseMoviesUrl}${movie_id}`);
 	url.searchParams.set("api_key", apiKey);
 
-	let res = await fetch(url.href);
+	let res = await fetch(url);
 	if (!res.ok) return { data: null, ok: res.ok };
 
 	let data = await res.json();
 
 	if (data.original_language === "ar") {
 		url.searchParams.set("language", "ar");
-		res = await fetch(url.href);
+		res = await fetch(url);
 		if (!res.ok) return { data: null, ok: res.ok };
 
 		data = await res.json();
@@ -39,7 +39,7 @@ export async function getMovieDetails(movie_id: string) {
 							? baseImageUrl + "w300/" + company.logo_path
 							: "",
 						name: company.name,
-					}),
+					})
 				),
 				originalLanguage: data.original_language,
 				budget: data.budget,
@@ -54,9 +54,7 @@ export async function getMovieCast(movie_id: string) {
 	const url = new URL(`${baseMoviesUrl}${movie_id}/credits`);
 	url.searchParams.set("api_key", apiKey);
 
-	console.log('heere')
-
-	const res = await fetch(url.href);
+	const res = await fetch(url);
 	if (!res.ok) return { data: null, ok: res.ok };
 
 	const { cast, crew } = await res.json();
@@ -72,7 +70,7 @@ export async function getMovieCast(movie_id: string) {
 			name: c.name,
 			job: c.job,
 		}));
-	
+
 	console.log("CAST =", cast);
 
 	return {
@@ -99,8 +97,8 @@ export async function getMedia(movie_id: string) {
 	const videosURl = new URL(`${baseMoviesUrl}${movie_id}/videos`);
 	videosURl.searchParams.set("api_key", apiKey);
 
-	const res1 = await fetch(imagesUrl.href);
-	const res2 = await fetch(videosURl.href);
+	const res1 = await fetch(imagesUrl);
+	const res2 = await fetch(videosURl);
 
 	if (!res1.ok || !res2.ok) return { data: null, ok: false };
 
@@ -108,10 +106,10 @@ export async function getMedia(movie_id: string) {
 	const { results } = await res2.json();
 
 	images.backdrops = images.backdrops.map((i) =>
-		i.file_path ? baseImageUrl + "original/" + i.file_path : "",
+		i.file_path ? baseImageUrl + "original/" + i.file_path : ""
 	);
 	images.posters = images.posters.map((i) =>
-		i.file_path ? baseImageUrl + "w300/" + i.file_path : "",
+		i.file_path ? baseImageUrl + "w300/" + i.file_path : ""
 	);
 
 	return {

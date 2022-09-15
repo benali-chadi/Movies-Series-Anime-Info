@@ -8,7 +8,7 @@ export async function getSerieDetails(serie_id: string) {
 	const url = new URL(`${baseSeriesUrl}${serie_id}`);
 	url.searchParams.set("api_key", apiKey);
 
-	let res = await fetch(url.href);
+	let res = await fetch(url);
 	if (!res.ok) return { data: null, ok: res.ok };
 
 	let data = await res.json();
@@ -64,7 +64,7 @@ export async function getSerieDetails(serie_id: string) {
 							? baseImageUrl + "w300/" + company.logo_path
 							: "",
 						name: company.name,
-					}),
+					})
 				),
 				originalLanguage: data.original_language,
 				networks: data.networks.map((n) => ({
@@ -74,6 +74,8 @@ export async function getSerieDetails(serie_id: string) {
 						: "",
 					name: n.name,
 				})),
+				numOfEpisodes: data.number_of_episodes,
+				numOfSeasons: data.number_of_seasons,
 			},
 		},
 		ok: res.ok,
@@ -84,7 +86,7 @@ export async function getSerieCast(serie_id: string) {
 	const url = new URL(`${baseSeriesUrl}${serie_id}/credits`);
 	url.searchParams.set("api_key", apiKey);
 
-	const res = await fetch(url.href);
+	const res = await fetch(url);
 	if (!res.ok) return { data: null, ok: res.ok };
 
 	const { cast, crew } = await res.json();
@@ -125,8 +127,8 @@ export async function getMedia(serie_id: string) {
 	const videosURl = new URL(`${baseSeriesUrl}${serie_id}/videos`);
 	videosURl.searchParams.set("api_key", apiKey);
 
-	const res1 = await fetch(imagesUrl.href);
-	const res2 = await fetch(videosURl.href);
+	const res1 = await fetch(imagesUrl);
+	const res2 = await fetch(videosURl);
 
 	if (!res1.ok || !res2.ok) return { data: null, ok: false };
 
@@ -134,10 +136,10 @@ export async function getMedia(serie_id: string) {
 	const { results } = await res2.json();
 
 	images.backdrops = images.backdrops.map((i) =>
-		i.file_path ? baseImageUrl + "original/" + i.file_path : "",
+		i.file_path ? baseImageUrl + "original/" + i.file_path : ""
 	);
 	images.posters = images.posters.map((i) =>
-		i.file_path ? baseImageUrl + "w300/" + i.file_path : "",
+		i.file_path ? baseImageUrl + "w300/" + i.file_path : ""
 	);
 
 	return {

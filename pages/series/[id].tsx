@@ -37,7 +37,6 @@ const SeriePage = ({ details, cast, crew, images, videos, similarSeries }) => {
 		},
 	};
 
-	console.log("SEASONS =", details.seasons);
 	return (
 		<div className="flex flex-col gap-4">
 			<UpperPart {...upperpartData} />
@@ -48,7 +47,7 @@ const SeriePage = ({ details, cast, crew, images, videos, similarSeries }) => {
 				<div className="row-span-2">
 					<SeriesInfoPart {...details.generalInfo} />
 				</div>
-				<div className="col-span-3">
+				<div className="col-span-3 ml-4">
 					<LatestSeason
 						{...details.seasons[details.seasons.length - 1]}
 					/>
