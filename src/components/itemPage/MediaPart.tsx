@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
-import MyImage from "../MyImage";
+import MyImage from "../Common/MyImage";
 import Trailers from "../Trailers";
-import Video from "../Video";
+import Video from "../Common/Video";
 
 interface Props {
 	images: {
@@ -17,7 +17,7 @@ const MediaPart: FC<Props> = ({ images, videos }) => {
 		"videos"
 	);
 	return (
-		<div>
+		<div className="h-full">
 			<h2 className="pb-2 pl-2 text-4xl font-bold text-my-white">
 				Media
 			</h2>

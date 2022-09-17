@@ -4,8 +4,8 @@ import LatestSeason from "../../src/components/itemPage/LatestSeason";
 import MediaPart from "../../src/components/itemPage/MediaPart";
 import SeriesInfoPart from "../../src/components/itemPage/SeriesInfoPart";
 import UpperPart from "../../src/components/itemPage/UpperPart";
-import ItemsList from "../../src/components/ItemsList";
-import PersonList from "../../src/components/PersonList";
+import ItemsList from "../../src/components/Common/ItemsList";
+import PersonList from "../../src/components/Common/PersonList";
 import { getTrendingSeries } from "../../src/lib/Series/homePageData";
 import {
 	getMedia,

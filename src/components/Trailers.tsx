@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import Video from "./Video";
+import Video from "./Common/Video";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Props {
@@ -8,7 +8,7 @@ interface Props {
 
 const Trailers: FC<Props> = ({ videosIds }) => {
 	const [selectedImage, setSelectedImage] = useState(
-		`https://img.youtube.com/vi/${videosIds[0]}/mqdefault.jpg`,
+		`https://img.youtube.com/vi/${videosIds[0]}/mqdefault.jpg`
 	);
 	const bgVariants = {
 		initial: {

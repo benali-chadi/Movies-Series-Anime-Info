@@ -12,7 +12,7 @@ interface Props {
 				date: string;
 			};
 			rating: number;
-		},
+		}
 	];
 }
 
@@ -22,7 +22,7 @@ const ItemsList: FC<Props> = ({ title, data }) => {
 			<h2 className="relative z-10 pl-2 text-4xl font-bold text-my-white">
 				{title}
 			</h2>
-			<div className="flex flex-shrink-0 gap-4 p-4 py-8 overflow-x-scroll noScroll">
+			<div className="flex overflow-x-scroll flex-shrink-0 gap-4 p-4 py-8 noScroll">
 				{data.map((item) => {
 					return (
 						<Item

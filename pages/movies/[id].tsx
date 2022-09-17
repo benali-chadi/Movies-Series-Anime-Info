@@ -1,8 +1,8 @@
 import React from "react";
 import { useRouter } from "../../node_modules/next/router";
 import UpperPart from "../../src/components/itemPage/UpperPart";
-import ItemsList from "../../src/components/ItemsList";
-import PersonList from "../../src/components/PersonList";
+import ItemsList from "../../src/components/Common/ItemsList";
+import PersonList from "../../src/components/Common/PersonList";
 import { getNowPlaying } from "../../src/lib/Movies/homePageData";
 import {
 	getMedia,

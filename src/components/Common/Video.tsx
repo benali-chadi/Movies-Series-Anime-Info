@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import YouTube from "../../node_modules/react-youtube/dist/YouTube";
+import YouTube from "react-youtube";
 import Modal from "./Modal";
 
 interface Props {

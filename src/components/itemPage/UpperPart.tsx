@@ -68,9 +68,11 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 						</h2>
 						<div>
 							<p className="text-white">
-								{new Date(info.date)
-									.toDateString()
-									.substring(4) + " "}
+								{info.date.toString().length > 4
+									? new Date(info.date)
+											.toDateString()
+											.substring(4) + " "
+									: info.date}
 							</p>
 							<p className="text-gray-300">{genres}</p>
 						</div>
@@ -85,7 +87,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 					{/* Overview */}
 					<div
 						className={`min-w-[20rem] w-full z-10 ${
-							showMore ? "bg-black/30" : "bg-black/10"
+							showMore ? "bg-black/50" : "bg-black/10"
 						}`}
 					>
 						<h2 className="text-2xl font-bold text-white">

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { useRouter } from "../../node_modules/next/router";
+import { useRouter } from "next/router";
 
 interface Props {
 	id: number;
@@ -26,7 +26,7 @@ const Item: FC<Props> = ({ id, poster, info, rating }) => {
 	};
 	return (
 		<div
-			className={`min-w-[12rem] h-[17rem] rounded-xl relative flex flex-col justify-end shadow-xl hover:shadow-2xl hover:scale-105 cursor-pointer`}
+			className={`flex relative flex-col flex-shrink-0 justify-end rounded-xl shadow-xl cursor-pointer w-[12rem] h-[17rem] hover:shadow-2xl hover:scale-105`}
 			// style={backgroundStyle}
 			onClick={handleClick}
 		>

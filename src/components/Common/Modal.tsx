@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -21,14 +21,13 @@ const Modal: FC<Props> = ({ show, close, children }) => {
 	};
 
 	const modalContent = (
-		<div className="absolute inset-0 z-10 flex items-center justify-center w-screen h-screen">
+		<div className="flex absolute inset-0 z-10 justify-center items-center w-screen h-screen">
 			<div
 				className="absolute inset-0 bg-black/75"
 				onClick={handleCloseClick}
 			></div>
 
 			<motion.div
-				key={show}
 				initial={{ opacity: 0 }}
 				animate={{
 					opacity: 1,
@@ -54,7 +53,7 @@ const Modal: FC<Props> = ({ show, close, children }) => {
 	if (isBrowser) {
 		return createPortal(
 			<AnimatePresence>{show && modalContent}</AnimatePresence>,
-			document.getElementById("modal-root"),
+			document.getElementById("modal-root")
 		);
 	} else {
 		return null;
