@@ -8,12 +8,13 @@
 	body,
 	html {
 		height: 100%;
-		background: linear-gradient(
-				180deg,
-				rgba(0, 0, 0, 1) 7%,
-				rgba(0, 0, 0, 0.6) 97%
-			)
-			no-repeat;
+		/* background: linear-gradient( */
+		/* 		180deg, */
+		/* 		rgba(0, 0, 0, 1) 7%, */
+		/* 		rgba(0, 0, 0, 0.6) 97% */
+		/* 	) */
+		/* 	no-repeat; */
+    background: #1B2430;
 		font-family: "Source Sans Pro";
 		overflow: auto;
 		overflow-x: hidden;

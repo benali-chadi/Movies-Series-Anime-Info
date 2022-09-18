@@ -69,17 +69,13 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 						<div>
 							<p className="text-white">
 								{info.date.toString().length > 4
-									? new Date(info.date)
-											.toDateString()
-											.substring(4) + " "
+									? new Date(info.date).toDateString().substring(4) + " "
 									: info.date}
 							</p>
 							<p className="text-gray-300">{genres}</p>
 						</div>
 						{!!info.runtime && (
-							<p className="text-white">
-								{convertTime(info.runtime)}
-							</p>
+							<p className="text-white">{convertTime(info.runtime)}</p>
 						)}
 					</div>
 				</div>
@@ -90,9 +86,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 							showMore ? "bg-black/50" : "bg-black/10"
 						}`}
 					>
-						<h2 className="text-2xl font-bold text-white">
-							Overview
-						</h2>
+						<h2 className="text-2xl font-bold text-white">Overview</h2>
 						<p
 							className={`text-white ${
 								showMore
@@ -103,26 +97,16 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 						>
 							{info.overview}
 						</p>
-						<button
-							className="text-gray-500 hover:opacity-70"
-							onClick={handleShowMore}
-						>
+						<button className="text-gray-500 hover:opacity-70" onClick={handleShowMore}>
 							{showMore ? "Show Less" : "Show More"}
 						</button>
 					</div>
 					{/* Crew */}
 					<div className="p-2 bg-gradient-to-t from-black/60 to-black/10">
-						{isCreators && (
-							<h1 className="text-2xl font-bold text-white">
-								Creators
-							</h1>
-						)}
+						{isCreators && <h1 className="text-2xl font-bold text-white">Creators</h1>}
 						<div className="flex flex-wrap gap-1 justify-between">
 							{crew.map((c) => (
-								<div
-									className="flex-shrink-0 text-white"
-									key={c.id}
-								>
+								<div className="flex-shrink-0 text-white" key={c.id}>
 									<h3
 										className={`text-lg ${
 											!isCreators && "font-bold"
@@ -130,11 +114,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 									>
 										{c.name}
 									</h3>
-									{!isCreators && (
-										<p className="text-sm text-white">
-											{c.job}
-										</p>
-									)}
+									{!isCreators && <p className="text-sm text-white">{c.job}</p>}
 								</div>
 							))}
 						</div>
@@ -144,9 +124,7 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 				{!!info.rating && (
 					<a
 						href={
-							info.imdb_id !== -1
-								? `https://www.imdb.com/title/${info.imdb_id}`
-								: ""
+							info.imdb_id !== -1 ? `https://www.imdb.com/title/${info.imdb_id}` : ""
 						}
 						target="_blank"
 						onClick={(e) => {
@@ -156,14 +134,14 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 							info.imdb_id === -1 && "cursor-default"
 						}`}
 					>
-						<img
-							src="/images/imdb.png"
-							alt="imdb logo"
-							className="h-[2rem] w-[4rem]"
-						/>
-						<h2 className="text-3xl font-bold">
-							{parseFloat(info.rating).toFixed(1)}
-						</h2>
+						{info.imdb_id !== -1 && (
+							<img
+								src="/images/imdb.png"
+								alt="imdb logo"
+								className="h-[2rem] w-[4rem]"
+							/>
+						)}
+						<h2 className="text-3xl font-bold">{parseFloat(info.rating).toFixed(1)}</h2>
 					</a>
 				)}
 			</div>

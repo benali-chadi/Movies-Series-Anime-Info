@@ -9,16 +9,12 @@ const NavBar = () => {
 	const inactiveStyle = "text-my-black hover:text-blue-300 font-bold";
 
 	return (
-		<div className="flex absolute inset-0 z-20 justify-between p-4 w-screen bg-white h-max">
+		<div className="flex absolute inset-0 z-20 justify-between p-4 w-screen bg-my-white h-max">
 			<div className="flex gap-8 justify-center self-stretch w-full">
 				<Link href="/movies" passHref>
 					<a
 						href=""
-						className={`${
-							router.pathname === "/movies"
-								? activeStyle
-								: inactiveStyle
-						}`}
+						className={`${router.pathname === "/movies" ? activeStyle : inactiveStyle}`}
 					>
 						Movies
 					</a>
@@ -26,11 +22,7 @@ const NavBar = () => {
 				<Link href="/series" passHref>
 					<a
 						href=""
-						className={`${
-							router.pathname === "/series"
-								? activeStyle
-								: inactiveStyle
-						}`}
+						className={`${router.pathname === "/series" ? activeStyle : inactiveStyle}`}
 					>
 						Series
 					</a>
@@ -38,11 +30,7 @@ const NavBar = () => {
 				<Link href="/anime" passHref>
 					<a
 						href=""
-						className={`${
-							router.pathname === "/anime"
-								? activeStyle
-								: inactiveStyle
-						}`}
+						className={`${router.pathname === "/anime" ? activeStyle : inactiveStyle}`}
 					>
 						Anime
 					</a>

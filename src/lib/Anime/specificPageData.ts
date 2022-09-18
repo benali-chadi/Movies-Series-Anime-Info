@@ -16,11 +16,7 @@ export async function getAnimeDetails(anime_id: string) {
 		data: {
 			id: data.mal_id,
 			poster: data.images.jpg.image_url ?? "",
-			title: data.title_english
-				? data.title_english
-				: data.title
-				? data.title
-				: "",
+			title: data.title_english ? data.title_english : data.title ? data.title : "",
 			date: data.year ?? "",
 			genres: data.genres.map((g) => g.name),
 			duration: data.duration,
@@ -74,16 +70,12 @@ export async function getAnimeCrew(anime_id: string) {
 	const mainStaff = staff
 		.filter(
 			(s) =>
-				s &&
-				(s.positions.includes("Director") ||
-					s.positions.includes("Original Creator"))
+				s && (s.positions.includes("Director") || s.positions.includes("Original Creator"))
 		)
 		.map((s) => ({
 			id: s.person.mal_id,
 			name: s.person.name,
-			job: s.positions.includes("Original Creator")
-				? "Creator"
-				: "Director",
+			job: s.positions.includes("Original Creator") ? "Creator" : "Director",
 		}));
 
 	return {
@@ -98,20 +90,16 @@ export async function getMedia(url, anime_id: string) {
 
 	const res1 = await fetch(imagesUrl);
 	const res2 = await fetch(videosUrl);
-	console.log(`img = ${res1.status} vids = ${res2.status}`);
 
 	if (!res1.ok || !res2.ok) return { data: null, ok: res1.ok };
 
 	let { data: images } = await res1.json();
 	let { data: videos } = await res2.json();
-	// console.log("images =", images);
 
 	images = images.map((img) => img.jpg.image_url ?? "");
 	delete videos.episodes;
 	videos.promo = videos.promo.map((v) => v.trailer.youtube_id ?? "");
-	videos.music_videos = videos.music_videos.map(
-		(v) => v.video.youtube_id ?? ""
-	);
+	videos.music_videos = videos.music_videos.map((v) => v.video.youtube_id ?? "");
 	return { data: { images, videos }, ok: res1.ok };
 }
 
@@ -119,8 +107,6 @@ export async function getSimilarAnimes(anime_id: string) {
 	const url = new URL(`${baseAnimeUrl}${anime_id}/recommendations`);
 
 	const { items, ok } = await getItems(url);
-
-	console.log("ITEMS =", items);
 
 	return { items: items.slice(0, 15), ok };
 }
@@ -169,9 +155,7 @@ export const getVideos = (url: string) => {
 			musicVideos: [],
 		};
 		videos.promo = data.data.promo.map((v) => v.trailer.youtube_id ?? "");
-		videos.musicVideos = data.data.music_videos.map(
-			(v) => v.video.youtube_id ?? ""
-		);
+		videos.musicVideos = data.data.music_videos.map((v) => v.video.youtube_id ?? "");
 
 		return {
 			videos,
@@ -204,11 +188,7 @@ export const getSimilar = (url: string) => {
 				id: itm.mal_id,
 				poster: itm.images.jpg.image_url ?? "",
 				info: {
-					title: itm.title_english
-						? itm.title_english
-						: itm.title
-						? itm.title
-						: "",
+					title: itm.title_english ? itm.title_english : itm.title ? itm.title : "",
 					date: itm.year ?? "",
 				},
 				rating: itm.score ?? "",

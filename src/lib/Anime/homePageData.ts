@@ -36,11 +36,7 @@ export async function getAnimeHomeData() {
 		items.push({
 			poster: attr.posterImage.original ?? "",
 			info: {
-				title: attr.titles.en
-					? attr.titles.en
-					: attr.titles.en_jp
-					? attr.titles.en_jp
-					: "",
+				title: attr.titles.en ? attr.titles.en : attr.titles.en_jp ? attr.titles.en_jp : "",
 				date: attr.startDate.substr(0, 4) ?? "",
 				genre: genres ?? [""],
 			},
@@ -70,7 +66,6 @@ export async function getLatestEpisodes() {
 
 export const getItems = async (url) => {
 	const res = await fetch(url);
-	console.log("itm status = ", res.status);
 	if (!res.ok) return { items: null, ok: res.ok };
 
 	const { data } = await res.json();
@@ -81,11 +76,7 @@ export const getItems = async (url) => {
 			id: itm.mal_id,
 			poster: itm.images.jpg.image_url ?? "",
 			info: {
-				title: itm.title_english
-					? itm.title_english
-					: itm.title
-					? itm.title
-					: "",
+				title: itm.title_english ? itm.title_english : itm.title ? itm.title : "",
 				date: itm.year ?? "",
 			},
 			rating: itm.score ?? "",

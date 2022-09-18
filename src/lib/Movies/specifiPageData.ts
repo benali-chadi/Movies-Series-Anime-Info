@@ -32,15 +32,11 @@ export async function getMovieDetails(movie_id: string) {
 			rating: data.vote_average,
 			generalInfo: {
 				status: data.status,
-				productionCompanies: data.production_companies.map(
-					(company) => ({
-						id: company.id,
-						poster: company.logo_path
-							? baseImageUrl + "w300/" + company.logo_path
-							: "",
-						name: company.name,
-					})
-				),
+				productionCompanies: data.production_companies.map((company) => ({
+					id: company.id,
+					poster: company.logo_path ? baseImageUrl + "w300/" + company.logo_path : "",
+					name: company.name,
+				})),
 				originalLanguage: data.original_language,
 				budget: data.budget,
 				revenue: data.revenue,
@@ -71,16 +67,12 @@ export async function getMovieCast(movie_id: string) {
 			job: c.job,
 		}));
 
-	console.log("CAST =", cast);
-
 	return {
 		data: {
 			cast: cast.splice(0, 15).map((c) => {
 				return {
 					id: c.id,
-					poster: c.profile_path
-						? baseImageUrl + "w300/" + c.profile_path
-						: "",
+					poster: c.profile_path ? baseImageUrl + "w300/" + c.profile_path : "",
 					name: c.name,
 					character: c.character,
 				};
