@@ -1,13 +1,12 @@
 import React, { FC, useRef, useState } from "react";
+import { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
-import { FilterInter } from "../../../../pages/search";
+// import { FilterInter } from "../../../../pages/search";
 import { useOutsideClick } from "../../../lib/useOutsideClick";
-interface Props {
-	setFilters: React.Dispatch<React.SetStateAction<FilterInter>>;
-	filters: FilterInter;
-}
-
-const SortFilter: FC<Props> = ({ setFilters, filters }) => {
+import { FilterContext, FilterContextState } from "../../helpers/context";
+const SortFilter = () => {
+	const { filters, setFilters } =
+		useContext<FilterContextState>(FilterContext);
 	const [toggle, setToggle] = useState(false);
 	const [title, setTitle] = useState("sort");
 	const myRef = useRef(null);
@@ -41,18 +40,17 @@ const SortFilter: FC<Props> = ({ setFilters, filters }) => {
 	);
 };
 
-const Header = ({ title, handleClick }) => (
-	<h3
-		className="text-lg border-b-2 border-black hover:bg-gray-300"
-		onClick={handleClick}
-	>
+export const DropDownHeader = ({ title, handleClick }) => (
+	<h3 className="text-lg hover:bg-gray-300" onClick={handleClick}>
 		{title}
 	</h3>
 );
 function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 	return (
-		<div className={`absolute top-10 p-2 bg-gray-200 rounded-xl h-max`}>
-			<Header
+		<div
+			className={`flex overflow-auto absolute left-0 flex-col gap-2 p-2 w-max bg-gray-200 rounded-xl top-[50px] max-h-[15rem]`}
+		>
+			<DropDownHeader
 				title="popularity ascending"
 				handleClick={() => {
 					setFilters({
@@ -63,7 +61,7 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 					hide();
 				}}
 			/>
-			<Header
+			<DropDownHeader
 				title="popularity descending"
 				handleClick={() => {
 					setFilters({
@@ -74,7 +72,7 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 					hide();
 				}}
 			/>
-			<Header
+			<DropDownHeader
 				title="score ascending"
 				handleClick={() => {
 					setFilters({
@@ -85,7 +83,7 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 					hide();
 				}}
 			/>
-			<Header
+			<DropDownHeader
 				title="score descending"
 				handleClick={() => {
 					setFilters({
@@ -96,7 +94,7 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 					hide();
 				}}
 			/>
-			<Header
+			<DropDownHeader
 				title="start date ascending"
 				handleClick={() => {
 					setFilters({
@@ -107,7 +105,7 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 					hide();
 				}}
 			/>
-			<Header
+			<DropDownHeader
 				title="start date descending"
 				handleClick={() => {
 					setFilters({

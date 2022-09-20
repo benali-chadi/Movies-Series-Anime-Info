@@ -1,21 +1,13 @@
 import React, { FC, useState } from "react";
-import { FilterInter } from "../../../pages/search";
+// import { FilterInter } from "../../../pages/search";
 import { BsChevronDown } from "react-icons/bs";
 import SortFilter from "./filters/SortFilter";
 
-interface Props {
-	setFilters: React.Dispatch<React.SetStateAction<FilterInter>>;
-	filters: FilterInter;
-}
-
-const Filters: FC<Props> = ({ setFilters, filters }) => {
-	const [toggle, setToggle] = useState<
-		"" | "sort" | "year" | "state" | "genres"
-	>("");
+const Filters = () => {
 	return (
 		<div>
 			<div className="flex gap-4">
-				<SortFilter filters={filters} setFilters={setFilters} />
+				<SortFilter />
 				<div className="flex gap-2 items-center p-2 text-black bg-white rounded-xl cursor-pointer hover:bg-white/80">
 					<h3 className="text-xl font-bold">Year</h3>
 					<BsChevronDown />
