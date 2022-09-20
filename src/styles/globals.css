@@ -5,6 +5,10 @@
 @tailwind utilities;
 
 @layer base {
+	*:focus {
+		outline: none;
+	}
+
 	body,
 	html {
 		height: 100%;
