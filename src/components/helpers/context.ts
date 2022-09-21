@@ -9,16 +9,16 @@ export interface FilterState {
 		| "scoreDesc"
 		| "startDateAsc"
 		| "startDateDesc";
-	year: number;
+	year: number | "";
 	state: "airing" | "complete" | "upcoming" | "";
-	genres: string[];
+	genre: string;
 }
 
 export const filtersInitialState: FilterState = {
 	sort: "",
-	year: new Date().getFullYear(),
+	year: "",
 	state: "",
-	genres: [""],
+	genre: "",
 };
 
 export interface FilterContextState {

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
 // import { FilterInter } from "../../../../pages/search";
@@ -12,6 +12,30 @@ const SortFilter = () => {
 	const myRef = useRef(null);
 
 	useOutsideClick(myRef, () => setToggle(false));
+	useEffect(() => {
+		switch (filters.sort) {
+			case "popularityAsc":
+				setTitle("popularity ascending");
+				break;
+			case "popularityDesc":
+				setTitle("popularity descending");
+				break;
+			case "scoreAsc":
+				setTitle("score ascending");
+				break;
+			case "scoreDesc":
+				setTitle("score descending");
+				break;
+			case "startDateAsc":
+				setTitle("start date ascending");
+				break;
+			case "startDateDesc":
+				setTitle("start date descending");
+				break;
+			default:
+				setTitle("sort");
+		}
+	}, [filters]);
 
 	return (
 		<div
@@ -33,7 +57,6 @@ const SortFilter = () => {
 					hide={() => {
 						setToggle(false);
 					}}
-					changeTitle={setTitle}
 				/>
 			)}
 		</div>
@@ -45,7 +68,7 @@ export const DropDownHeader = ({ title, handleClick }) => (
 		{title}
 	</h3>
 );
-function SortDropDown({ setFilters, filters, hide, changeTitle }) {
+function SortDropDown({ setFilters, filters, hide }) {
 	return (
 		<div
 			className={`flex overflow-auto absolute left-0 flex-col gap-2 p-2 w-max bg-gray-200 rounded-xl top-[50px] max-h-[15rem]`}
@@ -57,7 +80,6 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 						...filters,
 						sort: "popularityAsc",
 					});
-					changeTitle("popularity ascending");
 					hide();
 				}}
 			/>
@@ -68,7 +90,6 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 						...filters,
 						sort: "popularityDesc",
 					});
-					changeTitle("popularity descending");
 					hide();
 				}}
 			/>
@@ -79,7 +100,6 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 						...filters,
 						sort: "scoreAsc",
 					});
-					changeTitle("score ascending");
 					hide();
 				}}
 			/>
@@ -90,7 +110,6 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 						...filters,
 						sort: "scoreDesc",
 					});
-					changeTitle("score descending");
 					hide();
 				}}
 			/>
@@ -101,7 +120,6 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 						...filters,
 						sort: "startDateAsc",
 					});
-					changeTitle("start date ascending");
 					hide();
 				}}
 			/>
@@ -112,7 +130,6 @@ function SortDropDown({ setFilters, filters, hide, changeTitle }) {
 						...filters,
 						sort: "startDateDesc",
 					});
-					changeTitle("start date descending");
 					hide();
 				}}
 			/>
