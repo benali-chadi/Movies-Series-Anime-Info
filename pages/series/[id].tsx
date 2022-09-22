@@ -56,7 +56,11 @@ const SeriePage = ({ details, cast, crew, images, videos, similarSeries }) => {
 					<MediaPart images={images} videos={videos} />
 				</div>
 			</div>
-			<ItemsList title="Similar Series" data={similarSeries} />
+			<ItemsList
+				title="Similar Series"
+				data={similarSeries}
+				type="series"
+			/>
 		</div>
 	);
 };

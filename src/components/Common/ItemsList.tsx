@@ -14,9 +14,10 @@ interface Props {
 			rating: number;
 		}
 	];
+	type: string;
 }
 
-const ItemsList: FC<Props> = ({ title, data }) => {
+const ItemsList: FC<Props> = ({ title, data, type }) => {
 	return (
 		<div>
 			<h2 className="relative z-10 pl-2 text-4xl font-bold text-my-white">
@@ -30,6 +31,7 @@ const ItemsList: FC<Props> = ({ title, data }) => {
 							poster={item.poster}
 							info={item.info}
 							rating={item.rating}
+							type={type}
 							key={item.info.title}
 						/>
 					);

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { useOutsideClick } from "../../../lib/useOutsideClick";
-import { FilterContext, FilterContextState } from "../../helpers/context";
+import { SearchContext, SearchContextState } from "../../helpers/context";
 import { DropDownHeader } from "./SortFilter";
 
 const currentYear = new Date().getFullYear() + 1;
@@ -13,7 +13,7 @@ const years = Array.from(
 
 const YearFilter = () => {
 	const { filters, setFilters } =
-		useContext<FilterContextState>(FilterContext);
+		useContext<SearchContextState>(SearchContext);
 	const [toggle, setToggle] = useState(false);
 	const [title, setTitle] = useState<"year" | number>("year");
 	const myRef = useRef(null);
@@ -26,10 +26,7 @@ const YearFilter = () => {
 	}, [filters]);
 
 	return (
-		<div
-			className="flex relative flex-col p-2 text-black bg-white rounded-xl cursor-pointer hover:bg-white/80"
-			ref={myRef}
-		>
+		<div className="filter-style unclicked" ref={myRef}>
 			<div
 				className="flex gap-2 items-center"
 				onClick={() => setToggle(!toggle)}

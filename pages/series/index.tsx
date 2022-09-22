@@ -12,8 +12,12 @@ const Series = ({ trailersIds, topSeries, recentSeries, trendingSeries }) => {
 	return (
 		<div className="flex flex-col gap-[5rem] mt-3">
 			<Trailers videosIds={trailersIds} />
-			<ItemsList title="Trending Series" data={trendingSeries} />
-			<ItemsList title="Top Series" data={topSeries} />
+			<ItemsList
+				title="Trending Series"
+				data={trendingSeries}
+				type="series"
+			/>
+			<ItemsList title="Top Series" data={topSeries} type="series" />
 		</div>
 	);
 };

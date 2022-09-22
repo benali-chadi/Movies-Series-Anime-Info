@@ -3,10 +3,10 @@ import { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
 // import { FilterInter } from "../../../../pages/search";
 import { useOutsideClick } from "../../../lib/useOutsideClick";
-import { FilterContext, FilterContextState } from "../../helpers/context";
+import { SearchContext, SearchContextState } from "../../helpers/context";
 const SortFilter = () => {
 	const { filters, setFilters } =
-		useContext<FilterContextState>(FilterContext);
+		useContext<SearchContextState>(SearchContext);
 	const [toggle, setToggle] = useState(false);
 	const [title, setTitle] = useState("sort");
 	const myRef = useRef(null);
@@ -14,23 +14,11 @@ const SortFilter = () => {
 	useOutsideClick(myRef, () => setToggle(false));
 	useEffect(() => {
 		switch (filters.sort) {
-			case "popularityAsc":
-				setTitle("popularity ascending");
+			case "asc":
+				setTitle("ascending");
 				break;
-			case "popularityDesc":
-				setTitle("popularity descending");
-				break;
-			case "scoreAsc":
-				setTitle("score ascending");
-				break;
-			case "scoreDesc":
-				setTitle("score descending");
-				break;
-			case "startDateAsc":
-				setTitle("start date ascending");
-				break;
-			case "startDateDesc":
-				setTitle("start date descending");
+			case "desc":
+				setTitle("descending");
 				break;
 			default:
 				setTitle("sort");
@@ -38,10 +26,7 @@ const SortFilter = () => {
 	}, [filters]);
 
 	return (
-		<div
-			className="flex relative flex-col p-2 text-black bg-white rounded-xl cursor-pointer hover:bg-white/80"
-			ref={myRef}
-		>
+		<div className="filter-style" ref={myRef}>
 			<div
 				className="flex gap-2 items-center"
 				onClick={() => setToggle(!toggle)}
@@ -74,61 +59,21 @@ function SortDropDown({ setFilters, filters, hide }) {
 			className={`flex overflow-auto absolute left-0 flex-col gap-2 p-2 w-max bg-gray-200 rounded-xl top-[50px] max-h-[15rem]`}
 		>
 			<DropDownHeader
-				title="popularity ascending"
+				title="ascending"
 				handleClick={() => {
 					setFilters({
 						...filters,
-						sort: "popularityAsc",
+						sort: "asc",
 					});
 					hide();
 				}}
 			/>
 			<DropDownHeader
-				title="popularity descending"
+				title="descending"
 				handleClick={() => {
 					setFilters({
 						...filters,
-						sort: "popularityDesc",
-					});
-					hide();
-				}}
-			/>
-			<DropDownHeader
-				title="score ascending"
-				handleClick={() => {
-					setFilters({
-						...filters,
-						sort: "scoreAsc",
-					});
-					hide();
-				}}
-			/>
-			<DropDownHeader
-				title="score descending"
-				handleClick={() => {
-					setFilters({
-						...filters,
-						sort: "scoreDesc",
-					});
-					hide();
-				}}
-			/>
-			<DropDownHeader
-				title="start date ascending"
-				handleClick={() => {
-					setFilters({
-						...filters,
-						sort: "startDateAsc",
-					});
-					hide();
-				}}
-			/>
-			<DropDownHeader
-				title="start date descending"
-				handleClick={() => {
-					setFilters({
-						...filters,
-						sort: "startDateDesc",
+						sort: "desc",
 					});
 					hide();
 				}}

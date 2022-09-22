@@ -16,7 +16,11 @@ export async function getAnimeDetails(anime_id: string) {
 		data: {
 			id: data.mal_id,
 			poster: data.images.jpg.image_url ?? "",
-			title: data.title_english ? data.title_english : data.title ? data.title : "",
+			title: data.title_english
+				? data.title_english
+				: data.title
+				? data.title
+				: "",
 			date: data.year ?? "",
 			genres: data.genres.map((g) => g.name),
 			duration: data.duration,
@@ -70,12 +74,16 @@ export async function getAnimeCrew(anime_id: string) {
 	const mainStaff = staff
 		.filter(
 			(s) =>
-				s && (s.positions.includes("Director") || s.positions.includes("Original Creator"))
+				s &&
+				(s.positions.includes("Director") ||
+					s.positions.includes("Original Creator"))
 		)
 		.map((s) => ({
 			id: s.person.mal_id,
 			name: s.person.name,
-			job: s.positions.includes("Original Creator") ? "Creator" : "Director",
+			job: s.positions.includes("Original Creator")
+				? "Creator"
+				: "Director",
 		}));
 
 	return {
@@ -99,7 +107,9 @@ export async function getMedia(url, anime_id: string) {
 	images = images.map((img) => img.jpg.image_url ?? "");
 	delete videos.episodes;
 	videos.promo = videos.promo.map((v) => v.trailer.youtube_id ?? "");
-	videos.music_videos = videos.music_videos.map((v) => v.video.youtube_id ?? "");
+	videos.music_videos = videos.music_videos.map(
+		(v) => v.video.youtube_id ?? ""
+	);
 	return { data: { images, videos }, ok: res1.ok };
 }
 
@@ -137,13 +147,12 @@ export const getImages = (url: string) => {
 			isLoading: false,
 			isError: error,
 		};
-	} else {
-		return {
-			images: null,
-			isLoading: true,
-			isError: null,
-		};
 	}
+	return {
+		images: null,
+		isLoading: true,
+		isError: null,
+	};
 };
 
 export const getVideos = (url: string) => {
@@ -155,7 +164,9 @@ export const getVideos = (url: string) => {
 			musicVideos: [],
 		};
 		videos.promo = data.data.promo.map((v) => v.trailer.youtube_id ?? "");
-		videos.musicVideos = data.data.music_videos.map((v) => v.video.youtube_id ?? "");
+		videos.musicVideos = data.data.music_videos.map(
+			(v) => v.video.youtube_id ?? ""
+		);
 
 		return {
 			videos,
@@ -169,13 +180,12 @@ export const getVideos = (url: string) => {
 			isLoading: false,
 			isError: error,
 		};
-	} else {
-		return {
-			videos: null,
-			isLoading: true,
-			isError: null,
-		};
 	}
+	return {
+		videos: null,
+		isLoading: true,
+		isError: null,
+	};
 };
 
 export const getSimilar = (url: string) => {
@@ -188,7 +198,11 @@ export const getSimilar = (url: string) => {
 				id: itm.mal_id,
 				poster: itm.images.jpg.image_url ?? "",
 				info: {
-					title: itm.title_english ? itm.title_english : itm.title ? itm.title : "",
+					title: itm.title_english
+						? itm.title_english
+						: itm.title
+						? itm.title
+						: "",
 					date: itm.year ?? "",
 				},
 				rating: itm.score ?? "",
@@ -207,11 +221,10 @@ export const getSimilar = (url: string) => {
 			isLoading: false,
 			isError: error,
 		};
-	} else {
-		return {
-			similarAnime: null,
-			isLoading: true,
-			isError: null,
-		};
 	}
+	return {
+		similarAnime: null,
+		isLoading: true,
+		isError: null,
+	};
 };

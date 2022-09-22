@@ -1,52 +1,71 @@
 import React, { FormEvent, useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import {
-	FilterContext,
+	SearchContext,
 	filtersInitialState,
 	FilterState,
 } from "../../src/components/helpers/context";
 import Categories from "../../src/components/search/Categories";
 import Filters from "../../src/components/search/Filters";
-
-// export interface FilterInter {
-// 	sort:
-// 		| ""
-// 		| "popularityAsc"
-// 		| "popularityDesc"
-// 		| "scoreAsc"
-// 		| "scoreDesc"
-// 		| "startDateAsc"
-// 		| "startDateDesc";
-// 	year: number;
-// 	state: "airing" | "complete" | "upcoming" | "";
-// 	genres: string[];
-// }
-
-// const filtersInitial: FilterInter = {
-// 	sort: "",
-// 	year: new Date().getFullYear(),
-// 	state: "",
-// 	genres: [""],
-// };
+import MovieResults from "../../src/components/search/results/MovieResults";
+import {
+	getMoviesResults,
+	getPeopleResults,
+	getSeriesResults,
+} from "../../src/lib/Search/fromTMDB";
 
 const Index = () => {
-	const [text, setText] = useState("");
+	// Add page state management
 	const [query, setQuery] = useState("");
+	// const [update, setUpdate] = useState(false);
 	const [category, setCategory] = useState<
 		"movie" | "serie" | "anime" | "people" | "animeCharacter"
 	>("movie");
 	const [filters, setFilters] = useState<FilterState>(filtersInitialState);
+	const [text, setText] = useState("");
 
 	const sumbit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		setQuery(text);
-		setText("");
+		// setText("");
 	};
-	useEffect(() => console.log(query), [query]);
+
+	// const updateResults = () => {
+	// 	switch (category) {
+	// 		case "movie":
+	// 			{
+	// 				setResults(
+	// 					getMoviesResults(query, filters.year.toString())
+	// 				);
+	// 			}
+	// 			break;
+	// 		case "serie":
+	// 			{
+	// 				setResults(
+	// 					getSeriesResults(query, filters.year.toString())
+	// 				);
+	// 			}
+	// 			break;
+	// 		case "people":
+	// 			{
+	// 				setResults(getPeopleResults(query));
+	// 			}
+	// 			break;
+	// 		default:
+	// 			break;
+	// 	}
+	// };
+
+	useEffect(() => {
+		if (query !== "") {
+		}
+	}, [query]);
 
 	return (
-		<FilterContext.Provider value={{ filters, setFilters }}>
+		<SearchContext.Provider
+			value={{ filters, setFilters, category, query }}
+		>
 			<div className="w-full h-full">
 				{/*Search Bar*/}
 				<div className="flex justify-center w-full">
@@ -54,7 +73,11 @@ const Index = () => {
 						className="flex gap-2 bg-white p-3 rounded-3xl mb-3 w-[50%] min-w-max"
 						onSubmit={sumbit}
 					>
-						<button type="submit" className="text-2xl">
+						<button
+							type="submit"
+							className="text-2xl"
+							id="submit-search"
+						>
 							<MdSearch />
 						</button>
 						<input
@@ -75,12 +98,14 @@ const Index = () => {
 						/>
 					</div>
 					{/* FilterInter */}
-					<div className="flex col-span-2 justify-center border-2 border-black md:col-span-1">
+					<div className="flex col-span-2 p-4 md:col-span-1">
 						<Filters />
 					</div>
 					{/* Search Results */}
-					<div className="col-span-2 col-start-2 row-span-3 border-2 border-black md:col-span-1">
-						Results
+					<div className="overflow-auto col-span-2 col-start-2 row-span-3 border-2 border-black md:col-span-1">
+						{category === "movie" && query !== "" && (
+							<MovieResults />
+						)}
 					</div>
 					{/* Top 10 */}
 					<div className="hidden col-start-3 row-start-1 row-end-4 border-2 border-black md:block">
@@ -88,7 +113,7 @@ const Index = () => {
 					</div>
 				</div>
 			</div>
-		</FilterContext.Provider>
+		</SearchContext.Provider>
 	);
 };
 

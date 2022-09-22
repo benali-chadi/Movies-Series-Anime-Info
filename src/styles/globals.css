@@ -43,4 +43,7 @@
 	.noScroll::-webkit-scrollbar {
 		display: none;
 	}
+	.filter-style {
+		@apply flex relative flex-col p-2 text-black bg-gradient-to-b from-white via-gray-200 to-gray-400 rounded-xl cursor-pointer hover:bg-white/80
+	}
 }

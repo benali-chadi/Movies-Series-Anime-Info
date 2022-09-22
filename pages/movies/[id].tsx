@@ -47,7 +47,11 @@ const MoviePage = ({ details, cast, crew, images, videos, similarMovies }) => {
 					<MediaPart images={images} videos={videos} />
 				</div>
 			</div>
-			<ItemsList title="Similar Movies" data={similarMovies} />
+			<ItemsList
+				title="Similar Movies"
+				data={similarMovies}
+				type="movies"
+			/>
 		</div>
 	);
 };

@@ -9,9 +9,10 @@ interface Props {
 		date: string;
 	};
 	rating: number;
+	type: string;
 }
 
-const Item: FC<Props> = ({ id, poster, info, rating }) => {
+const Item: FC<Props> = ({ id, poster, info, rating, type }) => {
 	const router = useRouter();
 	const backgroundStyle = {
 		background: `url(${
@@ -21,8 +22,7 @@ const Item: FC<Props> = ({ id, poster, info, rating }) => {
 	};
 
 	const handleClick = () => {
-		const pathname = "/" + router.pathname.split("/")[1];
-		router.push(`${pathname}/${id}`);
+		router.push(`/${type}/${id}`);
 	};
 	return (
 		<div

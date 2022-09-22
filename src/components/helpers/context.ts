@@ -1,35 +1,32 @@
 import { createContext } from "react";
 
 export interface FilterState {
-	sort:
-		| ""
-		| "popularityAsc"
-		| "popularityDesc"
-		| "scoreAsc"
-		| "scoreDesc"
-		| "startDateAsc"
-		| "startDateDesc";
+	sort: "" | "asc" | "desc";
 	year: number | "";
-	state: "airing" | "complete" | "upcoming" | "";
+	status: "airing" | "complete" | "upcoming" | "";
 	genre: string;
 }
 
 export const filtersInitialState: FilterState = {
 	sort: "",
 	year: "",
-	state: "",
+	status: "",
 	genre: "",
 };
 
-export interface FilterContextState {
+export interface SearchContextState {
 	filters: FilterState;
 	setFilters:
 		| React.Dispatch<React.SetStateAction<FilterState>>
 		| (() => void);
+	category: "movie" | "serie" | "anime" | "people" | "animeCharacter";
+	query: string;
 }
-export const initialState: FilterContextState = {
+export const initialState: SearchContextState = {
 	filters: filtersInitialState,
 	setFilters: () => {},
+	category: "movie",
+	query: "",
 };
 
-export const FilterContext = createContext<FilterContextState>(initialState);
+export const SearchContext = createContext<SearchContextState>(initialState);

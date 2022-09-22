@@ -2,26 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
 import { useOutsideClick } from "../../../lib/useOutsideClick";
-import { FilterContext, FilterContextState } from "../../helpers/context";
+import { SearchContext, SearchContextState } from "../../helpers/context";
 import { DropDownHeader } from "./SortFilter";
 
 const StatusFilter = () => {
 	const { filters, setFilters } =
-		useContext<FilterContextState>(FilterContext);
+		useContext<SearchContextState>(SearchContext);
 	const [toggle, setToggle] = useState(false);
-	const [title, setTitle] = useState("state");
+	const [title, setTitle] = useState("status");
 	const myRef = useRef(null);
 
 	useOutsideClick(myRef, () => setToggle(false));
 	useEffect(() => {
-		if (filters.state === "") setTitle("state");
-		else setTitle(filters.state);
+		if (filters.status === "") setTitle("status");
+		else setTitle(filters.status);
 	}, [filters]);
 	return (
-		<div
-			className="flex relative flex-col p-2 text-black bg-white rounded-xl cursor-pointer hover:bg-white/80"
-			ref={myRef}
-		>
+		<div className="filter-style" ref={myRef}>
 			<div
 				className="flex gap-2 items-center"
 				onClick={() => setToggle(!toggle)}
@@ -53,7 +50,7 @@ function StatusDropDown({ setFilters, filters, hide }) {
 				handleClick={() => {
 					setFilters({
 						...filters,
-						state: "airing",
+						status: "airing",
 					});
 					hide();
 				}}
@@ -63,7 +60,7 @@ function StatusDropDown({ setFilters, filters, hide }) {
 				handleClick={() => {
 					setFilters({
 						...filters,
-						state: "complete",
+						status: "complete",
 					});
 					hide();
 				}}
@@ -73,7 +70,7 @@ function StatusDropDown({ setFilters, filters, hide }) {
 				handleClick={() => {
 					setFilters({
 						...filters,
-						state: "upcoming",
+						status: "upcoming",
 					});
 					hide();
 				}}

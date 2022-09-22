@@ -19,9 +19,17 @@ const Movies = ({
 	return (
 		<div className="flex flex-col gap-[5rem] mt-3">
 			<Trailers videosIds={trailersIds} />
-			<ItemsList title="Trending Movies" data={trendingMovies} />
-			<ItemsList title="آخر الأفلام العربية" data={arabicMovies} />
-			<ItemsList title="Top Movies" data={topMovies} />
+			<ItemsList
+				title="Trending Movies"
+				data={trendingMovies}
+				type="movies"
+			/>
+			<ItemsList
+				title="آخر الأفلام العربية"
+				data={arabicMovies}
+				type="movies"
+			/>
+			<ItemsList title="Top Movies" data={topMovies} type="movies" />
 		</div>
 	);
 };

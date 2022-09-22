@@ -4,20 +4,22 @@ import UpperPart from "../../src/components/itemPage/UpperPart";
 import ItemsList from "../../src/components/Common/ItemsList";
 import PersonList from "../../src/components/Common/PersonList";
 import { getLatestAnime } from "../../src/lib/Anime/homePageData";
-import { getAnimeCrew, getAnimeDetails, getSimilar } from "../../src/lib/Anime/specificPageData";
+import {
+	getAnimeCrew,
+	getAnimeDetails,
+	getSimilar,
+} from "../../src/lib/Anime/specificPageData";
 import AnimeMediaPart from "../../src/components/itemPage/AnimeMediaPart";
 import Spinner from "../../src/components/Common/Spinner";
 import AnimeInfoPart from "../../src/components/itemPage/AnimeInfoPart";
 
 const AnimePage = ({ details, voiceActors, crew }) => {
 	const router = useRouter();
-	if (router.isFallback)
-		return (
-			<div className="grid place-items-center">
-				<Spinner />
-			</div>
-		);
-	const { similarAnime, isLoading, isError } = getSimilar(`${router.query.id}/recommendations`);
+	if (router.isFallback) return <Spinner />;
+
+	const { similarAnime, isLoading, isError } = getSimilar(
+		`${router.query.id}/recommendations`
+	);
 
 	const upperpartData = details
 		? {
@@ -56,9 +58,13 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 			{details && <UpperPart {...upperpartData} />}
 			<div className="grid grid-cols-4 grid-rows-2 gap-4 w-full">
 				<div className="col-span-3">
-					{voiceActors && <PersonList title="Voice Actors" data={voiceActors} />}
+					{voiceActors && (
+						<PersonList title="Voice Actors" data={voiceActors} />
+					)}
 				</div>
-				<div className="row-span-2">{details && <AnimeInfoPart {...details.generalInfo} />}</div>
+				<div className="row-span-2">
+					{details && <AnimeInfoPart {...details.generalInfo} />}
+				</div>
 				<div className="col-span-3">
 					<AnimeMediaPart />
 				</div>
@@ -67,9 +73,15 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 			{isLoading ? (
 				<Spinner />
 			) : isError ? (
-				<div className="text-3xl font-bold text-white">Error Loading Similar Anime</div>
+				<div className="text-3xl font-bold text-white">
+					Error Loading Similar Anime
+				</div>
 			) : (
-				<ItemsList title="Similar Anime" data={similarAnime} />
+				<ItemsList
+					title="Similar Anime"
+					data={similarAnime}
+					type="anime"
+				/>
 			)}
 		</div>
 	);
