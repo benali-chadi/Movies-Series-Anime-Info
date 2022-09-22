@@ -41,7 +41,9 @@ const Item: FC<Props> = ({ id, poster, info, rating, type }) => {
 			{/* Info */}
 			<div className="z-10 p-2 pt-0 bg-gradient-to-t from-black via-black/50">
 				<h3 className="font-bold text-white">{info.title}</h3>
-				<h4 className="font-bold text-white">{info.date}</h4>
+				<h4 className="font-bold text-white">
+					{info.date ? info.date : ""}
+				</h4>
 			</div>
 		</div>
 	);

@@ -102,7 +102,7 @@ const Index = () => {
 						<Filters />
 					</div>
 					{/* Search Results */}
-					<div className="overflow-auto col-span-2 col-start-2 row-span-3 border-2 border-black md:col-span-1">
+					<div className="col-span-full col-start-2 row-span-3 md:col-span-1">
 						{category === "movie" && query !== "" && (
 							<MovieResults />
 						)}

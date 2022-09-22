@@ -31,7 +31,7 @@ export async function getMoviesResults(query: string, year: string) {
 		poster: itm.poster_path ? baseImageUrl + "w300/" + itm.poster_path : "",
 		info: {
 			title: itm.title,
-			date: itm.release_date.substr(0, 4),
+			date: itm.release_date ? itm.release_date.substr(0, 4) : 0,
 		},
 		rating: itm.vote_average,
 	}));

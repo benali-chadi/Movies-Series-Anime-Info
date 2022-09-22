@@ -16,18 +16,13 @@ const MovieResults = () => {
 			setData(ret);
 		};
 		wrapper();
-	}, []);
+	}, [query, filters.year]);
 
 	console.log(data);
-	if (!data || !data.items)
-		return (
-			<div className="text-3xl font-bold text-white">
-				Error Loading Movies results
-			</div>
-		);
+	if (!data || !data.items) return <Spinner />;
 
 	return (
-		<div className="flex overflow-auto flex-wrap gap-2 justify-center">
+		<div className="flex flex-wrap gap-5 justify-center py-2">
 			{data.items.map((itm) => (
 				<Item {...itm} type="movies" />
 			))}
