@@ -10,9 +10,17 @@ interface Props {
 
 const Modal: FC<Props> = ({ show, close, children }) => {
 	const [isBrowser, setIsBrowser] = useState(false);
+	const keyPress = (e) => {
+		if (e.key === "Escape") close();
+	};
 
 	useEffect(() => {
+		document.addEventListener("keydown", keyPress, false);
 		setIsBrowser(true);
+
+		return () => {
+			document.removeEventListener("keydown", keyPress, false);
+		};
 	}, []);
 
 	const handleCloseClick = (e) => {

@@ -12,10 +12,11 @@ import {
 } from "../../src/lib/Movies/specifiPageData";
 import MoviesInfoPart from "../../src/components/itemPage/MoviesInfoPart";
 import MediaPart from "../../src/components/itemPage/MediaPart";
+import Spinner from "../../src/components/Common/Spinner";
 
 const MoviePage = ({ details, cast, crew, images, videos, similarMovies }) => {
 	const router = useRouter();
-	if (router.isFallback) return <div>Loading...</div>;
+	if (router.isFallback) return <Spinner />;
 
 	const upperpartData = {
 		id: details.id,

@@ -14,12 +14,6 @@ interface Props {
 
 const Item: FC<Props> = ({ id, poster, info, rating, type }) => {
 	const router = useRouter();
-	const backgroundStyle = {
-		background: `url(${
-			poster !== "" ? poster : "/images/default_poster.png"
-		}) no-repeat`,
-		backgroundSize: "12rem 17rem",
-	};
 
 	const handleClick = () => {
 		router.push(`/${type}/${id}`);

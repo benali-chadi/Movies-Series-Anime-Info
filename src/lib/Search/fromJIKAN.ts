@@ -45,12 +45,14 @@ export async function getAnimeResults(
 
 export async function getAnimeCharsResults(
 	query: string,
-	filters: FilterState
+	filters: FilterState,
+	page: number
 ) {
 	const url = new URL(`${baseCharctersURL}`);
 
 	url.searchParams.set("q", query);
 	url.searchParams.set("sort", filters.sort);
+	if (page > 1) url.searchParams.set("page", page.toString());
 
 	const data = await fetch(url).then((r) => r.json());
 

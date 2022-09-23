@@ -144,19 +144,21 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 				{!!info.rating && (
 					<a
 						href={
-							info.imdb_id !== -1
+							info.imdb_id && info.imdb_id !== -1
 								? `https://www.imdb.com/title/${info.imdb_id}`
 								: ""
 						}
 						target="_blank"
 						onClick={(e) => {
-							if (info.imdb_id === -1) e.preventDefault();
+							if (info.imdb_id === -1 || !info.imdb_id)
+								e.preventDefault();
 						}}
 						className={`flex gap-2 justify-self-end items-center self-end p-2 bg-gradient-to-l from-white to-transparent rounded-xl ${
-							info.imdb_id === -1 && "cursor-default"
+							(info.imdb_id === -1 || !info.imdb_id) &&
+							"cursor-default"
 						}`}
 					>
-						{info.imdb_id !== -1 && (
+						{info.imdb_id !== -1 && info.imdb_id && (
 							<img
 								src="/images/imdb.png"
 								alt="imdb logo"

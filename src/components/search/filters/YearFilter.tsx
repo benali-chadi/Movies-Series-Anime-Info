@@ -55,6 +55,7 @@ function YearDropDown({ setFilters, filters, hide }) {
 		>
 			{years.map((y) => (
 				<DropDownHeader
+					key={y}
 					title={y}
 					handleClick={() => {
 						setFilters({

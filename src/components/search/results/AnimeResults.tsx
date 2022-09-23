@@ -41,7 +41,7 @@ const AnimeResults = () => {
 				)}
 			</div>
 			<div className="flex flex-wrap gap-5 justify-center py-2">
-				{data.items.map((itm) => (
+				{items.map((itm) => (
 					<Item {...itm} type="anime" key={itm.id} />
 				))}
 			</div>

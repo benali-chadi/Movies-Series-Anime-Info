@@ -48,7 +48,7 @@ export const getItems = async (url) => {
 				title: movie.title,
 				date: movie.release_date.substr(0, 4),
 			},
-			rating: movie.vote_average,
+			rating: movie.vote_average ? movie.vote_average : -1,
 		};
 	});
 

@@ -13,10 +13,11 @@ import {
 	getSerieDetails,
 	getSimilarSeries,
 } from "../../src/lib/Series/specificPageData";
+import Spinner from "../../src/components/Common/Spinner";
 
 const SeriePage = ({ details, cast, crew, images, videos, similarSeries }) => {
 	const router = useRouter();
-	if (router.isFallback) return <div>Loading...</div>;
+	if (router.isFallback) return <Spinner />;
 	if (!details) {
 		return <h1 className="text-3xl text-white">Error Loading Data</h1>;
 	}
