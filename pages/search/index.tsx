@@ -7,17 +7,15 @@ import {
 } from "../../src/components/helpers/context";
 import Categories from "../../src/components/search/Categories";
 import Filters from "../../src/components/search/Filters";
+import AnimeResults from "../../src/components/search/results/AnimeResults";
 import MovieResults from "../../src/components/search/results/MovieResults";
-import {
-	getMoviesResults,
-	getPeopleResults,
-	getSeriesResults,
-} from "../../src/lib/Search/fromTMDB";
+import PeopleResults from "../../src/components/search/results/PeopleResults";
+import SeriesResults from "../../src/components/search/results/SeriesResults";
 
 const Index = () => {
 	// Add page state management
 	const [query, setQuery] = useState("");
-	// const [update, setUpdate] = useState(false);
+	const [results, setResults] = useState<any>(null);
 	const [category, setCategory] = useState<
 		"movie" | "serie" | "anime" | "people" | "animeCharacter"
 	>("movie");
@@ -31,36 +29,31 @@ const Index = () => {
 		// setText("");
 	};
 
-	// const updateResults = () => {
-	// 	switch (category) {
-	// 		case "movie":
-	// 			{
-	// 				setResults(
-	// 					getMoviesResults(query, filters.year.toString())
-	// 				);
-	// 			}
-	// 			break;
-	// 		case "serie":
-	// 			{
-	// 				setResults(
-	// 					getSeriesResults(query, filters.year.toString())
-	// 				);
-	// 			}
-	// 			break;
-	// 		case "people":
-	// 			{
-	// 				setResults(getPeopleResults(query));
-	// 			}
-	// 			break;
-	// 		default:
-	// 			break;
-	// 	}
-	// };
+	const updateResults = () => {
+		switch (category) {
+			case "movie":
+				setResults(<MovieResults />);
+				break;
+			case "serie":
+				setResults(<SeriesResults />);
+				break;
+			case "people":
+				setResults(<PeopleResults />);
+				break;
+			case "anime":
+				setResults(<AnimeResults />);
+				break;
+			default:
+				setResults(null);
+				break;
+		}
+	};
 
 	useEffect(() => {
 		if (query !== "") {
+			updateResults();
 		}
-	}, [query]);
+	}, [query, category]);
 
 	return (
 		<SearchContext.Provider
@@ -98,14 +91,12 @@ const Index = () => {
 						/>
 					</div>
 					{/* FilterInter */}
-					<div className="flex col-span-2 p-4 md:col-span-1">
+					<div className="flex z-10 col-span-2 p-4 md:col-span-1">
 						<Filters />
 					</div>
 					{/* Search Results */}
 					<div className="col-span-full col-start-2 row-span-3 md:col-span-1">
-						{category === "movie" && query !== "" && (
-							<MovieResults />
-						)}
+						{results}
 					</div>
 					{/* Top 10 */}
 					<div className="hidden col-start-3 row-start-1 row-end-4 border-2 border-black md:block">

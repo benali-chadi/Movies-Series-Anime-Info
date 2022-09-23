@@ -163,10 +163,14 @@ export const getVideos = (url: string) => {
 			promo: [],
 			musicVideos: [],
 		};
-		videos.promo = data.data.promo.map((v) => v.trailer.youtube_id ?? "");
-		videos.musicVideos = data.data.music_videos.map(
-			(v) => v.video.youtube_id ?? ""
-		);
+		if (data.data.promo)
+			videos.promo = data.data.promo.map(
+				(v) => v.trailer.youtube_id ?? ""
+			);
+		if (data.data.music_videos)
+			videos.musicVideos = data.data.music_videos.map(
+				(v) => v.video.youtube_id ?? ""
+			);
 
 		return {
 			videos,
