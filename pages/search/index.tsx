@@ -1,12 +1,15 @@
+import { useRouter } from "next/router";
 import React, { FormEvent, useEffect, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import {
 	SearchContext,
 	filtersInitialState,
 	FilterState,
+	SearchContextState,
 } from "../../src/components/helpers/context";
 import Categories from "../../src/components/search/Categories";
 import Filters from "../../src/components/search/Filters";
+import AnimeCharsResults from "../../src/components/search/results/AnimeCharsResults";
 import AnimeResults from "../../src/components/search/results/AnimeResults";
 import MovieResults from "../../src/components/search/results/MovieResults";
 import PeopleResults from "../../src/components/search/results/PeopleResults";
@@ -14,6 +17,7 @@ import SeriesResults from "../../src/components/search/results/SeriesResults";
 
 const Index = () => {
 	// Add page state management
+	const router = useRouter();
 	const [query, setQuery] = useState("");
 	const [results, setResults] = useState<any>(null);
 	const [category, setCategory] = useState<
@@ -24,12 +28,22 @@ const Index = () => {
 
 	const sumbit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-
+		// const params = new URL(document.location.toString()).searchParams;
+		// params.set("q", text);
+		// params.set("c", category);
+		// console.log("here");
+		// // Filters
+		// if (filters.sort !== "") params.set("sort", filters.sort);
+		// if (filters.status !== "") params.set("status", filters.status);
+		// if (filters.year !== "") params.set("year", filters.year.toString());
+		// // Add genres
+		// router.push(`/search?${params.toString()}`);
 		setQuery(text);
 		// setText("");
 	};
 
 	const updateResults = () => {
+		if (query === "") return;
 		switch (category) {
 			case "movie":
 				setResults(<MovieResults />);
@@ -43,11 +57,33 @@ const Index = () => {
 			case "anime":
 				setResults(<AnimeResults />);
 				break;
+			case "animeCharacter":
+				setResults(<AnimeCharsResults />);
+				break;
 			default:
 				setResults(null);
 				break;
 		}
 	};
+
+	// useEffect(() => {
+	// 	let qs = router.query;
+	// 	console.log("qs =", qs.c);
+	// 	if (Object.keys(qs).length > 0) {
+	// 		const q = qs.q as string;
+	// 		const c = qs.c ? (qs.c as SearchContextState["category"]) : "movie";
+	// 		const sort = qs.sort ? (qs.sort as FilterState["sort"]) : "";
+	// 		const status = qs.status
+	// 			? (qs.status as FilterState["status"])
+	// 			: "";
+	// 		const year = qs.year ? (qs.year as FilterState["year"]) : "";
+	// 		setQuery(q);
+	// 		setCategory(c);
+	// 		setFilters({ ...filters, sort });
+	// 		setFilters({ ...filters, status });
+	// 		setFilters({ ...filters, year });
+	// 	}
+	// }, []);
 
 	useEffect(() => {
 		if (query !== "") {
