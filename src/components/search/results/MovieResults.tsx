@@ -26,6 +26,13 @@ const MovieResults = () => {
 	if (!data || !data.items) return <Spinner />;
 	const { items, pageInfo } = data;
 
+	if (!pageInfo.totalPage)
+		return (
+			<div className="text-3xl font-bold text-white">
+				No Results for <i>"{query}"</i>
+			</div>
+		);
+
 	return (
 		<div>
 			{/* Pagination */}

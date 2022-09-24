@@ -20,9 +20,17 @@ interface Props {
 		rating: string;
 		imdb_id: number;
 	};
+	type: "series" | "movies" | "anime";
 }
 
-const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
+const UpperPart: FC<Props> = ({
+	id,
+	coverPoster,
+	poster,
+	crew,
+	info,
+	type,
+}) => {
 	const [showMore, setShowMore] = useState(false);
 
 	const genres = info.genres.map((g) => g).join(", ");
@@ -39,6 +47,10 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 		setShowMore(!showMore);
 	};
 
+	const ratingLink =
+		type === "movies" || type === "series"
+			? `https://www.themoviedb.org/${type.slice(0, -1)}/${id}`
+			: `https://myanimelist.net/anime/${id}`;
 	const isCreators = crew[0] && crew[0].job === "creator";
 
 	return (
@@ -141,35 +153,56 @@ const UpperPart: FC<Props> = ({ id, coverPoster, poster, crew, info }) => {
 					</div>
 				</div>
 				{/* Rating */}
-				{!!info.rating && (
-					<a
-						href={
-							info.imdb_id && info.imdb_id !== -1
-								? `https://www.imdb.com/title/${info.imdb_id}`
-								: ""
-						}
-						target="_blank"
-						onClick={(e) => {
-							if (info.imdb_id === -1 || !info.imdb_id)
-								e.preventDefault();
-						}}
-						className={`flex gap-2 justify-self-end items-center self-end p-2 bg-gradient-to-l from-white to-transparent rounded-xl ${
-							(info.imdb_id === -1 || !info.imdb_id) &&
-							"cursor-default"
-						}`}
-					>
-						{info.imdb_id !== -1 && info.imdb_id && (
+				<div className="justify-self-end self-end">
+					{!!info.rating && (
+						<a
+							href={ratingLink}
+							target="_blank"
+							// onClick={(e) => {
+							// 	if (info.imdb_id === -1 || !info.imdb_id)
+							// 		e.preventDefault();
+							// }}
+							className={`flex gap-2 items-center p-2 bg-gradient-to-l from-white to-transparent rounded-xl`}
+						>
+							<h2 className="text-3xl font-bold">
+								{parseFloat(info.rating).toFixed(1)}
+							</h2>
+							{type === "movies" || type === "series" ? (
+								<img
+									src="/images/tmdb_logo.svg"
+									alt="tmdb logo"
+									className="h-[3rem] w-[5rem] bg-[#0d253f] rounded-xl p-1"
+								/>
+							) : (
+								<img
+									src="/images/MyAnimeList_Logo.png"
+									alt="my anime list logo"
+									className="h-[3rem] w-[4rem]"
+								/>
+							)}
+						</a>
+					)}
+					{info.imdb_id !== -1 && info.imdb_id && (
+						<a
+							href={
+								info.imdb_id && info.imdb_id !== -1
+									? `https://www.imdb.com/title/${info.imdb_id}`
+									: ""
+							}
+							target="_blank"
+							onClick={(e) => {
+								if (info.imdb_id === -1 || !info.imdb_id)
+									e.preventDefault();
+							}}
+						>
 							<img
 								src="/images/imdb.png"
 								alt="imdb logo"
-								className="h-[2rem] w-[4rem]"
+								className="h-[2rem] w-[4rem] mt-2"
 							/>
-						)}
-						<h2 className="text-3xl font-bold">
-							{parseFloat(info.rating).toFixed(1)}
-						</h2>
-					</a>
-				)}
+						</a>
+					)}
+				</div>
 			</div>
 		</div>
 	);

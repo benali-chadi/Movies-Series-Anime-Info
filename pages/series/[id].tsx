@@ -40,7 +40,7 @@ const SeriePage = ({ details, cast, crew, images, videos, similarSeries }) => {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<UpperPart {...upperpartData} />
+			<UpperPart {...upperpartData} type="series" />
 			<div className="grid grid-cols-4 grid-rows-3 gap-4 w-full">
 				<div className="col-span-3">
 					<PersonList title="Cast" data={cast} />

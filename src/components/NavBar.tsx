@@ -11,7 +11,7 @@ const NavBar = () => {
 
 	return (
 		<div className="flex absolute inset-0 z-20 justify-between p-4 w-screen bg-my-white h-max">
-			<div className="flex gap-8 justify-center self-stretch w-full">
+			<div className="flex gap-8 justify-center items-center self-stretch w-full">
 				<Link href="/movies" passHref>
 					<a
 						href=""

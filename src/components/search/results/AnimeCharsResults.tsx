@@ -25,6 +25,13 @@ const AnimeCharsResults = () => {
 	if (!data || !data.people) return <Spinner />;
 	const { people, pageInfo } = data;
 
+	if (!pageInfo.totalPage)
+		return (
+			<div className="text-3xl font-bold text-white">
+				No Results for <i>"{query}"</i>
+			</div>
+		);
+
 	return (
 		<div>
 			<div className="flex gap-4 justify-center items-center mb-5 text-xl font-bold text-white">

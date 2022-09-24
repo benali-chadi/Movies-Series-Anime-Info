@@ -36,7 +36,7 @@ const MoviePage = ({ details, cast, crew, images, videos, similarMovies }) => {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<UpperPart {...upperpartData} />
+			<UpperPart {...upperpartData} type="movies" />
 			<div className="grid grid-cols-4 grid-rows-2 gap-4 w-full">
 				<div className="col-span-3">
 					<PersonList title="Cast" data={cast} />
