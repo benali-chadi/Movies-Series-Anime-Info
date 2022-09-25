@@ -14,11 +14,23 @@ import AnimeResults from "../../src/components/search/results/AnimeResults";
 import MovieResults from "../../src/components/search/results/MovieResults";
 import PeopleResults from "../../src/components/search/results/PeopleResults";
 import SeriesResults from "../../src/components/search/results/SeriesResults";
+import TopItemCard from "../../src/components/search/TopItemCard";
+import { getTopAnime } from "../../src/lib/Anime/homePageData";
+import { getTopMovies } from "../../src/lib/Movies/homePageData";
+import { getPopularCharacters } from "../../src/lib/People/charactesData";
+import { getPopularPeople } from "../../src/lib/People/peopleData";
+import { getTopSeries } from "../../src/lib/Series/homePageData";
 
-const Index = () => {
-	// Add page state management
+const Index = ({
+	topMovies,
+	topSeries,
+	topAnime,
+	popularPeople,
+	popularCharacters,
+}) => {
 	const router = useRouter();
 	const [query, setQuery] = useState("");
+	const [topPart, setTopPart] = useState(topMovies);
 	const [results, setResults] = useState<any>(null);
 	const [category, setCategory] = useState<
 		"movie" | "serie" | "anime" | "people" | "animeCharacter"
@@ -66,6 +78,26 @@ const Index = () => {
 		}
 	};
 
+	const updateTop = () => {
+		switch (category) {
+			case "movie":
+				setTopPart(topMovies);
+				break;
+			case "serie":
+				setTopPart(topSeries);
+				break;
+			case "people":
+				setTopPart(popularPeople);
+				break;
+			case "anime":
+				setTopPart(topAnime);
+				break;
+			case "animeCharacter":
+				setTopPart(popularCharacters);
+				break;
+		}
+	};
+
 	// useEffect(() => {
 	// 	let qs = router.query;
 	// 	console.log("qs =", qs.c);
@@ -86,6 +118,7 @@ const Index = () => {
 	// }, []);
 
 	useEffect(() => {
+		updateTop();
 		if (query !== "") {
 			updateResults();
 		}
@@ -135,13 +168,49 @@ const Index = () => {
 						{results}
 					</div>
 					{/* Top 10 */}
-					<div className="hidden col-start-3 row-start-1 row-end-4 border-2 border-black md:block">
-						Top 10
+					<div className="hidden flex-col col-start-3 row-start-1 row-end-4 gap-2 md:flex">
+						<h3 className="text-2xl font-bold text-white">
+							Top 10 {category}
+						</h3>
+						{topPart.map((m) => (
+							<TopItemCard {...m} type={category} />
+						))}
 					</div>
 				</div>
 			</div>
 		</SearchContext.Provider>
 	);
 };
+
+export async function getStaticProps() {
+	// Get top 10 of the categories
+	const { topMovies } = await getTopMovies();
+	const { topSeries } = await getTopSeries();
+	const { items: topAnime } = await getTopAnime();
+	const { popularPeople } = await getPopularPeople();
+	const { popularCharacters } = await getPopularCharacters();
+
+	return {
+		props: {
+			topMovies: topMovies.splice(0, 10).map((m) => ({
+				id: m.id,
+				poster: m.poster,
+				name: m.info.title,
+			})),
+			topSeries: topSeries.splice(0, 10).map((s) => ({
+				id: s.id,
+				poster: s.poster,
+				name: s.info.title,
+			})),
+			topAnime: topAnime.splice(0, 10).map((a) => ({
+				id: a.id,
+				poster: a.poster,
+				name: a.info.title,
+			})),
+			popularPeople,
+			popularCharacters,
+		},
+	};
+}
 
 export default Index;
