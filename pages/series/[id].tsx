@@ -41,11 +41,11 @@ const SeriePage = ({ details, cast, crew, images, videos, similarSeries }) => {
 	return (
 		<div className="flex flex-col gap-4">
 			<UpperPart {...upperpartData} type="series" />
-			<div className="grid grid-cols-4 grid-rows-3 gap-4 w-full">
+			<div className="grid grid-cols-3 grid-rows-2 gap-4 w-full md:grid-cols-4">
 				<div className="col-span-3">
 					<PersonList title="Cast" data={cast} />
 				</div>
-				<div className="row-span-2">
+				<div className="col-span-full row-span-2 row-start-3 pl-2 md:col-start-4 md:row-start-1">
 					<SeriesInfoPart {...details.generalInfo} />
 				</div>
 				<div className="col-span-3 ml-4">

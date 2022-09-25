@@ -56,13 +56,13 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 	return (
 		<div className="flex flex-col gap-4">
 			{details && <UpperPart {...upperpartData} type="anime" />}
-			<div className="grid grid-cols-4 grid-rows-2 gap-4 w-full">
+			<div className="grid grid-cols-3 grid-rows-2 gap-4 w-full md:grid-cols-4">
 				<div className="col-span-3">
 					{voiceActors && (
 						<PersonList title="Voice Actors" data={voiceActors} />
 					)}
 				</div>
-				<div className="row-span-2">
+				<div className="col-span-full row-span-2 row-start-3 pl-2 md:col-start-4 md:row-start-1">
 					{details && <AnimeInfoPart {...details.generalInfo} />}
 				</div>
 				<div className="col-span-3">

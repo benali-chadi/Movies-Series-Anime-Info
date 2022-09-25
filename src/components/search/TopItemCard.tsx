@@ -24,9 +24,12 @@ const TopItemCard: FC<Props> = ({ id, poster, name, type }) => {
 		router.push(`/${t}/${id}`);
 	};
 	return (
-		<div className="flex gap-2 cursor-pointer" onClick={handleClick}>
+		<div
+			className="flex gap-2 cursor-pointer hover:bg-white/60"
+			onClick={handleClick}
+		>
 			<img src={src} alt="poster" className="w-[3rem] h-[4rem]" />
-			<h3 className="self-center font-bold text-white">{name}</h3>
+			<h3 className="self-center font-bold">{name}</h3>
 		</div>
 	);
 };

@@ -26,7 +26,7 @@ const LatestSeason: FC<Props> = ({
 		return `${hours ? hours + "h" : ""} ${minutes ? minutes + "m" : ""}`;
 	};
 	return (
-		<div className="flex gap-2 w-full h-[70%] rounded-r-xl shadow-lg bg-my-white shadow-slate-500">
+		<div className="flex gap-2 w-full md:h-[70%] h-[40%] rounded-r-xl shadow-lg bg-my-white shadow-slate-500">
 			<img
 				src={poster ? poster : "/images/default_poster.png"}
 				alt="Season poster"

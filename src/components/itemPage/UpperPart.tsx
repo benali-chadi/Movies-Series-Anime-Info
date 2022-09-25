@@ -65,7 +65,7 @@ const UpperPart: FC<Props> = ({
 					className="absolute inset-0 w-full h-full blur"
 				/>
 			)}
-			<div className="z-10 grid grid-cols-[1.5fr_2fr_1fr] gap-2 w-full">
+			<div className="z-10 grid grid-cols-1 md:grid-cols-[1.5fr_2fr_1fr] gap-2 w-full">
 				<div className="flex gap-4 justify-self-start pr-5 max-w-xl bg-black/50">
 					{/* Poster */}
 					<img

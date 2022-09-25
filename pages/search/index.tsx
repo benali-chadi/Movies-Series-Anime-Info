@@ -28,30 +28,21 @@ const Index = ({
 	popularPeople,
 	popularCharacters,
 }) => {
-	const router = useRouter();
 	const [query, setQuery] = useState("");
-	const [topPart, setTopPart] = useState(topMovies);
 	const [results, setResults] = useState<any>(null);
+
 	const [category, setCategory] = useState<
 		"movie" | "serie" | "anime" | "people" | "animeCharacter"
 	>("movie");
 	const [filters, setFilters] = useState<FilterState>(filtersInitialState);
+
+	const [topPart, setTopPart] = useState(topMovies);
+	const [topTitle, setTopTitle] = useState("Movies");
 	const [text, setText] = useState("");
 
 	const sumbit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// const params = new URL(document.location.toString()).searchParams;
-		// params.set("q", text);
-		// params.set("c", category);
-		// console.log("here");
-		// // Filters
-		// if (filters.sort !== "") params.set("sort", filters.sort);
-		// if (filters.status !== "") params.set("status", filters.status);
-		// if (filters.year !== "") params.set("year", filters.year.toString());
-		// // Add genres
-		// router.push(`/search?${params.toString()}`);
 		setQuery(text);
-		// setText("");
 	};
 
 	const updateResults = () => {
@@ -81,18 +72,23 @@ const Index = ({
 	const updateTop = () => {
 		switch (category) {
 			case "movie":
+				setTopTitle("Movies");
 				setTopPart(topMovies);
 				break;
 			case "serie":
+				setTopTitle("Series");
 				setTopPart(topSeries);
 				break;
 			case "people":
+				setTopTitle("People");
 				setTopPart(popularPeople);
 				break;
 			case "anime":
+				setTopTitle("Anime");
 				setTopPart(topAnime);
 				break;
 			case "animeCharacter":
+				setTopTitle("Anime Characters");
 				setTopPart(popularCharacters);
 				break;
 		}
@@ -168,13 +164,21 @@ const Index = ({
 						{results}
 					</div>
 					{/* Top 10 */}
-					<div className="hidden flex-col col-start-3 row-start-1 row-end-4 gap-2 md:flex">
-						<h3 className="text-2xl font-bold text-white">
-							Top 10 {category}
-						</h3>
-						{topPart.map((m) => (
-							<TopItemCard {...m} type={category} />
-						))}
+					<div className="hidden col-start-3 row-start-1 row-end-4 rounded-xl md:block bg-my-white h-max">
+						<div className="p-4 rounded-t-xl bg-my-blue">
+							<h3 className="text-2xl font-bold text-white">
+								Top 10 {topTitle}
+							</h3>
+						</div>
+						<div className="flex flex-col gap-2 p-2">
+							{topPart.map((m) => (
+								<TopItemCard
+									{...m}
+									type={category}
+									key={m.id}
+								/>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -183,7 +187,6 @@ const Index = ({
 };
 
 export async function getStaticProps() {
-	// Get top 10 of the categories
 	const { topMovies } = await getTopMovies();
 	const { topSeries } = await getTopSeries();
 	const { items: topAnime } = await getTopAnime();
