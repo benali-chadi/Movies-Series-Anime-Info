@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Item from "./Item";
+import Spinner from "./Spinner";
 
 interface Props {
 	title: string;
@@ -15,9 +16,13 @@ interface Props {
 		}
 	];
 	type: string;
+	loading: boolean;
+	error: boolean;
 }
 
-const ItemsList: FC<Props> = ({ title, data, type }) => {
+const ItemsList: FC<Props> = ({ title, data, type, loading, error }) => {
+	if (loading) return <Spinner />;
+	if (error) return null;
 	return (
 		<div>
 			<h2 className="relative z-10 pl-2 text-4xl font-bold text-my-white">

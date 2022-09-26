@@ -94,8 +94,8 @@ export const getItems = async (url) => {
 	return { items, ok: res.ok };
 };
 
-export async function getLatestTrailers() {
-	const url = new URL(`${process.env.JIKAN_URL}top/anime`);
+export async function getALatestTrailers() {
+	const url = new URL(`${process.env.NEXT_PUBLIC_JIKAN_URL}top/anime`);
 	url.searchParams.set("filter", "upcoming");
 
 	const res = await fetch(url);

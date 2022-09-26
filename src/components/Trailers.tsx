@@ -1,15 +1,36 @@
 import React, { FC, useEffect, useState } from "react";
 import Video from "./Common/Video";
 import { motion, AnimatePresence } from "framer-motion";
+import { getMLatestTrailers } from "../lib/Movies/homePageData";
+import Spinner from "./Common/Spinner";
+import { getALatestTrailers } from "../lib/Anime/homePageData";
+import { getSLatestTrailers } from "../lib/Series/homePageData";
 
 interface Props {
-	videosIds: string[];
+	// videosIds: string[];
+	type: "movies" | "series" | "anime";
 }
 
-const Trailers: FC<Props> = ({ videosIds }) => {
-	const [selectedImage, setSelectedImage] = useState(
-		`https://img.youtube.com/vi/${videosIds[0]}/mqdefault.jpg`
-	);
+const Trailers: FC<Props> = ({ type }) => {
+	const [videosIds, setVideosIds] = useState<null | string[]>(null);
+	const [selectedImage, setSelectedImage] = useState("");
+	const [loading, setLoading] = useState(false);
+	useEffect(() => {
+		const wrapper = async () => {
+			const { trailersIds, ok } =
+				type === "movies"
+					? await getMLatestTrailers()
+					: type === "series"
+					? await getSLatestTrailers()
+					: await getALatestTrailers();
+			if (!ok) return;
+			setVideosIds(trailersIds);
+		};
+		setLoading(true);
+		wrapper();
+		setLoading(false);
+	}, []);
+
 	const bgVariants = {
 		initial: {
 			opacity: 0,
@@ -21,6 +42,9 @@ const Trailers: FC<Props> = ({ videosIds }) => {
 			opacity: 0.3,
 		},
 	};
+
+	if (loading) return <Spinner />;
+	if (!videosIds) return null;
 
 	return (
 		<div className="relative mx-4 overflow-hidden h-[20rem] flex flex-col gap-2 justify-center">

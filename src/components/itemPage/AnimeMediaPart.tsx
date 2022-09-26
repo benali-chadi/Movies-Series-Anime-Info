@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import useSWR from "swr";
 import {
 	animeFetcher,
-	getImages,
-	getVideos,
+	useGetImages,
+	useGetVideos,
 } from "../../lib/Anime/specificPageData";
 import MyImage from "../Common/MyImage";
 import Spinner from "../Common/Spinner";
@@ -30,12 +30,12 @@ const AnimeMediaPart = () => {
 		images,
 		isLoading: isImagesLoading,
 		isError: isImagesError,
-	} = getImages(`${router.query.id}/pictures`);
+	} = useGetImages(`${router.query.id}/pictures`);
 	const {
 		videos,
 		isLoading: isVideosLoading,
 		isError: isVideosError,
-	} = getVideos(`${router.query.id}/videos`);
+	} = useGetVideos(`${router.query.id}/videos`);
 
 	const [toggle, setToggle] = useState<"pictures" | "promo" | "music">(
 		"pictures"

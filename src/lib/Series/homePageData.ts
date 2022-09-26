@@ -1,11 +1,13 @@
 const baseSeriesUrl = `${process.env.TMDB_URL}tv/`;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.TMDB_KEY;
+const pubApiKey = process.env.NEXT_PUBLIC_TMDB_KEY;
+const pubSeriesUrl = `${process.env.NEXT_PUBLIC_TMDB_URL}tv/`;
 
-export async function getLatestTrailers() {
+export async function getSLatestTrailers() {
 	const currentYear = new Date().getFullYear();
-	const url = new URL(`${process.env.TMDB_URL}discover/tv`);
-	url.searchParams.set("api_key", apiKey);
+	const url = new URL(`${process.env.NEXT_PUBLIC_TMDB_URL}discover/tv`);
+	url.searchParams.set("api_key", pubApiKey);
 	url.searchParams.set("first_air_date_year", `${currentYear}`);
 
 	const res = await fetch(url);
@@ -16,8 +18,8 @@ export async function getLatestTrailers() {
 	let trailersIds = [];
 
 	for (let id of ids) {
-		const vidUrl = new URL(baseSeriesUrl + id + "/videos");
-		vidUrl.searchParams.set("api_key", apiKey);
+		const vidUrl = new URL(pubSeriesUrl + id + "/videos");
+		vidUrl.searchParams.set("api_key", pubApiKey);
 		const { results } = await fetch(vidUrl).then((r) => r.json());
 
 		for (let vid of results) {

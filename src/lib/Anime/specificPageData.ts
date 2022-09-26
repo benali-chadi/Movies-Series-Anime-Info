@@ -129,7 +129,7 @@ export function animeFetcher(url: string) {
 	return fetch(newUrl).then((r) => r.json());
 }
 
-export const getImages = (url: string) => {
+export const useGetImages = (url: string) => {
 	const { data, error } = useSWR(url, animeFetcher);
 
 	if (data && data.data) {
@@ -155,7 +155,7 @@ export const getImages = (url: string) => {
 	};
 };
 
-export const getVideos = (url: string) => {
+export const useGetVideos = (url: string) => {
 	const { data, error } = useSWR(url, animeFetcher);
 
 	if (data && data.data) {
@@ -192,7 +192,7 @@ export const getVideos = (url: string) => {
 	};
 };
 
-export const getSimilar = (url: string) => {
+export const useGetSimilar = (url: string) => {
 	const { data, error } = useSWR(url, animeFetcher);
 
 	if (data && data.data) {

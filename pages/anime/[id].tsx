@@ -7,7 +7,7 @@ import { getLatestAnime } from "../../src/lib/Anime/homePageData";
 import {
 	getAnimeCrew,
 	getAnimeDetails,
-	getSimilar,
+	useGetSimilar,
 } from "../../src/lib/Anime/specificPageData";
 import AnimeMediaPart from "../../src/components/itemPage/AnimeMediaPart";
 import Spinner from "../../src/components/Common/Spinner";
@@ -17,7 +17,7 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 	const router = useRouter();
 	if (router.isFallback) return <Spinner />;
 
-	const { similarAnime, isLoading, isError } = getSimilar(
+	const { similarAnime, isLoading, isError } = useGetSimilar(
 		`${router.query.id}/recommendations`
 	);
 
@@ -69,20 +69,13 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 					<AnimeMediaPart />
 				</div>
 			</div>
-			()
-			{isLoading ? (
-				<Spinner />
-			) : isError ? (
-				<div className="text-3xl font-bold text-white">
-					Error Loading Similar Anime
-				</div>
-			) : (
-				<ItemsList
-					title="Similar Anime"
-					data={similarAnime}
-					type="anime"
-				/>
-			)}
+			<ItemsList
+				title="Similar Anime"
+				data={similarAnime}
+				type="anime"
+				loading={isLoading}
+				error={isError}
+			/>
 		</div>
 	);
 };

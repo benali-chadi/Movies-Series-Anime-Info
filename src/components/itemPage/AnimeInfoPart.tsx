@@ -49,6 +49,7 @@ const AnimeInfoPart: FC<Props> = ({
 						<a
 							href={studio.url}
 							target="_blank"
+							rel="noreferrer"
 							className="pt-2 text-blue-300 hover:text-blue-500"
 						>
 							{studio.name}
@@ -64,6 +65,7 @@ const AnimeInfoPart: FC<Props> = ({
 						<a
 							href={producer.url}
 							target="_blank"
+							rel="noreferrer"
 							className="pt-2 text-blue-300 hover:text-blue-500"
 						>
 							{producer.name}

@@ -158,6 +158,7 @@ const UpperPart: FC<Props> = ({
 						<a
 							href={ratingLink}
 							target="_blank"
+							rel="noreferrer"
 							// onClick={(e) => {
 							// 	if (info.imdb_id === -1 || !info.imdb_id)
 							// 		e.preventDefault();
@@ -190,6 +191,7 @@ const UpperPart: FC<Props> = ({
 									: ""
 							}
 							target="_blank"
+							rel="noreferrer"
 							onClick={(e) => {
 								if (info.imdb_id === -1 || !info.imdb_id)
 									e.preventDefault();

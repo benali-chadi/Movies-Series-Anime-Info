@@ -65,7 +65,7 @@ const MediaPart: FC<Props> = ({ images, videos }) => {
 					{images.backdrops
 						.filter((src) => src !== "")
 						.map((src) => (
-							<MyImage src={src} />
+							<MyImage src={src} key={src} />
 						))}
 				</div>
 			)}
@@ -74,7 +74,7 @@ const MediaPart: FC<Props> = ({ images, videos }) => {
 					{images.posters
 						.filter((src) => src !== "")
 						.map((src) => (
-							<MyImage src={src} />
+							<MyImage src={src} key={src} />
 						))}
 				</div>
 			)}

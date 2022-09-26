@@ -57,6 +57,7 @@ function GenresDropDown({ setFilters, filters, hide, genres }) {
 						});
 						hide();
 					}}
+					key={g}
 				/>
 			))}
 		</div>
