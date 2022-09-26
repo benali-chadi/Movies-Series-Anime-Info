@@ -6,14 +6,14 @@ const baseTmdbUrl = process.env.NEXT_PUBLIC_TMDB_URL;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.NEXT_PUBLIC_TMDB_KEY;
 
-export function useGetSeriesItems(url: string, options?) {
+export function useGetSeriesItems(url: string, params?) {
 	const newUrl = useMemo(() => {
 		const u = new URL(`${baseTmdbUrl}${url}`);
 
 		u.searchParams.set("api_key", apiKey);
-		if (options) {
-			for (let o in options) {
-				u.searchParams.set(o, options[o]);
+		if (params) {
+			for (let o in params) {
+				u.searchParams.set(o, params[o]);
 			}
 		}
 		return u;

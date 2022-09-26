@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import Spinner from "../Common/Spinner";
 
 interface Props {
 	status: string;
@@ -12,6 +13,8 @@ interface Props {
 	originalLanguage: string;
 	budget: number;
 	revenue: number;
+	loading: boolean;
+	error: boolean;
 }
 
 const MoviesInfoPart: FC<Props> = ({
@@ -20,7 +23,11 @@ const MoviesInfoPart: FC<Props> = ({
 	originalLanguage,
 	budget,
 	revenue,
+	loading,
+	error,
 }) => {
+	if (loading) return <Spinner />;
+	if (error) return <div>Error Loading info part</div>;
 	return (
 		<div className="flex flex-col gap-2 text-white">
 			<h2 className="mb-4 text-4xl font-bold">Info</h2>

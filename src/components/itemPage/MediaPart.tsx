@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import MyImage from "../Common/MyImage";
-import Trailers from "../Trailers";
+import Spinner from "../Common/Spinner";
+// import Trailers from "../Trailers";
 import Video from "../Common/Video";
 
 interface Props {
@@ -10,12 +11,15 @@ interface Props {
 		posters: string[];
 	};
 	videos: string[];
+	loading: boolean;
 }
 
-const MediaPart: FC<Props> = ({ images, videos }) => {
+const MediaPart: FC<Props> = ({ images, videos, loading }) => {
 	const [toggle, setToggle] = useState<"videos" | "backdrops" | "posters">(
 		"videos"
 	);
+	if (loading) return <Spinner />;
+	if (!images && !videos) return null;
 	return (
 		<div className="h-full">
 			<h2 className="pb-2 pl-2 text-4xl font-bold text-my-white">

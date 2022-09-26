@@ -4,12 +4,12 @@ import { fetcher } from "../Movies/movieData";
 
 const baseJikanURl = `${process.env.NEXT_PUBLIC_JIKAN_URL}`;
 
-export function useGetAnimeItems(url: string, options?) {
+export function useGetAnimeItems(url: string, params?) {
 	const newUrl = useMemo(() => {
 		const u = new URL(`${baseJikanURl}${url}`);
-		if (options) {
-			for (let o in options) {
-				u.searchParams.set(o, options[o]);
+		if (params) {
+			for (let o in params) {
+				u.searchParams.set(o, params[o]);
 			}
 		}
 		return u;

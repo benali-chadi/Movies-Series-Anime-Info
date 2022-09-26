@@ -3,6 +3,8 @@ import { getItems } from "./homePageData";
 const baseMoviesUrl = `${process.env.TMDB_URL}movie/`;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.TMDB_KEY;
+const pubApiKey = process.env.NEXT_PUBLIC_TMDB_KEY;
+const pubMoviesUrl = `${process.env.NEXT_PUBLIC_TMDB_URL}movie/`;
 
 export async function getMovieDetails(movie_id: string) {
 	const url = new URL(`${baseMoviesUrl}${movie_id}`);
@@ -90,10 +92,10 @@ export async function getMovieCast(movie_id: string) {
 }
 
 export async function getMedia(movie_id: string) {
-	const imagesUrl = new URL(`${baseMoviesUrl}${movie_id}/images`);
-	imagesUrl.searchParams.set("api_key", apiKey);
-	const videosURl = new URL(`${baseMoviesUrl}${movie_id}/videos`);
-	videosURl.searchParams.set("api_key", apiKey);
+	const imagesUrl = new URL(`${pubMoviesUrl}${movie_id}/images`);
+	imagesUrl.searchParams.set("api_key", pubApiKey);
+	const videosURl = new URL(`${pubMoviesUrl}${movie_id}/videos`);
+	videosURl.searchParams.set("api_key", pubApiKey);
 
 	const res1 = await fetch(imagesUrl);
 	const res2 = await fetch(videosURl);

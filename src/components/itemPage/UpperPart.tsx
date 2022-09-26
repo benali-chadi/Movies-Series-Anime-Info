@@ -1,38 +1,75 @@
-import React, { FC, useState } from "react";
+import { useRouter } from "next/router";
+import React, { FC, useEffect, useState } from "react";
+import { useGetMovieDetails } from "../../lib/Movies/movieData";
+import Spinner from "../Common/Spinner";
 
 interface Props {
-	id: number;
+	// id: number;
 	coverPoster: string;
 	poster: string;
-	crew: [
-		{
-			id: number;
-			name: string;
-			job: string;
-		}
-	];
-	info: {
-		title: string;
-		date: string;
-		genres: string[];
-		runtime: string;
-		overview: string;
-		rating: string;
-		imdb_id: number;
-	};
-	type: "series" | "movies" | "anime";
+	crew:
+		| [
+				{
+					id: number;
+					name: string;
+					job: string[];
+				}
+		  ]
+		| null;
+	details: any;
+	// info: {
+	// 	title: string;
+	// 	date: string;
+	// 	genres: string[];
+	// 	runtime: string;
+	// 	overview: string;
+	// 	rating: string;
+	// 	imdb_id: number;
+	// };
+	type: "serie" | "movie" | "anime";
+	loading;
+	error;
 }
 
 const UpperPart: FC<Props> = ({
-	id,
+	// id,
 	coverPoster,
 	poster,
 	crew,
-	info,
+	details,
+	loading,
+	error,
+	// info,
 	type,
 }) => {
+	const router = useRouter();
+	const { id } = router.query;
+	// const { details, isLoading, isError } = useGetMovieDetails(
+	// 	`movie/${id}`,
+	// 	!!id
+	// );
 	const [showMore, setShowMore] = useState(false);
+	const [isCreators, setIsCreators] = useState(false);
+	useEffect(() => {
+		if (crew) {
+			setIsCreators(crew[0].job[0] === "creator");
+		}
+	}, [crew]);
 
+	if (loading) return <Spinner />;
+	if (error) return <div>Error in upper part</div>;
+
+	const info = {
+		title: details.title,
+		date: details.date,
+		genres: details.genres,
+		runtime: details.runtime,
+		overview: details.overview,
+		rating: details.rating,
+		imdb_id: details.imdb_id,
+	};
+	// const coverPoster = details.poster;
+	// const poster = details.poster;
 	const genres = info.genres.map((g) => g).join(", ");
 
 	const convertTime = (time) => {
@@ -48,10 +85,11 @@ const UpperPart: FC<Props> = ({
 	};
 
 	const ratingLink =
-		type === "movies" || type === "series"
+		type === "movie" || type === "serie"
 			? `https://www.themoviedb.org/${type.slice(0, -1)}/${id}`
 			: `https://myanimelist.net/anime/${id}`;
-	const isCreators = crew[0] && crew[0].job === "creator";
+
+	// const isCreators = crew[0] && crew[0].job[0] === "creator";
 
 	return (
 		<div
@@ -130,25 +168,26 @@ const UpperPart: FC<Props> = ({
 							</h1>
 						)}
 						<div className="flex flex-wrap gap-1 justify-between">
-							{crew.map((c) => (
-								<div
-									className="flex-shrink-0 text-white"
-									key={c.id}
-								>
-									<h3
-										className={`text-lg ${
-											!isCreators && "font-bold"
-										}  text-white`}
+							{crew &&
+								crew.map((c) => (
+									<div
+										className="flex-shrink-0 text-white"
+										key={c.id}
 									>
-										{c.name}
-									</h3>
-									{!isCreators && (
-										<p className="text-sm text-white">
-											{c.job}
-										</p>
-									)}
-								</div>
-							))}
+										<h3
+											className={`text-lg ${
+												!isCreators && "font-bold"
+											}  text-white`}
+										>
+											{c.name}
+										</h3>
+										{!isCreators && (
+											<p className="text-sm text-white">
+												{c.job.join("/")}
+											</p>
+										)}
+									</div>
+								))}
 						</div>
 					</div>
 				</div>
@@ -168,7 +207,7 @@ const UpperPart: FC<Props> = ({
 							<h2 className="text-3xl font-bold">
 								{parseFloat(info.rating).toFixed(1)}
 							</h2>
-							{type === "movies" || type === "series" ? (
+							{type === "movie" || type === "serie" ? (
 								<img
 									src="/images/tmdb_logo.svg"
 									alt="tmdb logo"

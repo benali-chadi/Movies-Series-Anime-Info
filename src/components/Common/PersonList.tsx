@@ -14,6 +14,7 @@ interface Props {
 }
 
 const PersonList: FC<Props> = ({ title, data }) => {
+	console.log("cast =", data);
 	return (
 		<div>
 			<h2 className="pl-2 text-4xl font-bold text-my-white">{title}</h2>
