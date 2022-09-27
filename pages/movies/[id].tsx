@@ -43,6 +43,7 @@ const MoviePage = () => {
 		isLoading: similarLoading,
 		isError: similarError,
 	} = useGetMoviesItems(`movie/${id}/similar`, !!id);
+
 	useEffect(() => {
 		const getImagesAndVideos = async () => {
 			const data = await getMedia(id as string);
@@ -55,7 +56,6 @@ const MoviePage = () => {
 		getImagesAndVideos();
 		setMediaLoading(false);
 	}, [id]);
-	console.log("people =", people);
 
 	// let upperpartData = {};
 	// if (details) {
@@ -124,41 +124,5 @@ const MoviePage = () => {
 		</div>
 	);
 };
-
-export async function getStaticPaths() {
-	// 	const { upcomingMovies } = await getNowPlaying();
-	// 	const paths = upcomingMovies.map((movie) => {
-	// 		return {
-	// 			params: {
-	// 				id: movie.id.toString(),
-	// 			},
-	// 		};
-	// 	});
-	// 	return { paths, fallback: true };
-	return { paths: [{ params: { id: "1" } }], fallback: true };
-}
-
-export async function getStaticProps({ params }) {
-	// 	const { data: details } = await getMovieDetails(params.id);
-	// 	const {
-	// 		data: { cast, crew },
-	// 	} = await getMovieCast(params.id);
-	// 	const { data: media } = await getMedia(params.id);
-	// 	const { data: similarMovies } = await getSimilarMovies(params.id);
-
-	// 	return {
-	// 		props: {
-	// 			details,
-	// 			cast,
-	// 			crew,
-	// 			images: media.images,
-	// 			videos: media.videos,
-	// 			similarMovies,
-	// 		},
-	// 	};
-	return {
-		props: { id: params.id },
-	};
-}
 
 export default MoviePage;

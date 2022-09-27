@@ -51,7 +51,7 @@ const UpperPart: FC<Props> = ({
 	const [showMore, setShowMore] = useState(false);
 	const [isCreators, setIsCreators] = useState(false);
 	useEffect(() => {
-		if (crew) {
+		if (crew && crew.length > 1) {
 			setIsCreators(crew[0].job[0] === "creator");
 		}
 	}, [crew]);
@@ -61,7 +61,7 @@ const UpperPart: FC<Props> = ({
 
 	const info = {
 		title: details.title,
-		date: details.date,
+		date: type === "movie" ? details.date : details.firstAirDate,
 		genres: details.genres,
 		runtime: details.runtime,
 		overview: details.overview,

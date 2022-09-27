@@ -3,6 +3,8 @@ import { getItems } from "./homePageData";
 const baseSeriesUrl = `${process.env.TMDB_URL}tv/`;
 const baseImageUrl = "https://image.tmdb.org/t/p/";
 const apiKey = process.env.TMDB_KEY;
+const pubApiKey = process.env.NEXT_PUBLIC_TMDB_KEY;
+const pubSeriesUrl = `${process.env.NEXT_PUBLIC_TMDB_URL}tv/`;
 
 export async function getSerieDetails(serie_id: string) {
 	const url = new URL(`${baseSeriesUrl}${serie_id}`);
@@ -122,10 +124,10 @@ export async function getSerieCast(serie_id: string) {
 }
 
 export async function getMedia(serie_id: string) {
-	const imagesUrl = new URL(`${baseSeriesUrl}${serie_id}/images`);
-	imagesUrl.searchParams.set("api_key", apiKey);
-	const videosURl = new URL(`${baseSeriesUrl}${serie_id}/videos`);
-	videosURl.searchParams.set("api_key", apiKey);
+	const imagesUrl = new URL(`${pubSeriesUrl}${serie_id}/images`);
+	imagesUrl.searchParams.set("api_key", pubApiKey);
+	const videosURl = new URL(`${pubSeriesUrl}${serie_id}/videos`);
+	videosURl.searchParams.set("api_key", pubApiKey);
 
 	const res1 = await fetch(imagesUrl);
 	const res2 = await fetch(videosURl);
