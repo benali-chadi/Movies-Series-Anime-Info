@@ -171,16 +171,17 @@ export function useGetMoviePeople(url: string, isId: boolean, params?) {
 						job: [c.job],
 					}))
 			),
-			cast: cast.splice(0, 15).map((c) => {
-				return {
-					id: c.id,
-					poster: c.profile_path
-						? baseImageUrl + "w300/" + c.profile_path
-						: "",
-					name: c.name,
-					character: c.character,
-				};
-			}),
+			cast: cast /*.splice(0, 15)*/
+				.map((c) => {
+					return {
+						id: c.id,
+						poster: c.profile_path
+							? baseImageUrl + "w300/" + c.profile_path
+							: "",
+						name: c.name,
+						character: c.character,
+					};
+				}),
 		};
 
 		return {

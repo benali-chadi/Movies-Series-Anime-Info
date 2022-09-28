@@ -81,7 +81,7 @@ const SeriePage = () => {
 	return (
 		<div className="flex flex-col gap-4">
 			<UpperPart
-				crew={people ? people.crew : ""}
+				crew={people ? people.crew : null}
 				type="serie"
 				details={details}
 				loading={detailsLoading}
@@ -91,13 +91,12 @@ const SeriePage = () => {
 			/>
 			<div className="grid grid-cols-3 grid-rows-2 gap-4 w-full md:grid-cols-4">
 				<div className="col-span-3">
-					{peopleLoading ? (
-						<Spinner />
-					) : peopleError ? (
-						<div>Error Loading People</div>
-					) : (
-						<PersonList title="Cast" data={people.cast} />
-					)}
+					<PersonList
+						title="Cast"
+						data={people ? people.cast : null}
+						loading={peopleLoading}
+						error={peopleError}
+					/>
 				</div>
 				<div className="col-span-full row-span-2 row-start-3 pl-2 md:col-start-4 md:row-start-1">
 					{details && <SeriesInfoPart {...details.generalInfo} />}

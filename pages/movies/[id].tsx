@@ -3,7 +3,7 @@ import { useRouter } from "../../node_modules/next/router";
 import UpperPart from "../../src/components/itemPage/UpperPart";
 import ItemsList from "../../src/components/Common/ItemsList";
 import PersonList from "../../src/components/Common/PersonList";
-import { getNowPlaying } from "../../src/lib/Movies/homePageData";
+// import { getNowPlaying } from "../../src/lib/Movies/homePageData";
 // import {
 // 	getMedia,
 // 	getMovieCast,
@@ -79,7 +79,7 @@ const MoviePage = () => {
 	return (
 		<div className="flex flex-col gap-4">
 			<UpperPart
-				crew={people ? people.crew : ""}
+				crew={people ? people.crew : null}
 				type="movie"
 				details={details}
 				loading={detailsLoading}
@@ -89,13 +89,12 @@ const MoviePage = () => {
 			/>
 			<div className="grid grid-cols-3 grid-rows-2 gap-4 w-full md:grid-cols-4">
 				<div className="col-span-3">
-					{peopleLoading ? (
-						<Spinner />
-					) : peopleError ? (
-						<div>Error Loading People</div>
-					) : (
-						<PersonList title="Cast" data={people.cast} />
-					)}
+					<PersonList
+						title="Cast"
+						data={people ? people.cast : null}
+						loading={peopleLoading}
+						error={peopleError}
+					/>
 				</div>
 				<div className="col-span-full row-span-2 row-start-3 pl-2 md:col-start-4 md:row-start-1">
 					{details && (

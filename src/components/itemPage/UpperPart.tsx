@@ -51,6 +51,7 @@ const UpperPart: FC<Props> = ({
 	const [showMore, setShowMore] = useState(false);
 	const [isCreators, setIsCreators] = useState(false);
 	useEffect(() => {
+		console.log("crew =", crew);
 		if (crew && crew.length > 1) {
 			setIsCreators(crew[0].job[0] === "creator");
 		}
@@ -61,7 +62,7 @@ const UpperPart: FC<Props> = ({
 
 	const info = {
 		title: details.title,
-		date: type === "movie" ? details.date : details.firstAirDate,
+		date: type === "serie" ? details.firstAirDate : details.date,
 		genres: details.genres,
 		runtime: details.runtime,
 		overview: details.overview,
@@ -86,7 +87,9 @@ const UpperPart: FC<Props> = ({
 
 	const ratingLink =
 		type === "movie" || type === "serie"
-			? `https://www.themoviedb.org/${type.slice(0, -1)}/${id}`
+			? `https://www.themoviedb.org/${
+					type === "serie" ? "tv" : type
+			  }/${id}`
 			: `https://myanimelist.net/anime/${id}`;
 
 	// const isCreators = crew[0] && crew[0].job[0] === "creator";
@@ -183,7 +186,9 @@ const UpperPart: FC<Props> = ({
 										</h3>
 										{!isCreators && (
 											<p className="text-sm text-white">
-												{c.job.join("/")}
+												{type === "anime"
+													? c.job
+													: c.job.join("/")}
 											</p>
 										)}
 									</div>
