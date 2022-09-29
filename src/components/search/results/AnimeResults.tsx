@@ -24,7 +24,7 @@ const AnimeResults = () => {
 	if (!pageInfo.totalPage)
 		return (
 			<div className="text-3xl font-bold text-white">
-				No Results for <i>"{query}"</i>
+				No Results for <i>&quot;{query}&quot;</i>
 			</div>
 		);
 

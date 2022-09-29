@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import useSWRImmutable from "swr/immutable";
-import { fetcher } from "../Movies/movieData";
+import { fetcher } from "./movieData";
 
 const baseJikanURl = `${process.env.NEXT_PUBLIC_JIKAN_URL}`;
 
@@ -69,7 +69,6 @@ export function useGetAnimeDetails(url: string, isId: boolean, params?) {
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
 
 	if (data && !data.status) {
-		console.log("anime details =", data);
 		const details = {
 			id: data.mal_id,
 			poster: data.images.jpg.image_url ?? "",

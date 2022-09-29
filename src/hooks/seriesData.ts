@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { fetcher } from "../Movies/movieData";
+import { fetcher } from "./movieData";
 import useSWRImmutable from "swr/immutable";
 
 const baseTmdbUrl = process.env.NEXT_PUBLIC_TMDB_URL;
@@ -175,7 +175,6 @@ export function useGetSeriePeople(url: string, isId: boolean, params?) {
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
 	if (data) {
-		console.log("people =", data);
 		const { cast, crew } = data;
 		const isMainCrew = (job) => {
 			return (

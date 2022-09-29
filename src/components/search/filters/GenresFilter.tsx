@@ -4,8 +4,8 @@ import { useOutsideClick } from "../../../lib/useOutsideClick";
 import { SearchContext, SearchContextState } from "../../helpers/context";
 import { DropDownHeader } from "./SortFilter";
 
-const GenresFilter: FC<{ genres: string[] }> = ({ genres }) => {
-	const { filters, setFilters } =
+const GenresFilter = () => {
+	const { filters, setFilters, animeGenres } =
 		useContext<SearchContextState>(SearchContext);
 	const [toggle, setToggle] = useState(false);
 	const [title, setTitle] = useState("genres");
@@ -14,8 +14,8 @@ const GenresFilter: FC<{ genres: string[] }> = ({ genres }) => {
 	useOutsideClick(myRef, () => setToggle(false));
 
 	useEffect(() => {
-		if (filters.genre === "") setTitle("genres");
-		else setTitle(filters.genre);
+		if (filters.genre.name === "") setTitle("genres");
+		else setTitle(filters.genre.name);
 	}, [filters]);
 
 	return (
@@ -35,7 +35,7 @@ const GenresFilter: FC<{ genres: string[] }> = ({ genres }) => {
 					hide={() => {
 						setToggle(false);
 					}}
-					genres={genres}
+					genres={animeGenres}
 				/>
 			)}
 		</div>
@@ -49,7 +49,7 @@ function GenresDropDown({ setFilters, filters, hide, genres }) {
 		>
 			{genres.map((g) => (
 				<DropDownHeader
-					title={g}
+					title={g.name}
 					handleClick={() => {
 						setFilters({
 							...filters,
@@ -57,7 +57,7 @@ function GenresDropDown({ setFilters, filters, hide, genres }) {
 						});
 						hide();
 					}}
-					key={g}
+					key={g.id}
 				/>
 			))}
 		</div>

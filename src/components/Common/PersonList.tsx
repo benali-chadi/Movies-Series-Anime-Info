@@ -20,7 +20,6 @@ const PersonList: FC<Props> = ({ title, data, loading, error }) => {
 	const [people, setPeople] = useState(data);
 
 	useEffect(() => {
-		console.log("person list =", people);
 		setPeople(data);
 	}, [data]);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import ItemsList from "../../src/components/Common/ItemsList";
 import Trailers from "../../src/components/Trailers";
-import { useGetMoviesItems } from "../../src/lib/Movies/movieData";
+import { useGetMoviesItems } from "../../src/hooks/movieData";
 // import {
 // 	getDiscoverAr,
 // 	getLatestTrailers,

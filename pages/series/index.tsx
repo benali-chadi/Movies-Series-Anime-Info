@@ -1,7 +1,7 @@
 import React from "react";
 import ItemsList from "../../src/components/Common/ItemsList";
+import { useGetSeriesItems } from "../../src/hooks/seriesData";
 import Trailers from "../../src/components/Trailers";
-import { useGetSeriesItems } from "../../src/lib/Series/seriesData";
 // import {
 // 	getLatestTrailers,
 // 	getPopularSeries,

@@ -123,3 +123,18 @@ export async function getLatestAnime() {
 
 	return getItems(url);
 }
+
+export async function getAnimeGenres() {
+	const url = new URL(`${process.env.JIKAN_URL}genres/anime`);
+
+	const data = await fetch(url).then((res) => res.json());
+
+	if (!data || !data.data) return { animeGenres: null };
+
+	const animeGenres = data.data.map((g) => ({
+		id: g.mal_id,
+		name: g.name,
+	}));
+
+	return { animeGenres };
+}

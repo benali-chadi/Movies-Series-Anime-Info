@@ -1,7 +1,7 @@
 import React from "react";
 import ItemsList from "../../src/components/Common/ItemsList";
 import Trailers from "../../src/components/Trailers";
-import { useGetAnimeItems } from "../../src/lib/Anime/animeData";
+import { useGetAnimeItems } from "../../src/hooks/animeData";
 // import {
 // 	getLatestAnime,
 // 	getLatestEpisodes,

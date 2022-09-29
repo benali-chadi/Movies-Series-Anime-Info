@@ -138,7 +138,6 @@ export function useGetMoviePeople(url: string, isId: boolean, params?) {
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
 
 	if (data) {
-		console.log("people =", data);
 		const { cast, crew } = data;
 		const isMainCrew = (job) => {
 			return (

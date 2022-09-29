@@ -16,7 +16,7 @@ const Filters = () => {
 	};
 	return (
 		<div>
-			<div className="flex gap-4">
+			<div className="flex flex-wrap gap-4">
 				{category !== "animeCharacter" && category !== "people" && (
 					<YearFilter />
 				)}
@@ -26,7 +26,7 @@ const Filters = () => {
 				{category === "anime" && (
 					<>
 						<StatusFilter />
-						<GenresFilter genres={new Array(10).fill("gnr")} />
+						<GenresFilter />
 					</>
 				)}
 			</div>

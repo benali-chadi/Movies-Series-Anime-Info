@@ -15,8 +15,9 @@ export async function getAnimeResults(
 		url.searchParams.set("start_date", filters.year.toString());
 	url.searchParams.set("sort", filters.sort);
 	url.searchParams.set("status", filters.status);
+	if (filters.genre.id !== -1)
+		url.searchParams.set("genres", filters.genre.id.toString());
 	if (page > 1) url.searchParams.set("page", page.toString());
-	// Set Genres
 
 	const data = await fetch(url).then((r) => r.json());
 

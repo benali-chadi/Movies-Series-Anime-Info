@@ -10,13 +10,13 @@ import {
 	useGetSimilar,
 } from "../../src/lib/Anime/specificPageData";
 import AnimeMediaPart from "../../src/components/itemPage/AnimeMediaPart";
-import Spinner from "../../src/components/Common/Spinner";
+// import Spinner from "../../src/components/Common/Spinner";
 import AnimeInfoPart from "../../src/components/itemPage/AnimeInfoPart";
-import {
-	useGetAnimeCharacters,
-	useGetAnimeDetails,
-	useGetAnimeStaff,
-} from "../../src/lib/Anime/animeData";
+// import {
+// 	useGetAnimeCharacters,
+// 	useGetAnimeDetails,
+// 	useGetAnimeStaff,
+// } from "../../src/lib/Anime/animeData";
 
 const AnimePage = ({ details, voiceActors, crew }) => {
 	const router = useRouter();
@@ -82,7 +82,7 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 				details={details}
 				loading={!details}
 				// loading={detailsLoading}
-				// error={detailError}
+				error={false}
 				coverPoster={details ? details.background : ""}
 				poster={details ? details.poster : ""}
 				type="anime"
@@ -93,6 +93,8 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 					<PersonList
 						title="Voice Actors"
 						data={voiceActors}
+						loading={false}
+						error={false}
 						// data={characters}
 						// loading={charactersLoading}
 						// error={charactersError}
@@ -117,21 +119,9 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 	);
 };
 
-export async function getStaticPaths() {
-	const { items } = await getLatestAnime();
-
-	const paths = items.map((anime) => ({
-		params: {
-			id: anime.id.toString(),
-		},
-	}));
-
-	return { paths, fallback: true };
-}
-
-export async function getStaticProps({ params }) {
-	const { data: details, ok } = await getAnimeDetails(params.id);
-	const { data, ok: ok1 } = await getAnimeCrew(params.id);
+export async function getServerSideProps({ query }) {
+	const { data: details, ok } = await getAnimeDetails(query.id);
+	const { data, ok: ok1 } = await getAnimeCrew(query.id);
 
 	if (ok && !ok1)
 		return {

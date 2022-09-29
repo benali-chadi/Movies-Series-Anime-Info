@@ -24,7 +24,7 @@ const PeopleResults = () => {
 	if (!pageInfo.totalPage)
 		return (
 			<div className="text-3xl font-bold text-white">
-				No Results for <i>"{query}"</i>
+				No Results for <i>&quot;{query}&quot;</i>
 			</div>
 		);
 
@@ -50,7 +50,7 @@ const PeopleResults = () => {
 
 			<div className="flex flex-wrap gap-5 justify-center py-2">
 				{people.map((person) => (
-					<PersonCard {...person} />
+					<PersonCard {...person} key={person.id} />
 				))}
 			</div>
 			<div className="flex gap-4 justify-center items-center my-5 text-xl font-bold text-white">

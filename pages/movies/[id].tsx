@@ -17,7 +17,7 @@ import {
 	useGetMovieDetails,
 	useGetMoviePeople,
 	useGetMoviesItems,
-} from "../../src/lib/Movies/movieData";
+} from "../../src/hooks/movieData";
 import { getMedia } from "../../src/lib/Movies/specifiPageData";
 
 const MoviePage = () => {

@@ -18,7 +18,7 @@ import {
 	useGetSerieDetails,
 	useGetSeriePeople,
 	useGetSeriesItems,
-} from "../../src/lib/Series/seriesData";
+} from "../../src/hooks/seriesData";
 import { getMedia } from "../../src/lib/Series/specificPageData";
 
 const SeriePage = () => {

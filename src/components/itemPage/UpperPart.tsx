@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
-import { useGetMovieDetails } from "../../lib/Movies/movieData";
+import { useGetMovieDetails } from "../../hooks/movieData";
 import Spinner from "../Common/Spinner";
 
 interface Props {
@@ -51,7 +51,6 @@ const UpperPart: FC<Props> = ({
 	const [showMore, setShowMore] = useState(false);
 	const [isCreators, setIsCreators] = useState(false);
 	useEffect(() => {
-		console.log("crew =", crew);
 		if (crew && crew.length > 1) {
 			setIsCreators(crew[0].job[0] === "creator");
 		}
@@ -112,7 +111,7 @@ const UpperPart: FC<Props> = ({
 					<img
 						src={poster ? poster : "/images/default_poster.png"}
 						alt="Movie Poster"
-						className="w-[10rem] h-full bg-white"
+						className="w-[10rem] h-full bg-white object-contain"
 					/>
 					{/* Basic Info */}
 					<div className="self-center w-full">
@@ -209,9 +208,6 @@ const UpperPart: FC<Props> = ({
 							// }}
 							className={`flex gap-2 items-center p-2 bg-gradient-to-l from-white to-transparent rounded-xl`}
 						>
-							<h2 className="text-3xl font-bold">
-								{parseFloat(info.rating).toFixed(1)}
-							</h2>
 							{type === "movie" || type === "serie" ? (
 								<img
 									src="/images/tmdb_logo.svg"
@@ -225,6 +221,9 @@ const UpperPart: FC<Props> = ({
 									className="h-[3rem] w-[4rem]"
 								/>
 							)}
+							<h2 className="text-3xl font-bold">
+								{parseFloat(info.rating).toFixed(1)}
+							</h2>
 						</a>
 					)}
 					{info.imdb_id !== -1 && info.imdb_id && (

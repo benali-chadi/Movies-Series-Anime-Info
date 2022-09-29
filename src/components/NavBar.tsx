@@ -50,7 +50,7 @@ const NavBar = () => {
 				</Link>
 			</div>
 			<div
-				className="flex gap-2 items-center p-2 bg-gradient-to-b rounded-xl cursor-pointer from-my-yellow to-my-yellow/20 hover:opacity-70"
+				className="flex gap-2 items-center p-2 bg-gradient-to-b from-white rounded-xl cursor-pointer to-my-black/20 hover:opacity-70"
 				onClick={() => router.push("/search")}
 			>
 				<BiSearch />

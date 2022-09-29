@@ -15,7 +15,7 @@ import MovieResults from "../../src/components/search/results/MovieResults";
 import PeopleResults from "../../src/components/search/results/PeopleResults";
 import SeriesResults from "../../src/components/search/results/SeriesResults";
 import TopItemCard from "../../src/components/search/TopItemCard";
-import { getTopAnime } from "../../src/lib/Anime/homePageData";
+import { getAnimeGenres, getTopAnime } from "../../src/lib/Anime/homePageData";
 import { getTopMovies } from "../../src/lib/Movies/homePageData";
 import { getPopularCharacters } from "../../src/lib/People/charactesData";
 import { getPopularPeople } from "../../src/lib/People/peopleData";
@@ -27,6 +27,7 @@ const Index = ({
 	topAnime,
 	popularPeople,
 	popularCharacters,
+	animeGenres,
 }) => {
 	const [query, setQuery] = useState("");
 	const [results, setResults] = useState<any>(null);
@@ -45,58 +46,8 @@ const Index = ({
 		setQuery(text);
 	};
 
-	const updateResults = () => {
-		if (query === "") return;
-		switch (category) {
-			case "movie":
-				setResults(<MovieResults />);
-				break;
-			case "serie":
-				setResults(<SeriesResults />);
-				break;
-			case "people":
-				setResults(<PeopleResults />);
-				break;
-			case "anime":
-				setResults(<AnimeResults />);
-				break;
-			case "animeCharacter":
-				setResults(<AnimeCharsResults />);
-				break;
-			default:
-				setResults(null);
-				break;
-		}
-	};
-
-	const updateTop = () => {
-		switch (category) {
-			case "movie":
-				setTopTitle("Movies");
-				setTopPart(topMovies);
-				break;
-			case "serie":
-				setTopTitle("Series");
-				setTopPart(topSeries);
-				break;
-			case "people":
-				setTopTitle("People");
-				setTopPart(popularPeople);
-				break;
-			case "anime":
-				setTopTitle("Anime");
-				setTopPart(topAnime);
-				break;
-			case "animeCharacter":
-				setTopTitle("Anime Characters");
-				setTopPart(popularCharacters);
-				break;
-		}
-	};
-
 	// useEffect(() => {
 	// 	let qs = router.query;
-	// 	console.log("qs =", qs.c);
 	// 	if (Object.keys(qs).length > 0) {
 	// 		const q = qs.q as string;
 	// 		const c = qs.c ? (qs.c as SearchContextState["category"]) : "movie";
@@ -114,6 +65,55 @@ const Index = ({
 	// }, []);
 
 	useEffect(() => {
+		const updateResults = () => {
+			if (query === "") return;
+			switch (category) {
+				case "movie":
+					setResults(<MovieResults />);
+					break;
+				case "serie":
+					setResults(<SeriesResults />);
+					break;
+				case "people":
+					setResults(<PeopleResults />);
+					break;
+				case "anime":
+					setResults(<AnimeResults />);
+					break;
+				case "animeCharacter":
+					setResults(<AnimeCharsResults />);
+					break;
+				default:
+					setResults(null);
+					break;
+			}
+		};
+
+		const updateTop = () => {
+			switch (category) {
+				case "movie":
+					setTopTitle("Movies");
+					setTopPart(topMovies);
+					break;
+				case "serie":
+					setTopTitle("Series");
+					setTopPart(topSeries);
+					break;
+				case "people":
+					setTopTitle("People");
+					setTopPart(popularPeople);
+					break;
+				case "anime":
+					setTopTitle("Anime");
+					setTopPart(topAnime);
+					break;
+				case "animeCharacter":
+					setTopTitle("Anime Characters");
+					setTopPart(popularCharacters);
+					break;
+			}
+		};
+
 		updateTop();
 		if (query !== "") {
 			updateResults();
@@ -122,7 +122,7 @@ const Index = ({
 
 	return (
 		<SearchContext.Provider
-			value={{ filters, setFilters, category, query }}
+			value={{ filters, setFilters, category, query, animeGenres }}
 		>
 			<div className="w-full h-full">
 				{/*Search Bar*/}
@@ -192,6 +192,7 @@ export async function getStaticProps() {
 	const { items: topAnime } = await getTopAnime();
 	const { popularPeople } = await getPopularPeople();
 	const { popularCharacters } = await getPopularCharacters();
+	const { animeGenres } = await getAnimeGenres();
 
 	return {
 		props: {
@@ -212,6 +213,7 @@ export async function getStaticProps() {
 			})),
 			popularPeople,
 			popularCharacters,
+			animeGenres,
 		},
 	};
 }
