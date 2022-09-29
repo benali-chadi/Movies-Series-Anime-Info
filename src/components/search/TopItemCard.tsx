@@ -25,7 +25,7 @@ const TopItemCard: FC<Props> = ({ id, poster, name, type }) => {
 	};
 	return (
 		<div
-			className="flex gap-2 cursor-pointer hover:bg-white/60"
+			className="flex gap-2 cursor-pointer hover:bg-gray-500/20"
 			onClick={handleClick}
 		>
 			<img src={src} alt="poster" className="w-[3rem] h-[4rem]" />

@@ -27,7 +27,7 @@ const Item: FC<Props> = ({ id, poster, info, rating, type }) => {
 			<img
 				src={poster !== "" ? poster : "/images/default_poster.png"}
 				alt="Poster"
-				className="w-[12rem] h-[17rem] absolute inset-0 bg-white/60"
+				className="w-[12rem] h-[17rem] absolute inset-0 bg-white/60 rounded-lg"
 			/>
 			<div className="rounded-full bg-my-yellow w-[2.5rem] h-[2.5rem] flex flex-col items-center drop-shadow- justify-center absolute left-[40%] top-[-1rem] shadow-[inset_-1px_2px_5px_#000000]">
 				<p className="font-bold">{!!rating && rating.toFixed(1)}</p>
