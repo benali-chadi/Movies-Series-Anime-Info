@@ -131,7 +131,7 @@ const MoviePage = ({ watchProviders }) => {
 export async function getServerSideProps({ query }) {
 	const { id } = query;
 
-	const { watchProviders } = await getWatchProviders(id);
+	const { watchProviders } = await getWatchProviders(`movie/${id}`);
 
 	return { props: { watchProviders: watchProviders ?? null } };
 }

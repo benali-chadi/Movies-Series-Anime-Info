@@ -127,8 +127,8 @@ export async function getSimilarMovies(movie_id: string) {
 	return { data, ok };
 }
 
-export async function getWatchProviders(movie_id: string) {
-	const url = new URL(`${baseMoviesUrl}${movie_id}/watch/providers`);
+export async function getWatchProviders(path: string) {
+	const url = new URL(`${process.env.TMDB_URL}${path}/watch/providers`);
 	url.searchParams.set("api_key", apiKey);
 
 	const data = await fetch(url).then((res) => res.json());

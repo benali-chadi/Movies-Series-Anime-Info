@@ -19,6 +19,14 @@ interface Props {
 	];
 	numOfEpisodes: number;
 	numOfSeasons: number;
+	watchProviders:
+		| [
+				{
+					poster: string;
+					name: string;
+				}
+		  ]
+		| null;
 }
 
 const SeriesInfoPart: FC<Props> = ({
@@ -28,6 +36,7 @@ const SeriesInfoPart: FC<Props> = ({
 	networks,
 	numOfEpisodes,
 	numOfSeasons,
+	watchProviders,
 }) => {
 	return (
 		<div className="flex flex-col gap-2 text-white">
@@ -74,6 +83,28 @@ const SeriesInfoPart: FC<Props> = ({
 					</div>
 				))}
 			</div>
+			{/* Watch providers */}
+			{watchProviders && (
+				<>
+					<h3 className="text-xl font-bold">Watch Providers</h3>
+					<div className="flex flex-wrap gap-2">
+						{watchProviders.map((w) => (
+							<div key={w.name}>
+								{w.poster !== "" ? (
+									<img
+										title={w.name}
+										src={w.poster}
+										alt="watch provider poster"
+										className="w-[3rem] h-[3rem] rounded-full"
+									/>
+								) : (
+									<p className="pt-2">{w.name}</p>
+								)}
+							</div>
+						))}
+					</div>
+				</>
+			)}
 		</div>
 	);
 };

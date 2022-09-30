@@ -20,8 +20,9 @@ import {
 	useGetSeriesItems,
 } from "../../src/hooks/seriesData";
 import { getMedia } from "../../src/lib/Series/specificPageData";
+import { getWatchProviders } from "../../src/lib/Movies/specifiPageData";
 
-const SeriePage = () => {
+const SeriePage = ({ watchProviders }) => {
 	const router = useRouter();
 	// if (router.isFallback) return <Spinner />;
 	// if (!details) {
@@ -99,7 +100,12 @@ const SeriePage = () => {
 					/>
 				</div>
 				<div className="col-span-full row-span-2 row-start-3 pl-2 md:col-start-4 md:row-start-1">
-					{details && <SeriesInfoPart {...details.generalInfo} />}
+					{details && (
+						<SeriesInfoPart
+							{...details.generalInfo}
+							watchProviders={watchProviders}
+						/>
+					)}
 				</div>
 				<div className="col-span-3 ml-4">
 					{details && (
@@ -127,43 +133,12 @@ const SeriePage = () => {
 	);
 };
 
-// export async function getStaticPaths() {
-// 	const { trendingSeries } = await getTrendingSeries();
+export async function getServerSideProps({ query }) {
+	const { id } = query;
 
-// 	const paths = trendingSeries.map((serie) => {
-// 		return {
-// 			params: {
-// 				id: serie.id.toString(),
-// 			},
-// 		};
-// 	});
+	const { watchProviders } = await getWatchProviders(`tv/${id}`);
 
-// 	return { paths, fallback: true };
-// }
-
-// export async function getStaticProps({ params }) {
-// 	try {
-// 		const { data: details } = await getSerieDetails(params.id);
-// 		const {
-// 			data: { cast, crew },
-// 		} = await getSerieCast(params.id);
-// 		const { data: media } = await getMedia(params.id);
-// 		const { data: similarSeries } = await getSimilarSeries(params.id);
-
-// 		return {
-// 			props: {
-// 				details,
-// 				cast,
-// 				crew,
-// 				images: media.images,
-// 				videos: media.videos,
-// 				similarSeries,
-// 			},
-// 		};
-// 	} catch (e) {
-// 		console.log("error =", e);
-// 		return { props: { details: null } };
-// 	}
-// }
+	return { props: { watchProviders: watchProviders ?? null } };
+}
 
 export default SeriePage;
