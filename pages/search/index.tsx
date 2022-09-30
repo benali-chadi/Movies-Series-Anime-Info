@@ -45,24 +45,16 @@ const Index = ({
 		e.preventDefault();
 		setQuery(text);
 	};
+	const router = useRouter();
 
-	// useEffect(() => {
-	// 	let qs = router.query;
-	// 	if (Object.keys(qs).length > 0) {
-	// 		const q = qs.q as string;
-	// 		const c = qs.c ? (qs.c as SearchContextState["category"]) : "movie";
-	// 		const sort = qs.sort ? (qs.sort as FilterState["sort"]) : "";
-	// 		const status = qs.status
-	// 			? (qs.status as FilterState["status"])
-	// 			: "";
-	// 		const year = qs.year ? (qs.year as FilterState["year"]) : "";
-	// 		setQuery(q);
-	// 		setCategory(c);
-	// 		setFilters({ ...filters, sort });
-	// 		setFilters({ ...filters, status });
-	// 		setFilters({ ...filters, year });
-	// 	}
-	// }, []);
+	useEffect(() => {
+		let qs = router.query;
+		if (Object.keys(qs).length > 0) {
+			const q = qs.q as string;
+			setText(q);
+			setQuery(q);
+		}
+	}, []);
 
 	useEffect(() => {
 		const updateResults = () => {
@@ -147,7 +139,7 @@ const Index = ({
 						/>
 					</form>
 				</div>
-				<div className="h-full w-full grid grid-cols-[1fr_3fr_1fr] grid-rows-5 ">
+				<div className="h-full w-full grid grid-cols-[1fr_3fr_1fr] grid-rows-[200px_1fr_1fr_1fr] ">
 					{/* Categories */}
 					<div className="row-[span_2_/_span_4] p-4">
 						<Categories
@@ -160,7 +152,7 @@ const Index = ({
 						<Filters />
 					</div>
 					{/* Search Results */}
-					<div className="col-span-full col-start-2 row-span-3 md:col-span-1">
+					<div className="col-span-full col-start-2 row-span-4 md:col-span-1">
 						{results}
 					</div>
 					{/* Top 10 */}

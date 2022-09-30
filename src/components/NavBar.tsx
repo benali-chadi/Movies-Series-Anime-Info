@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "../../node_modules/next/link";
 import { useRouter } from "../../node_modules/next/router";
 import { BiSearch } from "react-icons/bi";
@@ -6,11 +6,14 @@ import { BiSearch } from "react-icons/bi";
 const NavBar = () => {
 	const router = useRouter();
 
+	const [query, setQuery] = useState("");
+	const [showSearchBar, setShowSearchBar] = useState(false);
+
 	const activeStyle = "text-my-blue hover:text-blue-500 font-bold";
 	const inactiveStyle = "text-my-black hover:text-blue-300 font-bold";
 
 	return (
-		<div className="flex absolute inset-0 z-20 justify-between p-4 w-screen bg-my-white h-max">
+		<div className="absolute inset-0 z-20 grid grid-cols-[80%_20%] p-4 w-screen bg-my-white h-max">
 			<div className="flex gap-8 justify-center items-center self-stretch w-full">
 				<Link href="/movies" passHref>
 					<a
@@ -49,13 +52,35 @@ const NavBar = () => {
 					</a>
 				</Link>
 			</div>
-			<div
-				className="flex gap-2 items-center p-2 bg-gradient-to-b from-white rounded-xl cursor-pointer to-my-black/20 hover:opacity-70"
-				onClick={() => router.push("/search")}
+			<form
+				className="flex relative gap-2 items-center place-self-end p-2 bg-gradient-to-b from-white rounded-xl cursor-pointer to-my-black/20 hover:opacity-70"
+				// onClick={() => router.push("/search")}
+				onSubmit={(e) => {
+					e.preventDefault();
+					const params = new URL("https://google.com").searchParams;
+					params.set("q", query);
+					setQuery("");
+					setShowSearchBar(false);
+
+					router.push(`/search?${params.toString()}`);
+				}}
 			>
-				<BiSearch />
-				Search
-			</div>
+				<div
+					onClick={() => setShowSearchBar(!showSearchBar)}
+					className="flex gap-1 items-center"
+				>
+					<BiSearch />
+					Search
+				</div>
+				{showSearchBar && (
+					<input
+						type="text"
+						value={query}
+						onChange={(e) => setQuery(e.target.value)}
+						// className="absolute left-[-100px] top-16 rounded-lg bg-gray-300/70"
+					/>
+				)}
+			</form>
 		</div>
 	);
 };
