@@ -54,7 +54,7 @@ const Index = ({
 			setText(q);
 			setQuery(q);
 		}
-	}, []);
+	}, [router.query]);
 
 	useEffect(() => {
 		const updateResults = () => {

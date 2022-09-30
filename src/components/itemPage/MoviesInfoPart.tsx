@@ -13,6 +13,14 @@ interface Props {
 	originalLanguage: string;
 	budget: number;
 	revenue: number;
+	watchProviders:
+		| [
+				{
+					poster: string;
+					name: string;
+				}
+		  ]
+		| null;
 	loading: boolean;
 	error: boolean;
 }
@@ -23,11 +31,13 @@ const MoviesInfoPart: FC<Props> = ({
 	originalLanguage,
 	budget,
 	revenue,
+	watchProviders,
 	loading,
 	error,
 }) => {
 	if (loading) return <Spinner />;
 	if (error) return <div>Error Loading info part</div>;
+
 	return (
 		<div className="flex flex-col gap-2 text-white">
 			<h2 className="mb-4 text-4xl font-bold">Info</h2>
@@ -77,6 +87,28 @@ const MoviesInfoPart: FC<Props> = ({
 					</div>
 				))}
 			</div>
+			{/* Watch providers */}
+			{watchProviders && (
+				<>
+					<h3 className="text-xl font-bold">Watch Providers</h3>
+					<div className="flex flex-wrap gap-2">
+						{watchProviders.map((w) => (
+							<div key={w.name}>
+								{w.poster !== "" ? (
+									<img
+										title={w.name}
+										src={w.poster}
+										alt="watch provider poster"
+										className="w-[3rem] h-[3rem] rounded-full"
+									/>
+								) : (
+									<p className="pt-2">{w.name}</p>
+								)}
+							</div>
+						))}
+					</div>
+				</>
+			)}
 		</div>
 	);
 };

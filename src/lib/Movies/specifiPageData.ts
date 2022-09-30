@@ -126,3 +126,31 @@ export async function getSimilarMovies(movie_id: string) {
 
 	return { data, ok };
 }
+
+export async function getWatchProviders(movie_id: string) {
+	const url = new URL(`${baseMoviesUrl}${movie_id}/watch/providers`);
+	url.searchParams.set("api_key", apiKey);
+
+	const data = await fetch(url).then((res) => res.json());
+
+	if (!data) return { watchProviders: null };
+	if (Object.keys(data.results).length < 1) return { watchProviders: null };
+
+	const res =
+		data.results["AR"] && data.results["AR"]["flatrate"]
+			? data.results["AR"]["flatrate"]
+			: data.results["US"]["flatrate"]
+			? data.results["US"]["flatrate"]
+			: data.results["US"]["buy"]
+			? data.results["US"]["buy"]
+			: null;
+
+	if (!res) return { watchProviders: null };
+
+	const watchProviders = res.map((w) => ({
+		poster: w.logo_path ? baseImageUrl + "w300/" + w.logo_path : "",
+		name: w.provider_name,
+	}));
+
+	return { watchProviders };
+}

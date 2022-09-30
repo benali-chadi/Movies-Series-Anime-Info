@@ -18,9 +18,12 @@ import {
 	useGetMoviePeople,
 	useGetMoviesItems,
 } from "../../src/hooks/movieData";
-import { getMedia } from "../../src/lib/Movies/specifiPageData";
+import {
+	getMedia,
+	getWatchProviders,
+} from "../../src/lib/Movies/specifiPageData";
 
-const MoviePage = () => {
+const MoviePage = ({ watchProviders }) => {
 	const router = useRouter();
 	const { id } = router.query;
 	// if (router.isFallback) return <Spinner />;
@@ -100,6 +103,7 @@ const MoviePage = () => {
 					{details && (
 						<MoviesInfoPart
 							{...details.generalInfo}
+							watchProviders={watchProviders}
 							loading={detailsLoading}
 							error={detailError}
 						/>
@@ -123,5 +127,13 @@ const MoviePage = () => {
 		</div>
 	);
 };
+
+export async function getServerSideProps({ query }) {
+	const { id } = query;
+
+	const { watchProviders } = await getWatchProviders(id);
+
+	return { props: { watchProviders: watchProviders ?? null } };
+}
 
 export default MoviePage;

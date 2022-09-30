@@ -22,6 +22,7 @@ export async function getAnimeResults(
 	const data = await fetch(url).then((r) => r.json());
 
 	if (!data) return { data: null };
+	if (data.status) return { data: null };
 
 	const pageInfo = {
 		page: data.pagination.current_page,
@@ -58,6 +59,7 @@ export async function getAnimeCharsResults(
 	const data = await fetch(url).then((r) => r.json());
 
 	if (!data) return { data: null };
+	if (data.status) return { data: null };
 
 	const pageInfo = {
 		page: data.pagination.current_page,
