@@ -17,7 +17,7 @@ export function useGetSeriesItems(url: string, params?) {
 			}
 		}
 		return u;
-	}, []);
+	}, [url]);
 
 	const { data, error } = useSWRImmutable(newUrl, fetcher);
 
@@ -93,7 +93,7 @@ export function useGetSerieDetails(url: string, isId: boolean, params?) {
 
 		const details = {
 			id: data.id,
-			name: data.name,
+			title: data.name,
 			firstAirDate: data.first_air_date,
 			genres: data.genres.map((g) => g.name),
 			episodeRunTime: data.episode_run_time,

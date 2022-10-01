@@ -20,14 +20,14 @@ const Item: FC<Props> = ({ id, poster, info, rating, type }) => {
 	};
 	return (
 		<div
-			className={`flex relative flex-col flex-shrink-0 justify-end rounded-xl shadow-xl cursor-pointer w-[12rem] h-[17rem] hover:shadow-2xl hover:scale-105`}
+			className={`flex relative flex-col flex-shrink-0 justify-end rounded-xl shadow-xl cursor-pointer w-[10rem] h-[15rem] md:w-[12rem] md:h-[17rem] hover:shadow-2xl hover:scale-105`}
 			// style={backgroundStyle}
 			onClick={handleClick}
 		>
 			<img
 				src={poster !== "" ? poster : "/images/default_poster.png"}
 				alt="Poster"
-				className="w-[12rem] h-[17rem] absolute inset-0 bg-white/60 rounded-lg"
+				className="md:w-[12rem] md:h-[17rem] w-[10rem] h-[15rem] absolute inset-0 bg-white/60 rounded-lg"
 			/>
 			<div className="rounded-full bg-my-yellow w-[2.5rem] h-[2.5rem] flex flex-col items-center drop-shadow- justify-center absolute left-[40%] top-[-1rem] shadow-[inset_-1px_2px_5px_#000000]">
 				<p className="font-bold">{!!rating && rating.toFixed(1)}</p>

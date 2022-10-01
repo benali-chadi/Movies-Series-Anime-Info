@@ -1,8 +1,11 @@
 import React, { FC, useState } from "react";
+import Modal from "../Common/Modal";
 import MyImage from "../Common/MyImage";
 import Spinner from "../Common/Spinner";
 // import Trailers from "../Trailers";
 import Video from "../Common/Video";
+import SimpleImageSlider from "react-simple-image-slider";
+import { useMediaQuery } from "react-responsive";
 
 interface Props {
 	images: {
@@ -18,8 +21,29 @@ const MediaPart: FC<Props> = ({ images, videos, loading }) => {
 	const [toggle, setToggle] = useState<"videos" | "backdrops" | "posters">(
 		"videos"
 	);
+	const [showImageSlider, setShowImageSlider] = useState(false);
+	const [imagesToDisplay, setImagesToDisplay] = useState(null);
+	const [startIndex, setStartIndex] = useState(0);
+	const isMobile = useMediaQuery({
+		query: "(max-width: 767px)",
+	});
 	if (loading) return <Spinner />;
 	if (!images && !videos) return null;
+
+	const backdropsList = images.backdrops
+		.filter((src) => src !== "")
+		.map((src) => ({ url: src }));
+	const postersList = images.posters
+		.filter((src) => src !== "")
+		.map((src) => ({ url: src }));
+	const posterDimensions = {
+		width: isMobile ? 300 : 510,
+		height: isMobile ? 500 : 800,
+	};
+	const backdropsDimensions = {
+		width: isMobile ? 500 : 900,
+		height: isMobile ? 300 : 500,
+	};
 	return (
 		<div className="h-full">
 			<h2 className="pb-2 pl-2 text-4xl font-bold text-my-white">
@@ -65,23 +89,65 @@ const MediaPart: FC<Props> = ({ images, videos, loading }) => {
 				</div>
 			)}
 			{toggle === "backdrops" && (
-				<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
+				<div className="flex gap-4 p-2 w-full rounded-3xl cursor-pointer noScroll">
 					{images.backdrops
 						.filter((src) => src !== "")
-						.map((src) => (
-							<MyImage src={src} key={src} />
+						.map((src, i) => (
+							<div
+								className="flex-shrink-0"
+								onClick={() => {
+									setImagesToDisplay(backdropsList);
+									setStartIndex(i);
+									setShowImageSlider(true);
+								}}
+								key={src}
+							>
+								<MyImage src={src} />
+							</div>
 						))}
 				</div>
 			)}
 			{toggle === "posters" && (
-				<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
+				<div className="flex gap-4 p-2 w-full rounded-3xl cursor-pointer noScroll">
 					{images.posters
 						.filter((src) => src !== "")
-						.map((src) => (
-							<MyImage src={src} key={src} />
+						.map((src, i) => (
+							<div
+								className="flex-shrink-0"
+								onClick={() => {
+									setImagesToDisplay(postersList);
+									setStartIndex(i);
+									setShowImageSlider(true);
+								}}
+								key={src}
+							>
+								<MyImage src={src} />
+							</div>
 						))}
 				</div>
 			)}
+			<Modal
+				show={showImageSlider}
+				close={() => setShowImageSlider(false)}
+				type="image"
+			>
+				<SimpleImageSlider
+					width={
+						toggle === "backdrops"
+							? backdropsDimensions.width
+							: posterDimensions.width
+					}
+					height={
+						toggle === "backdrops"
+							? backdropsDimensions.height
+							: posterDimensions.height
+					}
+					images={imagesToDisplay}
+					showBullets={false}
+					showNavs={true}
+					startIndex={startIndex}
+				/>
+			</Modal>
 		</div>
 	);
 };

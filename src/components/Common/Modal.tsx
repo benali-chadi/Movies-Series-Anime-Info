@@ -6,9 +6,10 @@ interface Props {
 	show: boolean;
 	close: () => void;
 	children: JSX.Element;
+	type: "image" | "video";
 }
 
-const Modal: FC<Props> = ({ show, close, children }) => {
+const Modal: FC<Props> = ({ show, close, children, type }) => {
 	const [isBrowser, setIsBrowser] = useState(false);
 	const keyPress = (e) => {
 		if (e.key === "Escape") close();
@@ -45,7 +46,11 @@ const Modal: FC<Props> = ({ show, close, children }) => {
 					opacity: 0,
 					// transition: { type: "tween", duration: 1 },
 				}}
-				className="relative z-10 flex flex-col bg-black w-[70%] h-[60%] rounded-xl"
+				className={`relative z-10 flex flex-col bg-black ${
+					type === "video"
+						? "w-[70%] h-[60%]"
+						: "w-max object-contain"
+				} rounded-xl`}
 			>
 				<h1
 					className="self-end mr-2 text-3xl font-bold text-white cursor-pointer hover:scale-110"

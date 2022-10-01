@@ -64,7 +64,7 @@ const SeriePage = ({ watchProviders }) => {
 		items: similarSeries,
 		isLoading: similarLoading,
 		isError: similarError,
-	} = useGetSeriesItems(`tv/${id}/similar`, !!id);
+	} = useGetSeriesItems(`tv/${id}/similar`);
 
 	useEffect(() => {
 		const getImagesAndVideos = async () => {

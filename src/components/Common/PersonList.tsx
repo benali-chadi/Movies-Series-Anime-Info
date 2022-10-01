@@ -36,7 +36,7 @@ const PersonList: FC<Props> = ({ title, data, loading, error }) => {
 			{/* <div className="flex overflow-x-scroll flex-shrink-0 gap-4 p-4 py-8 noScroll"> */}
 			<ScrollButton up onClick={scrollUp} active={hasPrev} />
 			<div
-				className="grid overflow-hidden grid-cols-3 gap-4 p-5 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 max-h-[15rem]"
+				className="grid overflow-hidden grid-cols-2 gap-4 p-5 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 max-h-[15rem]"
 				ref={containerRef}
 			>
 				{people.slice(0, 15).map((person) => {

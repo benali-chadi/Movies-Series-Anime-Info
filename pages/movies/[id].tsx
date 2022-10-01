@@ -45,7 +45,7 @@ const MoviePage = ({ watchProviders }) => {
 		items: similarMovies,
 		isLoading: similarLoading,
 		isError: similarError,
-	} = useGetMoviesItems(`movie/${id}/similar`, !!id);
+	} = useGetMoviesItems(`movie/${id}/similar`);
 
 	useEffect(() => {
 		const getImagesAndVideos = async () => {

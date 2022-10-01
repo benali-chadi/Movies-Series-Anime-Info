@@ -24,7 +24,11 @@ const Video: FC<Props> = ({ id, setSelectedImage = () => {} }) => {
 				onClick={() => setShowVideo(true)}
 				onMouseEnter={() => setSelectedImage(imagePath)}
 			/>
-			<Modal show={showVideo} close={() => setShowVideo(false)}>
+			<Modal
+				show={showVideo}
+				close={() => setShowVideo(false)}
+				type="video"
+			>
 				<YouTube
 					videoId={id}
 					className="w-full h-full"

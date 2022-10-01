@@ -1,14 +1,12 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import useSWR from "swr";
-import {
-	animeFetcher,
-	useGetImages,
-	useGetVideos,
-} from "../../lib/Anime/specificPageData";
+import { useGetImages, useGetVideos } from "../../lib/Anime/specificPageData";
 import MyImage from "../Common/MyImage";
 import Spinner from "../Common/Spinner";
 import Video from "../Common/Video";
+import { useMediaQuery } from "react-responsive";
+import Modal from "../Common/Modal";
+import SimpleImageSlider from "react-simple-image-slider";
 
 const Header = ({ title, clickCallBack, cond }) => (
 	<h3
@@ -40,23 +38,46 @@ const AnimeMediaPart = () => {
 	const [toggle, setToggle] = useState<"pictures" | "promo" | "music">(
 		"pictures"
 	);
+	const [showImageSlider, setShowImageSlider] = useState(false);
+	// const [imagesToDisplay, setImagesToDisplay] = useState(null);
+	const [startIndex, setStartIndex] = useState(0);
+	const isMobile = useMediaQuery({
+		query: "(max-width: 767px)",
+	});
+	const picturesDimensions = {
+		width: isMobile ? 300 : 510,
+		height: isMobile ? 500 : 800,
+	};
+	// const backdropsDimensions = {
+	// 	width: isMobile ? 500 : 900,
+	// 	height: isMobile ? 300 : 500,
+	// };
 
-	const innerImages = isImagesLoading ? (
+	const pictures = isImagesLoading ? (
 		<Spinner />
 	) : isImagesError ? (
 		<div className="text-4xl font-bold text-white">
 			Error Loading Images
 		</div>
 	) : (
-		<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
+		<div className="flex gap-4 p-2 w-full rounded-3xl cursor-pointer noScroll">
 			{images
-				.filter((id) => id !== "")
-				.map((src) => (
-					<MyImage src={src} key={src} />
+				.filter((src) => src !== "")
+				.map((src, i) => (
+					<div
+						className="flex-shrink-0"
+						onClick={() => {
+							setStartIndex(i);
+							setShowImageSlider(true);
+						}}
+						key={src}
+					>
+						<MyImage src={src} />
+					</div>
 				))}
 		</div>
 	);
-	const innerVidPromos = isVideosLoading ? (
+	const vidsPromos = isVideosLoading ? (
 		<Spinner />
 	) : isVideosError ? (
 		<div className="text-4xl font-bold text-white">
@@ -65,13 +86,13 @@ const AnimeMediaPart = () => {
 	) : (
 		<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
 			{videos.promo
-				.filter((id) => id !== "")
-				.map((id) => (
-					<Video id={id} key={id} />
+				.filter((src) => src !== "")
+				.map((src) => (
+					<Video id={src} key={src} />
 				))}
 		</div>
 	);
-	const innerVidMusic = isVideosLoading ? (
+	const vidsMusic = isVideosLoading ? (
 		<Spinner />
 	) : isVideosError ? (
 		<div className="text-4xl font-bold text-white">
@@ -80,9 +101,9 @@ const AnimeMediaPart = () => {
 	) : (
 		<div className="flex gap-4 p-2 w-full rounded-3xl noScroll">
 			{videos.musicVideos
-				.filter((id) => id !== "")
-				.map((id) => (
-					<Video id={id} key={id} />
+				.filter((src) => src !== "")
+				.map((src) => (
+					<Video id={src} key={src} />
 				))}
 		</div>
 	);
@@ -109,9 +130,29 @@ const AnimeMediaPart = () => {
 					cond={toggle === "music"}
 				/>
 			</div>
-			{toggle === "pictures" && innerImages}
-			{toggle === "promo" && innerVidPromos}
-			{toggle === "music" && innerVidMusic}
+			{toggle === "pictures" && pictures}
+			{toggle === "promo" && vidsPromos}
+			{toggle === "music" && vidsMusic}
+			<Modal
+				show={showImageSlider}
+				close={() => setShowImageSlider(false)}
+				type="image"
+			>
+				<SimpleImageSlider
+					width={picturesDimensions.width}
+					height={picturesDimensions.height}
+					images={
+						images
+							? images
+									.filter((src) => src !== "")
+									.map((src) => ({ url: src }))
+							: null
+					}
+					showBullets={false}
+					showNavs={true}
+					startIndex={startIndex}
+				/>
+			</Modal>
 		</div>
 	);
 };

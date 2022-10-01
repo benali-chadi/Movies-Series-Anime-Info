@@ -19,7 +19,7 @@ export function useGetMoviesItems(url: string, params?) {
 			}
 		}
 		return u;
-	}, []);
+	}, [url]);
 
 	const { data, error } = useSWRImmutable(newUrl, fetcher);
 

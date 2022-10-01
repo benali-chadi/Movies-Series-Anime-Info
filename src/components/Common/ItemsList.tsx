@@ -36,7 +36,7 @@ const ItemsList: FC<Props> = ({ title, data, type, loading, error }) => {
 			<ScrollButton up onClick={scrollUp} active={hasPrev} />
 			{/* <div className="flex overflow-x-scroll flex-shrink-0 gap-4 p-4 py-8 noScroll"> */}
 			<div
-				className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 max-h-[18rem] overflow-hidden gap-4 p-5"
+				className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 md:max-h-[18rem] max-h-[16rem] overflow-hidden gap-4 p-5"
 				ref={containerRef}
 			>
 				{data.map((item) => {
@@ -47,7 +47,7 @@ const ItemsList: FC<Props> = ({ title, data, type, loading, error }) => {
 							info={item.info}
 							rating={item.rating}
 							type={type}
-							key={item.info.title}
+							key={item.id}
 						/>
 					);
 				})}

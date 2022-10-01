@@ -139,9 +139,9 @@ export async function getWatchProviders(path: string) {
 	const res =
 		data.results["AR"] && data.results["AR"]["flatrate"]
 			? data.results["AR"]["flatrate"]
-			: data.results["US"]["flatrate"]
+			: data.results["US"] && data.results["US"]["flatrate"]
 			? data.results["US"]["flatrate"]
-			: data.results["US"]["buy"]
+			: data.results["US"] && data.results["US"]["buy"]
 			? data.results["US"]["buy"]
 			: null;
 
