@@ -12,6 +12,7 @@ const AnimeResults = () => {
 
 	useEffect(() => {
 		const wrapper = async () => {
+			if (query === "") return;
 			const { data: ret } = await getAnimeResults(query, filters, page);
 			setData(ret);
 		};

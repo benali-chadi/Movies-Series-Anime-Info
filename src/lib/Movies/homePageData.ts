@@ -81,7 +81,6 @@ export async function getDiscoverAr() {
 	const url = new URL(`${process.env.TMDB_URL}discover/movie`);
 	url.searchParams.set("api_key", apiKey);
 	url.searchParams.set("with_original_language", "ar");
-	// url.searchParams.set("sort_by", "release_date.desc");
 	url.searchParams.set("release_date.gte", `${currentYear}-01-01`);
 	url.searchParams.set("language", "ar");
 

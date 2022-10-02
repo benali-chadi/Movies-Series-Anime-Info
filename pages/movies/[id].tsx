@@ -3,13 +3,6 @@ import { useRouter } from "../../node_modules/next/router";
 import UpperPart from "../../src/components/itemPage/UpperPart";
 import ItemsList from "../../src/components/Common/ItemsList";
 import PersonList from "../../src/components/Common/PersonList";
-// import { getNowPlaying } from "../../src/lib/Movies/homePageData";
-// import {
-// 	getMedia,
-// 	getMovieCast,
-// 	getMovieDetails,
-// 	getSimilarMovies,
-// } from "../../src/lib/Movies/specifiPageData";
 import MoviesInfoPart from "../../src/components/itemPage/MoviesInfoPart";
 import MediaPart from "../../src/components/itemPage/MediaPart";
 import Spinner from "../../src/components/Common/Spinner";
@@ -26,7 +19,6 @@ import {
 const MoviePage = ({ watchProviders }) => {
 	const router = useRouter();
 	const { id } = router.query;
-	// if (router.isFallback) return <Spinner />;
 	const [images, setImages] = useState(null);
 	const [videos, setVideos] = useState(null);
 	const [mediaLoading, setMediaLoading] = useState(false);
@@ -59,25 +51,6 @@ const MoviePage = ({ watchProviders }) => {
 		getImagesAndVideos();
 		setMediaLoading(false);
 	}, [id]);
-
-	// let upperpartData = {};
-	// if (details) {
-	// 	upperpartData = {
-	// 		id: details.id,
-	// 		coverPoster: details.poster,
-	// 		poster: details.poster,
-	// 		crew: crew,
-	// 		info: {
-	// 			title: details.title,
-	// 			date: details.date,
-	// 			genres: details.genres,
-	// 			runtime: details.runtime,
-	// 			overview: details.overview,
-	// 			rating: details.rating,
-	// 			imdb_id: details.imdb_id,
-	// 		},
-	// 	};
-	// }
 
 	return (
 		<div className="flex flex-col gap-4">

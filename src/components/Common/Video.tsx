@@ -20,6 +20,7 @@ const Video: FC<Props> = ({ id, setSelectedImage = () => {} }) => {
 			<img
 				src={imagePath}
 				className="rounded-3xl"
+				alt="Video thumbnail"
 				id="trailer-image"
 				onClick={() => setShowVideo(true)}
 				onMouseEnter={() => setSelectedImage(imagePath)}

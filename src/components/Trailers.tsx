@@ -7,7 +7,6 @@ import { getALatestTrailers } from "../lib/Anime/homePageData";
 import { getSLatestTrailers } from "../lib/Series/homePageData";
 
 interface Props {
-	// videosIds: string[];
 	type: "movies" | "series" | "anime";
 }
 
@@ -29,7 +28,7 @@ const Trailers: FC<Props> = ({ type }) => {
 		setLoading(true);
 		wrapper();
 		setLoading(false);
-	}, []);
+	}, [type]);
 
 	const bgVariants = {
 		initial: {

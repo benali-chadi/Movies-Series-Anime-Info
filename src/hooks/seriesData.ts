@@ -17,6 +17,7 @@ export function useGetSeriesItems(url: string, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
 
 	const { data, error } = useSWRImmutable(newUrl, fetcher);
@@ -69,6 +70,7 @@ export function useGetSerieDetails(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
@@ -171,6 +173,7 @@ export function useGetSeriePeople(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);

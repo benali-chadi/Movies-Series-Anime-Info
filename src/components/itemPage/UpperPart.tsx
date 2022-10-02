@@ -4,7 +4,6 @@ import { useGetMovieDetails } from "../../hooks/movieData";
 import Spinner from "../Common/Spinner";
 
 interface Props {
-	// id: number;
 	coverPoster: string;
 	poster: string;
 	crew:
@@ -17,37 +16,22 @@ interface Props {
 		  ]
 		| null;
 	details: any;
-	// info: {
-	// 	title: string;
-	// 	date: string;
-	// 	genres: string[];
-	// 	runtime: string;
-	// 	overview: string;
-	// 	rating: string;
-	// 	imdb_id: number;
-	// };
 	type: "serie" | "movie" | "anime";
 	loading;
 	error;
 }
 
 const UpperPart: FC<Props> = ({
-	// id,
 	coverPoster,
 	poster,
 	crew,
 	details,
 	loading,
 	error,
-	// info,
 	type,
 }) => {
 	const router = useRouter();
 	const { id } = router.query;
-	// const { details, isLoading, isError } = useGetMovieDetails(
-	// 	`movie/${id}`,
-	// 	!!id
-	// );
 	const [showMore, setShowMore] = useState(false);
 	const [isCreators, setIsCreators] = useState(false);
 	useEffect(() => {
@@ -68,8 +52,6 @@ const UpperPart: FC<Props> = ({
 		rating: details.rating,
 		imdb_id: details.imdb_id,
 	};
-	// const coverPoster = details.poster;
-	// const poster = details.poster;
 	const genres = info.genres.map((g) => g).join(", ");
 
 	const convertTime = (time) => {
@@ -90,8 +72,6 @@ const UpperPart: FC<Props> = ({
 					type === "serie" ? "tv" : type
 			  }/${id}`
 			: `https://myanimelist.net/anime/${id}`;
-
-	// const isCreators = crew[0] && crew[0].job[0] === "creator";
 
 	return (
 		<div
@@ -202,10 +182,6 @@ const UpperPart: FC<Props> = ({
 							href={ratingLink}
 							target="_blank"
 							rel="noreferrer"
-							// onClick={(e) => {
-							// 	if (info.imdb_id === -1 || !info.imdb_id)
-							// 		e.preventDefault();
-							// }}
 							className={`flex gap-2 items-center p-2 bg-gradient-to-l from-white to-transparent rounded-xl`}
 						>
 							{type === "movie" || type === "serie" ? (

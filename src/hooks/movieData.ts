@@ -1,5 +1,4 @@
 import { useMemo } from "react";
-import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 
 const baseTmdbUrl = process.env.NEXT_PUBLIC_TMDB_URL;
@@ -19,6 +18,7 @@ export function useGetMoviesItems(url: string, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
 
 	const { data, error } = useSWRImmutable(newUrl, fetcher);
@@ -69,6 +69,7 @@ export function useGetMovieDetails(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
@@ -133,6 +134,7 @@ export function useGetMoviePeople(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [url]);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);

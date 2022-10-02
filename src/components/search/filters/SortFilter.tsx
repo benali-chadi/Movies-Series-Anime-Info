@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
-// import { FilterInter } from "../../../../pages/search";
-import { useOutsideClick } from "../../../lib/useOutsideClick";
+import { useOutsideClick } from "../../../hooks/useOutsideClick";
 import { SearchContext, SearchContextState } from "../../helpers/context";
 const SortFilter = () => {
 	const { filters, setFilters } =

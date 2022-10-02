@@ -11,17 +11,18 @@ interface Props {
 
 const Modal: FC<Props> = ({ show, close, children, type }) => {
 	const [isBrowser, setIsBrowser] = useState(false);
-	const keyPress = (e) => {
-		if (e.key === "Escape") close();
-	};
 
 	useEffect(() => {
+		const keyPress = (e) => {
+			if (e.key === "Escape") close();
+		};
 		document.addEventListener("keydown", keyPress, false);
 		setIsBrowser(true);
 
 		return () => {
 			document.removeEventListener("keydown", keyPress, false);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleCloseClick = (e) => {
@@ -44,7 +45,6 @@ const Modal: FC<Props> = ({ show, close, children, type }) => {
 				}}
 				exit={{
 					opacity: 0,
-					// transition: { type: "tween", duration: 1 },
 				}}
 				className={`relative z-10 flex flex-col bg-black ${
 					type === "video"

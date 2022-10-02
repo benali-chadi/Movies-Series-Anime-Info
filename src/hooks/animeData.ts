@@ -13,6 +13,7 @@ export function useGetAnimeItems(url: string, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { data, error } = useSWRImmutable(newUrl, fetcher);
@@ -64,6 +65,7 @@ export function useGetAnimeDetails(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
@@ -131,6 +133,7 @@ export function useGetAnimeCharacters(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);
@@ -177,6 +180,7 @@ export function useGetAnimeStaff(url: string, isId: boolean, params?) {
 			}
 		}
 		return u;
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const { data, error } = useSWRImmutable(isId ? newUrl : null, fetcher);

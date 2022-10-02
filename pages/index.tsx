@@ -5,7 +5,7 @@ const Index = () => {
 	const router = useRouter();
 	useEffect(() => {
 		router.push("/movies");
-	}, []);
+	}, [router]);
 	return <div></div>;
 };
 

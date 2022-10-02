@@ -12,6 +12,7 @@ const SeriesResults = () => {
 
 	useEffect(() => {
 		const wrapper = async () => {
+			if (query === "") return;
 			const { data: ret } = await getSeriesResults(
 				query,
 				filters.year.toString(),

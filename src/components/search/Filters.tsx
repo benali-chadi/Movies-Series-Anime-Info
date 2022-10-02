@@ -5,9 +5,6 @@ import SortFilter from "./filters/SortFilter";
 import StatusFilter from "./filters/StatusFilter";
 import YearFilter from "./filters/YearFilter";
 
-// TO-DO:
-// 		- Implement search Click Function
-
 const Filters = () => {
 	const { category, setFilters } = useContext(SearchContext);
 

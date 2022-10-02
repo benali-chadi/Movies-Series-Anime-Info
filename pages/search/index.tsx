@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useEffect, useReducer, useState } from "react";
 import { MdSearch } from "react-icons/md";
 import {
 	SearchContext,
 	filtersInitialState,
 	FilterState,
-	SearchContextState,
 } from "../../src/components/helpers/context";
 import Categories from "../../src/components/search/Categories";
 import Filters from "../../src/components/search/Filters";
@@ -21,24 +20,68 @@ import { getPopularCharacters } from "../../src/lib/People/charactesData";
 import { getPopularPeople } from "../../src/lib/People/peopleData";
 import { getTopSeries } from "../../src/lib/Series/homePageData";
 
-const Index = ({
-	topMovies,
-	topSeries,
-	topAnime,
-	popularPeople,
-	popularCharacters,
-	animeGenres,
-}) => {
+const resultsReducer = (results, action) => {
+	if (action.query === "") return null;
+	switch (action.type) {
+		case "movie":
+			return <MovieResults />;
+		case "serie":
+			return <SeriesResults />;
+		case "people":
+			return <PeopleResults />;
+		case "anime":
+			return <AnimeResults />;
+		case "animeCharacter":
+			return <AnimeCharsResults />;
+		default:
+			return results;
+	}
+};
+const topReducer = (topData, action) => {
+	switch (action.type) {
+		case "movie":
+			return { title: "Movies", data: action.props.topMovies };
+		case "serie":
+			return {
+				title: "Series",
+				data: action.props.topSeries,
+			};
+		case "people":
+			return {
+				title: "People",
+				data: action.props.popularPeople,
+			};
+		case "anime":
+			return {
+				title: "Anime",
+				data: action.props.topAnime,
+			};
+		case "animeCharacter":
+			return {
+				title: "Anime Characters",
+				data: action.props.popularCharacters,
+			};
+		default:
+			return topData;
+	}
+};
+
+const Index = (props) => {
+	const [results, resultsDispatcher] = useReducer(resultsReducer, null);
+	const [topData, topDispatcher] = useReducer(topReducer, {
+		title: "Movies",
+		data: props.topMovies,
+	});
 	const [query, setQuery] = useState("");
-	const [results, setResults] = useState<any>(null);
+	// const [results, setResults] = useState<any>(null);
 
 	const [category, setCategory] = useState<
 		"movie" | "serie" | "anime" | "people" | "animeCharacter"
 	>("movie");
 	const [filters, setFilters] = useState<FilterState>(filtersInitialState);
 
-	const [topPart, setTopPart] = useState(topMovies);
-	const [topTitle, setTopTitle] = useState("Movies");
+	// const [topPart, setTopPart] = useState(topMovies);
+	// const [topTitle, setTopTitle] = useState("Movies");
 	const [text, setText] = useState("");
 
 	const sumbit = (e: FormEvent<HTMLFormElement>) => {
@@ -57,64 +100,19 @@ const Index = ({
 	}, [router.query]);
 
 	useEffect(() => {
-		const updateResults = () => {
-			if (query === "") return;
-			switch (category) {
-				case "movie":
-					setResults(<MovieResults />);
-					break;
-				case "serie":
-					setResults(<SeriesResults />);
-					break;
-				case "people":
-					setResults(<PeopleResults />);
-					break;
-				case "anime":
-					setResults(<AnimeResults />);
-					break;
-				case "animeCharacter":
-					setResults(<AnimeCharsResults />);
-					break;
-				default:
-					setResults(null);
-					break;
-			}
-		};
-
-		const updateTop = () => {
-			switch (category) {
-				case "movie":
-					setTopTitle("Movies");
-					setTopPart(topMovies);
-					break;
-				case "serie":
-					setTopTitle("Series");
-					setTopPart(topSeries);
-					break;
-				case "people":
-					setTopTitle("People");
-					setTopPart(popularPeople);
-					break;
-				case "anime":
-					setTopTitle("Anime");
-					setTopPart(topAnime);
-					break;
-				case "animeCharacter":
-					setTopTitle("Anime Characters");
-					setTopPart(popularCharacters);
-					break;
-			}
-		};
-
-		updateTop();
-		if (query !== "") {
-			updateResults();
-		}
-	}, [query, category]);
+		topDispatcher({ type: category, props });
+		resultsDispatcher({ type: category, query: query });
+	}, [query, category, props]);
 
 	return (
 		<SearchContext.Provider
-			value={{ filters, setFilters, category, query, animeGenres }}
+			value={{
+				filters,
+				setFilters,
+				category,
+				query,
+				animeGenres: props.animeGenres,
+			}}
 		>
 			<div className="w-full h-full">
 				{/*Search Bar*/}
@@ -159,11 +157,11 @@ const Index = ({
 					<div className="hidden col-start-3 row-start-1 row-end-4 rounded-xl md:block bg-my-white h-max">
 						<div className="p-4 rounded-t-xl bg-my-blue">
 							<h3 className="text-2xl font-bold text-white">
-								Top 10 {topTitle}
+								Top 10 {topData.title}
 							</h3>
 						</div>
 						<div className="flex flex-col gap-2 p-2">
-							{topPart.map((m) => (
+							{topData.data.map((m) => (
 								<TopItemCard
 									{...m}
 									type={category}

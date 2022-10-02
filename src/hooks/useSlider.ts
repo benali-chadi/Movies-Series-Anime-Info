@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 
 export const useSlider = () => {
 	const containerRef = useRef<HTMLDivElement>(null);
-	// const itemRef = useRef<HTMLDivElement>(null);
 	const [hasNext, setHasNext] = useState(true);
 	const [hasPrev, setHasPrev] = useState(false);
 

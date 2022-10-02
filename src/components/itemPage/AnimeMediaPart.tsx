@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useGetImages, useGetVideos } from "../../lib/Anime/specificPageData";
-import MyImage from "../Common/MyImage";
 import Spinner from "../Common/Spinner";
 import Video from "../Common/Video";
 import { useMediaQuery } from "react-responsive";
@@ -39,7 +38,6 @@ const AnimeMediaPart = () => {
 		"pictures"
 	);
 	const [showImageSlider, setShowImageSlider] = useState(false);
-	// const [imagesToDisplay, setImagesToDisplay] = useState(null);
 	const [startIndex, setStartIndex] = useState(0);
 	const isMobile = useMediaQuery({
 		query: "(max-width: 767px)",
@@ -48,10 +46,6 @@ const AnimeMediaPart = () => {
 		width: isMobile ? 300 : 510,
 		height: isMobile ? 500 : 800,
 	};
-	// const backdropsDimensions = {
-	// 	width: isMobile ? 500 : 900,
-	// 	height: isMobile ? 300 : 500,
-	// };
 
 	const pictures = isImagesLoading ? (
 		<Spinner />
@@ -72,7 +66,11 @@ const AnimeMediaPart = () => {
 						}}
 						key={src}
 					>
-						<MyImage src={src} />
+						<img
+							src={src}
+							alt="Image"
+							className="max-h-[15rem] hover:scale-110 hover:rounded-[.5rem]"
+						/>
 					</div>
 				))}
 		</div>

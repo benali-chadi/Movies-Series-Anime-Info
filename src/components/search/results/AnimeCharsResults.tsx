@@ -12,6 +12,7 @@ const AnimeCharsResults = () => {
 
 	useEffect(() => {
 		const wrapper = async () => {
+			if (query === "") return;
 			const { data: ret } = await getAnimeCharsResults(
 				query,
 				filters,
@@ -20,7 +21,7 @@ const AnimeCharsResults = () => {
 			setData(ret);
 		};
 		wrapper();
-	}, [query, page]);
+	}, [query, page, filters]);
 
 	if (!data || !data.people) return <Spinner />;
 	const { people, pageInfo } = data;

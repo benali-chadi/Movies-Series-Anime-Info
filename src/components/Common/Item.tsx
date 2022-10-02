@@ -21,7 +21,6 @@ const Item: FC<Props> = ({ id, poster, info, rating, type }) => {
 	return (
 		<div
 			className={`flex relative flex-col flex-shrink-0 justify-end rounded-xl shadow-xl cursor-pointer w-[10rem] h-[15rem] md:w-[12rem] md:h-[17rem] hover:shadow-2xl hover:scale-105`}
-			// style={backgroundStyle}
 			onClick={handleClick}
 		>
 			<img

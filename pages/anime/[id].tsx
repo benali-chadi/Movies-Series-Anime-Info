@@ -14,7 +14,6 @@ import AnimeInfoPart from "../../src/components/itemPage/AnimeInfoPart";
 
 const AnimePage = ({ details, voiceActors, crew }) => {
 	const router = useRouter();
-	// if (router.isFallback) return <Spinner />;
 	const { id } = router.query;
 
 	const { similarAnime, isLoading, isError } = useGetSimilar(
@@ -27,7 +26,6 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 				crew={crew}
 				details={details}
 				loading={!details}
-				// loading={detailsLoading}
 				error={false}
 				coverPoster={details ? details.background : ""}
 				poster={details ? details.poster : ""}
@@ -35,7 +33,6 @@ const AnimePage = ({ details, voiceActors, crew }) => {
 			/>
 			<div className="grid grid-cols-3 grid-rows-2 gap-4 w-full md:grid-cols-4">
 				<div className="col-span-3">
-					{/* {characters && ( */}
 					<PersonList
 						title="Voice Actors"
 						data={voiceActors}

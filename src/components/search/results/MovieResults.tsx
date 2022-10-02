@@ -13,6 +13,7 @@ const MovieResults = () => {
 
 	useEffect(() => {
 		const wrapper = async () => {
+			if (query === "") return;
 			const { data: ret } = await getMoviesResults(
 				query,
 				filters.year.toString(),

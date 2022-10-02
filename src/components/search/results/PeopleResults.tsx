@@ -12,6 +12,7 @@ const PeopleResults = () => {
 
 	useEffect(() => {
 		const wrapper = async () => {
+			if (query === "") return;
 			const { data: ret } = await getPeopleResults(query, page);
 			setData(ret);
 		};

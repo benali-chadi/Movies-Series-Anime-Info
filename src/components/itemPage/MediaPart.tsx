@@ -1,8 +1,6 @@
 import React, { FC, useState } from "react";
 import Modal from "../Common/Modal";
-import MyImage from "../Common/MyImage";
 import Spinner from "../Common/Spinner";
-// import Trailers from "../Trailers";
 import Video from "../Common/Video";
 import SimpleImageSlider from "react-simple-image-slider";
 import { useMediaQuery } from "react-responsive";
@@ -102,7 +100,11 @@ const MediaPart: FC<Props> = ({ images, videos, loading }) => {
 								}}
 								key={src}
 							>
-								<MyImage src={src} />
+								<img
+									src={src}
+									alt="Image"
+									className="max-h-[15rem] hover:scale-110 hover:rounded-[.5rem]"
+								/>
 							</div>
 						))}
 				</div>
@@ -121,7 +123,11 @@ const MediaPart: FC<Props> = ({ images, videos, loading }) => {
 								}}
 								key={src}
 							>
-								<MyImage src={src} />
+								<img
+									src={src}
+									alt="Image"
+									className="max-h-[15rem] hover:scale-110 hover:rounded-[.5rem]"
+								/>
 							</div>
 						))}
 				</div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useContext } from "react";
 import { BsChevronDown } from "react-icons/bs";
-import { useOutsideClick } from "../../../lib/useOutsideClick";
+import { useOutsideClick } from "../../../hooks/useOutsideClick";
 import { SearchContext, SearchContextState } from "../../helpers/context";
 import { DropDownHeader } from "./SortFilter";
 

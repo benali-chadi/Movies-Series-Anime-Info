@@ -54,7 +54,6 @@ const NavBar = () => {
 			</div>
 			<form
 				className="flex relative gap-2 items-center place-self-end p-2 bg-gradient-to-b from-white rounded-xl cursor-pointer to-my-black/20 hover:opacity-70"
-				// onClick={() => router.push("/search")}
 				onSubmit={(e) => {
 					e.preventDefault();
 					const params = new URL("https://google.com").searchParams;
@@ -77,7 +76,6 @@ const NavBar = () => {
 						type="text"
 						value={query}
 						onChange={(e) => setQuery(e.target.value)}
-						// className="absolute left-[-100px] top-16 rounded-lg bg-gray-300/70"
 					/>
 				)}
 			</form>
