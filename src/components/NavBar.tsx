@@ -13,7 +13,7 @@ const NavBar = () => {
 	const inactiveStyle = "text-my-black hover:text-blue-300 font-bold";
 
 	return (
-		<div className="absolute inset-0 z-20 grid grid-cols-[80%_20%] p-4 w-screen bg-my-white h-max">
+		<div className="absolute inset-0 z-20 grid md:grid-cols-[90%_10%] grid-cols-1 p-4 w-screen bg-my-white h-max">
 			<div className="flex gap-8 justify-center items-center self-stretch w-full">
 				<Link href="/movies" passHref>
 					<a

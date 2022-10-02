@@ -39,7 +39,7 @@ const MediaPart: FC<Props> = ({ images, videos, loading }) => {
 		height: isMobile ? 500 : 800,
 	};
 	const backdropsDimensions = {
-		width: isMobile ? 500 : 900,
+		width: isMobile ? 350 : 900,
 		height: isMobile ? 300 : 500,
 	};
 	return (

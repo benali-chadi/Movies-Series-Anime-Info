@@ -14,6 +14,7 @@ const PersonCard: FC<Props> = ({ id, poster, name, character }) => {
 				src={poster !== "" ? poster : "/images/default_person.png"}
 				alt="Person Image"
 				className="w-[8rem] h-[10rem] rounded-t-xl"
+				loading="lazy"
 			/>
 			<div className="w-full break-words">
 				<h3 className="text-lg font-bold text-white">{name}</h3>
