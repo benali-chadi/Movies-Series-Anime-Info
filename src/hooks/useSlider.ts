@@ -14,7 +14,7 @@ export const useSlider = () => {
 			const containerRect = containerRef.current.getBoundingClientRect();
 			const bottom = isMobile
 				? containerRef.current.offsetTop + containerRect.bottom
-				: containerRef.current.offsetTop;
+				: containerRect.bottom;
 			console.log(
 				"offset top =",
 				containerRef.current.offsetTop,

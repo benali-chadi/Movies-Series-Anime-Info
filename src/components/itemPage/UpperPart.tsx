@@ -91,11 +91,11 @@ const UpperPart: FC<Props> = ({
 					<img
 						src={poster ? poster : "/images/default_poster.png"}
 						alt="Movie Poster"
-						className="w-[10rem] h-full bg-white object-contain"
+						className="w-[10rem] h-full bg-transparent object-contain"
 					/>
 					{/* Basic Info */}
 					<div className="self-center w-full">
-						<h2 className="w-full text-3xl font-bold text-white break-words">
+						<h2 className="w-full text-2xl font-bold text-white break-words lg:text-3xl">
 							{info.title}
 						</h2>
 						<div>

@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
 		<>
 			<Script src="https://kit.fontawesome.com/12a13271bd.js"></Script>
 			<NavBar />
-			<div className="pt-20 pb-10">
+			<div className="pt-28 pb-10  md:pt-20">
 				<Component {...pageProps} />
 			</div>
 		</>

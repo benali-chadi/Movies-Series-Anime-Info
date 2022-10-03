@@ -39,7 +39,7 @@ const LatestSeason: FC<Props> = ({
 						{airDate.substring(0, 4)} | {epCount} episodes
 					</h3>
 				</div>
-				<p className="text-justify">
+				<p className="overflow-auto text-justify">
 					{overview !== ""
 						? overview
 						: `${name} premiered on ${new Date(airDate)
