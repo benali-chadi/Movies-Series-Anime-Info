@@ -6,7 +6,7 @@ export const useSlider = () => {
 	const [hasNext, setHasNext] = useState(true);
 	const [hasPrev, setHasPrev] = useState(false);
 	const isMobile = useMediaQuery({
-		query: "(max-width: 767px)",
+		query: "(max-width: 896px)",
 	});
 
 	const scrollDown = () => {
