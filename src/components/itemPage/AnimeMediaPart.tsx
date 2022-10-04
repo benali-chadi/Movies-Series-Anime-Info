@@ -43,7 +43,7 @@ const AnimeMediaPart = () => {
 		query: "(max-width: 767px)",
 	});
 	const picturesDimensions = {
-		width: isMobile ? 300 : 510,
+		width: isMobile ? 300 : 610,
 		height: isMobile ? 500 : 800,
 	};
 

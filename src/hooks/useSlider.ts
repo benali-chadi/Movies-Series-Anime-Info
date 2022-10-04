@@ -15,17 +15,7 @@ export const useSlider = () => {
 			const bottom = isMobile
 				? containerRef.current.offsetTop + containerRect.bottom
 				: containerRect.bottom;
-			console.log(
-				"offset top =",
-				containerRef.current.offsetTop,
-				"\nscroll top =",
-				containerRef.current.scrollTop,
-				"\nheight = ",
-				containerRect.height,
-				"\nbottom = ",
-				containerRect.bottom
-			);
-			// const oldVal = containerRef.current.scrollTop;
+
 			if (containerRef.current.scrollTop < bottom) {
 				containerRef.current.scrollTo({
 					top: containerRef.current.scrollTop + containerRect.height,
@@ -33,12 +23,7 @@ export const useSlider = () => {
 				});
 
 				setHasPrev(true);
-				console.log(
-					"bottom =",
-					bottom,
-					"scroll + height =",
-					containerRef.current.scrollTop + containerRect.height
-				);
+
 				if (
 					containerRef.current.scrollTop + containerRect.height >=
 					bottom

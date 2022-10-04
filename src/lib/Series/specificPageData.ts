@@ -107,7 +107,7 @@ export async function getSerieCast(serie_id: string) {
 
 	return {
 		data: {
-			cast: cast.splice(0, 15).map((c) => {
+			cast: cast.slice(0, 15).map((c) => {
 				return {
 					id: c.id,
 					poster: c.profile_path

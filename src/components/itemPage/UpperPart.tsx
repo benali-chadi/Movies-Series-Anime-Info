@@ -85,8 +85,8 @@ const UpperPart: FC<Props> = ({
 					className="absolute inset-0 w-full h-full blur"
 				/>
 			)}
-			<div className="z-10 grid grid-cols-1 md:grid-cols-[1.5fr_2fr_1fr] gap-2 w-full">
-				<div className="flex gap-4 justify-self-start pr-5 max-w-xl bg-black/50">
+			<div className="z-10 grid grid-cols-1 md:grid-cols-[1.5fr_3fr_1fr] gap-2 w-full">
+				<div className="flex gap-4 justify-self-start pr-5 min-w-[20rem] max-w-xl bg-black/50">
 					{/* Poster */}
 					<img
 						src={poster ? poster : "/images/default_poster.png"}
@@ -106,7 +106,9 @@ const UpperPart: FC<Props> = ({
 											.substring(4) + " "
 									: info.date}
 							</p>
-							<p className="text-gray-300">{genres}</p>
+							<p className="text-gray-300 break-words">
+								{genres}
+							</p>
 						</div>
 						{!!info.runtime && (
 							<p className="text-white">
@@ -136,7 +138,7 @@ const UpperPart: FC<Props> = ({
 							{info.overview}
 						</p>
 						<button
-							className="text-gray-500 hover:text-white/80"
+							className="text-gray-700 hover:text-white/80"
 							onClick={handleShowMore}
 						>
 							{showMore ? "Show Less" : "Show More"}
@@ -182,13 +184,13 @@ const UpperPart: FC<Props> = ({
 							href={ratingLink}
 							target="_blank"
 							rel="noreferrer"
-							className={`flex gap-2 items-center p-2 bg-gradient-to-l from-white to-transparent rounded-xl`}
+							className={`flex gap-2 items-center p-2 w-max bg-gradient-to-l from-white to-transparent rounded-xl`}
 						>
 							{type === "movie" || type === "serie" ? (
 								<img
 									src="/images/tmdb_logo.svg"
 									alt="tmdb logo"
-									className="h-[3rem] w-[5rem] bg-[#0d253f] rounded-xl p-1"
+									className="h-[3rem] w-[4rem] bg-[#0d253f] rounded-xl p-1"
 								/>
 							) : (
 								<img
@@ -197,7 +199,7 @@ const UpperPart: FC<Props> = ({
 									className="h-[3rem] w-[4rem]"
 								/>
 							)}
-							<h2 className="text-3xl font-bold">
+							<h2 className="text-2xl font-bold lg:text-3xl">
 								{parseFloat(info.rating).toFixed(1)}
 							</h2>
 						</a>
@@ -219,7 +221,7 @@ const UpperPart: FC<Props> = ({
 							<img
 								src="/images/imdb.png"
 								alt="imdb logo"
-								className="h-[2rem] w-[4rem] mt-2"
+								className="h-[1.5rem] w-[3.5rem] mt-2"
 							/>
 						</a>
 					)}
