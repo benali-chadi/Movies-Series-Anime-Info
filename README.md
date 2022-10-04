@@ -13,7 +13,7 @@
     a website where you can find trailers and information (videos, photos, watch providers and more!) about your favorite movies, series, and anime
     <br />
     <br />
-    <a href="https://movies-series-anime-info.vercel.app/">View Website</a>
+    <a href="https://movies-series-anime-info.vercel.app/" target="_blank">View Website</a>
   </p>
   <div style="display: flex; flex-direction: row; flex-wrap: wrap; gap:1rem; justify-content:center;">
   <img src="https://s3.us-west-2.amazonaws.com/secure.notion-static.com/05377d82-3f4f-4cc7-ba21-9f08c6d7e873/Untitled.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20221004%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20221004T171515Z&X-Amz-Expires=86400&X-Amz-Signature=a0b977c2b491f1bf89263f7cc6d21307d558aac0ec2bd8abf4a95fa0c645244d&X-Amz-SignedHeaders=host&response-content-disposition=filename%20%3D%22Untitled.png%22&x-id=GetObject" width="400" height="100%">
@@ -169,7 +169,7 @@ Project Link: https://github.com/benali-chadi/Movies-Series-Anime-Info
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [license-shield]: https://img.shields.io/github/license/benali-chadi/Movies-Series-Anime-Info.svg?style=for-the-badge
-[license-url]: https://github.com/benali-chadi/Movies-Series-Anime-Info/LICENSE.txt
+[license-url]: https://github.com/benali-chadi/Movies-Series-Anime-Info/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/chadi-benali/
 [next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
